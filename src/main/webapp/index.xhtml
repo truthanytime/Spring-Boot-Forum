@@ -1,0 +1,321 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/layout_public.xhtml">
+
+	<!-- load data-->
+	<f:metadata>
+		<f:viewAction action="#{homePage.onLoad}"/>
+	</f:metadata>
+	
+	<ui:define name="title">
+		<!-- Welcome to #{msg['application.title']} -->
+		#{msg['welcome.to.forum']}
+	</ui:define>
+	
+	<ui:define name="content">
+	
+		<div class="w3-panel w3-card-4" style="background-color: #f8f8f8">
+			
+			<h:outputText value="#{homePage.displayOption.homePageBannerContent}" escape="false" id="banner"/>
+								
+			<div class="w3-row w3-margin-top">
+			
+				<div class="w3-col l9 m12 s12 w3-container w3-margin-bottom">
+					<div class="w3-container w3-card w3-white w3-padding" jsf:rendered="#{not empty homePage.mostRecentDiscussions}">
+						<div class="w3-large w3-text-theme w3-margin-top">
+							<b><i class="pi pi-clock w3-large"/> #{msg['most.recent.discussions']}</b>
+						</div>
+						<p:repeat var="discussion" value="#{homePage.mostRecentDiscussions}">
+							<p>
+								<h:link outcome="discussion">
+									<f:param name="id" value="#{discussion.id}"/>
+									<b>#{discussion.title}</b>
+								</h:link>
+								#{msg['started.by']} 
+								<h:link outcome="memberProfile">
+									<span style="margin-left:5px;" title="View '#{discussion.createBy}' profile"><b>#{discussion.createBy}</b></span>
+									<f:param name="username" value="#{discussion.createBy}"/>
+								</h:link>
+								- <pe:timeAgo value="#{discussion.createDate}"/>
+								<p:repeat var="tag" value="#{discussion.tags}">
+									<h:link outcome="tag">
+										<span class="w3-tag" style="font-weight:bold;color:##{tag.color};background-color:#fff;border: 1px solid grey;border-radius: 3px;"><i class="pi pi-tag"/> #{tag.label}</span>
+										<f:param name="id" value="#{tag.id}"/>
+									</h:link>
+								</p:repeat>
+							</p>
+						</p:repeat>
+						<h:link outcome="listDiscussions">
+							#{msg['view.more']} ...
+							<f:param name="sort" value="createDate"/>
+						</h:link>
+					</div>
+					
+					<p/>
+					
+					<div class="w3-container w3-card w3-white w3-padding" jsf:rendered="#{not empty homePage.mostViewsDiscussions}">
+					
+						<div class="w3-large w3-text-theme w3-margin-top">
+							<b><i class="pi pi-eye w3-large"/> #{msg['most.views.discussions']}</b>
+						</div>
+					
+						<p:repeat var="discussion" value="#{homePage.mostViewsDiscussions}">
+							<p>
+								<h:link outcome="discussion">
+									<f:param name="id" value="#{discussion.id}"/>
+									<b>#{discussion.title}</b>
+								</h:link>
+								<b>(#{discussion.stat.viewCount} #{msg['views']})</b>
+								#{msg['started.by']}
+								<h:link outcome="memberProfile">
+									<span style="margin-left:5px;" title="View '#{discussion.createBy}' profile"><b>#{discussion.createBy}</b></span>
+									<f:param name="username" value="#{discussion.createBy}"/>
+								</h:link> 
+								- <pe:timeAgo value="#{discussion.createDate}"/>
+								<p:repeat var="tag" value="#{discussion.tags}">
+									<h:link outcome="tag">
+										<span class="w3-tag" style="font-weight:bold;color:##{tag.color};background-color:#fff;border: 1px solid grey;border-radius: 3px;"><i class="pi pi-tag"/> #{tag.label}</span>
+										<f:param name="id" value="#{tag.id}"/>
+									</h:link>
+								</p:repeat>
+							</p>
+						</p:repeat>
+						
+						<h:link outcome="listDiscussions">
+							#{msg['view.more']} ...
+							<f:param name="sort" value="stat.viewCount"/>
+						</h:link>
+					</div>
+					
+					<p/>
+					
+					<div class="w3-container w3-card w3-white w3-padding"  jsf:rendered="#{not empty homePage.mostCommentsDiscussions}">
+					
+						<div class="w3-large w3-text-theme"	>
+							<b><i class="pi pi-comments w3-large"/> #{msg['most.comments.discussions']}</b>
+						</div>
+					
+						<p:repeat var="discussion" value="#{homePage.mostCommentsDiscussions}">
+							<p>
+								<h:link outcome="discussion">
+									<f:param name="id" value="#{discussion.id}"/>
+									<b>#{discussion.title}</b>
+								</h:link>
+								<b>(#{discussion.stat.commentCount} #{msg['comments']})</b>
+								#{msg['started.by']} 
+								<h:link outcome="memberProfile">
+									<span style="margin-left:5px;" title="View '#{discussion.createBy}' profile"><b>#{discussion.createBy}</b></span>
+									<f:param name="username" value="#{discussion.createBy}"/>
+								</h:link>						
+								- <pe:timeAgo value="#{discussion.createDate}"/>
+								<p:repeat var="tag" value="#{discussion.tags}">
+									<h:link outcome="tag">
+										<span class="w3-tag" style="font-weight:bold;color:##{tag.color};background-color:#fff;border: 1px solid grey;border-radius: 3px;"><i class="pi pi-tag"/> #{tag.label}</span>
+										<f:param name="id" value="#{tag.id}"/>
+									</h:link>
+								</p:repeat>
+							</p>
+						</p:repeat>
+						
+						<h:link outcome="listDiscussions">
+							#{msg['view.more']} ...
+							<f:param name="sort" value="stat.commentCount"/>
+						</h:link>
+					</div>
+					
+					<p/>
+					
+					<p:repeat var="tag" value="#{homePage.displayTags}">
+						<div jsf:rendered="#{not empty tag.discussions}">
+							<div class="w3-container w3-card w3-white w3-padding">
+								<div class="w3-large" 
+									style="color:##{tag.color}">
+									<b><i class="pi #{tag.icon} w3-large"/> #{tag.label}</b>
+								</div>
+								<p:repeat var="discussion" value="#{tag.discussions}">
+									<p>
+										<h:link outcome="discussion">
+											<f:param name="id" value="#{discussion.id}"/>
+											<b>#{discussion.title}</b>
+										</h:link>
+										#{msg['started.by']}
+										<h:link outcome="memberProfile">
+											<span style="margin-left:5px;" title="View '#{discussion.createBy}' profile"><b>#{discussion.createBy}</b></span>
+											<f:param name="username" value="#{discussion.createBy}"/>
+										</h:link>
+										- <pe:timeAgo value="#{discussion.createDate}"/>
+									</p>
+								</p:repeat>
+								
+								<h:link outcome="tag">
+									#{msg['view.more']} #{tag.label}...
+									<f:param name="id" value="#{tag.id}"/>
+								</h:link>
+							</div>
+							
+							<p/>
+						</div>
+					</p:repeat>
+						
+				</div> <!-- end div class=w3-col l9 m12 s12 -->
+				
+				<div class="w3-col l3 m12 s12 w3-container" id="infoDiv" style="position: -webkit-sticky; /* Safari */; position: sticky; top: 70px;">
+					
+					<div class="w3-card w3-white">
+						<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+							<header class="w3-container w3-center">
+						  		<h4>#{msg['welcome']} <b>#{userSession.user.username}</b></h4>
+							</header>
+							<div class="w3-container">
+								<p>
+									<h:link outcome="/secure/index">
+										<i class="pi pi-cog w3-medium"/> #{msg['my.account']}
+									</h:link>
+								</p>
+								<p>
+									<h:link outcome="/secure/privateMessages">
+										<i class="pi pi-envelope w3-medium"></i> #{msg['my.private.messages']}
+									</h:link>
+								</p>
+								<p>
+									<h:link outcome="/secure/switchTheme">
+										<i class="pi pi-palette w3-medium"></i> #{msg['ui.theme.color']}
+									</h:link>
+								</p>
+								<p>
+									<h:link outcome="/chat/index">
+										<i class="pi pi-comments w3-medium"></i> #{msg['chat.rooms']}
+									</h:link>
+								</p>								
+								<p>
+									<a href="#{request.contextPath}/logout"><i class="pi pi-sign-out w3-medium"/> #{msg['logout']}</a>
+								</p>
+							</div>
+						</sec:authorize>
+						<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
+							
+							<header class="w3-container w3-center">
+						  		<h4>#{msg['login']}</h4>
+							</header>
+			    			
+			    			<form action="#{request.contextPath}/login" method="post" class="w3-container">
+			    			
+			    				<div class="w3-section w3-center">
+				    				<p>
+				    					<input type="text" name="username" placeholder="&#xe939; #{msg['enter.username']}" class="w3-input w3-border w3-round" style="font-family: Helvetica, Arial, sans-serif, PrimeIcons;text-align:center;" />
+				    				</p>
+				    				<p>
+				    					<input type="password" name="password" placeholder="&#xe981; #{msg['enter.password']}" class="w3-input w3-border w3-round" style="font-family: Helvetica, Arial, sans-serif, PrimeIcons;text-align:center;" />
+				    				</p>
+				    				<p>
+				    					<input type="checkbox" name="#{applicationProperties['RememberMe.requestParameter']}" id="#{applicationProperties['RememberMe.requestParameter']}" class="w3-check"/> #{msg['remember.me']}
+				    				</p>
+				    				<p>
+				    					<button type="submit" class="w3-input w3-btn w3-theme-dark w3-round"><i class="pi pi-sign-in"/> #{msg['login']}</button>
+				    				</p>
+				    				<p>
+				    					#{msg['no.account']}? <a href="#" onclick="$('.w3-modal').hide();$('#registerModal').show();return false;">#{msg['register']}</a>
+				    				</p>
+			    				</div>
+			    			</form>
+							
+						</sec:authorize>
+					</div>
+					
+					<p/>
+					
+					<div class="w3-card w3-white">
+						<header class="w3-container w3-center">
+						  <h4>#{msg['discussion.tags']}</h4>
+						</header>
+						
+						<div class="w3-container w3-padding-small">
+							<p:repeat var="tag" value="#{homePage.allTags}">
+								<h:link outcome="tag">
+									<span class="w3-tag" style="font-weight:bold;color:##{tag.color};background-color:#fff;border: 1px solid grey;border-radius: 3px;margin-top:8px;"><i class="pi pi-tag"/> #{tag.label}</span>
+									<f:param name="id" value="#{tag.id}"/>
+								</h:link>
+							</p:repeat>
+							<p/>
+						</div>
+					</div>
+					
+					<p/>
+					
+					<div class="w3-card w3-cursive w3-white">
+						<header class="w3-container w3-center">
+						  <h4>#{msg['forum.info']}</h4>
+						</header>
+						
+						<div class="w3-container w3-small">
+							<p>
+								#{msg['forums']}: <b>#{systemInfo.statistics.forumCount}</b>
+							</p>
+							
+							<p>
+								#{msg['discussions']}: <b>#{systemInfo.statistics.discussionCount}</b>
+							</p>
+
+							<p>
+								#{msg['discussion.tags']}: <b>#{systemInfo.statistics.tagCount}</b>
+							</p>
+						
+							<p>
+								#{msg['comments']}: <b>#{systemInfo.statistics.commentCount}</b>
+							</p>					
+						
+							<p>
+								#{msg['latest.comments']}:
+								<h:link outcome="commentThread"> 
+									<b>#{systemInfo.statistics.lastComment.commentor}</b>
+									<f:param name="id" value="#{systemInfo.statistics.lastComment.commentId}"/>
+								</h:link>
+								- <pe:timeAgo value="#{systemInfo.statistics.lastComment.commentDate}" styleClass="w3-small"/>
+							</p>
+							
+							<p>
+								#{msg['members']}: <b>#{systemInfo.statistics.userCount}</b>
+							</p>
+						
+							<p>
+								#{msg['latest.member']}:
+								<h:link outcome="memberProfile"> 
+									<b>#{systemInfo.statistics.lastRegisteredUser}</b>
+									<f:param name="username" value="#{systemInfo.statistics.lastRegisteredUser}"/>
+								</h:link> 
+								- <pe:timeAgo value="#{systemInfo.statistics.lastUserRegisteredDate}" styleClass="w3-small"/>
+							</p>
+						
+							<p>
+								#{msg['logging.on.members']}: <b>#{fn:length(systemInfo.loggedOnUsers)}</b>
+							</p>
+							
+							<p>
+								#{msg['anonymous.users']}: <b>#{systemInfo.sessionCount - fn:length(systemInfo.loggedOnUsers)}</b>
+							</p>
+							
+							<p>
+								#{msg['chat.rooms']}: <b>#{systemInfo.statistics.chatRoomCount}</b>
+							</p>
+						</div>
+
+					</div>
+					
+					<p/>
+					
+				</div>
+			
+			</div> <!-- end div class=w3-row -->
+			
+			
+		</div>
+		
+	</ui:define>
+	
+</ui:composition>

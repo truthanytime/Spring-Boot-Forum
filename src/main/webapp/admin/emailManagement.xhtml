@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    template="/WEB-INF/template/layout_dashboard.xhtml">
+
+	<!-- load data-->
+	<f:metadata>
+		<f:viewAction action="#{manageEmail.onLoad}"/>
+	</f:metadata>
+
+	<ui:define name="title">
+		#{msg['email.management']}
+	</ui:define>
+	
+	<ui:define name="content">
+
+		<style type="text/css">
+			
+		</style>
+
+		<p:growl id="growl" showDetail="true" sticky="false" globalOnly="true" life="5000">
+			<p:autoUpdate/>
+		</p:growl>
+	
+		<div class="w3-panel w3-margin-top" jsf:id="mainContentDiv">
+ 			
+ 			<div class="w3-bottombar">
+ 				<h3 style="font-weight: 800;"><i class="pi pi-envelope w3-large"/> #{msg['email']}</h3>
+			</div>
+			
+			<h:form id="form">
+				<div class="w3-container w3-xlarge w3-border-bottom">
+					#{msg['email.configuration']}
+				</div>
+				
+				<div class="w3-row-padding">
+				
+					<div class="w3-half w3-container">
+						<p/>
+						<p:outputLabel for="host" value="#{msg['host']}" styleClass="w3-medium" style="font-weight:bold;" indicateRequired="false"/>
+						&nbsp;<i class="pi pi-question-circle w3-large" jsf:id="helpHost"/>
+						<p:overlayPanel for="helpHost" style="width:240px" styleClass="w3-black">
+							Host name for SMTP server.<br/>Example: <b>smtp.gmail.com</b>
+						</p:overlayPanel>
+						<p/>
+						<p:inputText id="host" value="#{manageEmail.emailOption.host}" styleClass="w3-input" maxlength="80" 
+							required="true" requiredMessage="#{msg['email.host.required']}"/>
+						<h:message id="hostError" for="host" styleClass="w3-pale-red">
+							<p:autoUpdate/>
+						</h:message>
+					</div>					
+
+					<div class="w3-half w3-container">
+						<p/>
+						<div class="w3-third w3-container">
+							
+							<p:outputLabel for="port" value="#{msg['port']}" styleClass="w3-medium" style="font-weight:bold;" indicateRequired="false"/> 
+							&nbsp;<i class="pi pi-question-circle w3-large" jsf:id="helpPort"/>
+							<p:overlayPanel for="helpPort" style="width:240px" styleClass="w3-black">
+								Port number for SMTP server.<br/>Example: <b>587</b>
+							</p:overlayPanel>
+							
+							<p/>
+							<p:inputText id="port" value="#{manageEmail.emailOption.port}" styleClass="w3-input" required="true" requiredMessage="#{msg['email.port.required']}">
+								<p:keyFilter mask="num" />
+								<f:validateLongRange minimum="1" maximum="65535"></f:validateLongRange>
+							</p:inputText>
+							<br/>
+							<h:message id="portError" for="port" styleClass="w3-pale-red">
+								<p:autoUpdate/>
+							</h:message>
+						</div>
+
+						<div class="w3-third w3-container w3-right-align">
+							<p:outputLabel for="authentication" value="#{msg['authentication']}" styleClass="w3-medium" style="font-weight:bold;"/>
+							&nbsp;<i class="pi pi-question-circle w3-large" jsf:id="helpAuthentication"/>
+							<p:overlayPanel for="helpAuthentication" style="width:240px" styleClass="w3-left-align w3-black" >
+								#{msg['whether.email.server.uses.authentication']}
+							</p:overlayPanel>
+							<p/>
+							<p:selectBooleanCheckbox id="authentication" value="#{manageEmail.emailOption.authentication}"/>
+						</div>
+	
+						<div class="w3-third w3-container w3-right-align">
+							<p:outputLabel for="tls" value="TLS" styleClass="w3-medium" style="font-weight:bold;"/>
+							&nbsp;<i class="pi pi-question-circle w3-large" jsf:id="helpTLS"/>
+							<p:overlayPanel for="helpTLS" style="width:240px" styleClass="w3-left-align w3-black">
+								#{msg['whether.email.server.uses.TLS']}
+							</p:overlayPanel>
+							<p/>
+							<p:selectBooleanCheckbox id="tls" value="#{manageEmail.emailOption.tlsEnable}"/>
+						</div>
+					</div>
+														
+					<div class="w3-half w3-container">
+						
+						<p:outputLabel for="username" value="#{msg['username']}" styleClass="w3-medium" style="font-weight:bold;" indicateRequired="false"/>
+						&nbsp;<i class="pi pi-question-circle w3-large" jsf:id="helpUsername"/>
+						<p:overlayPanel for="helpUsername" style="width:240px" styleClass="w3-black">
+							#{msg['username.to.login.SMTP.server']}
+						</p:overlayPanel>
+						<p/>
+						<p:inputText id="username" value="#{manageEmail.emailOption.username}" styleClass="w3-input" maxlength="80" 
+							required="true" requiredMessage="#{msg['email.username.required']}"/>
+						<h:message id="usernameError" for="username" styleClass="w3-pale-red">
+							<p:autoUpdate/>
+						</h:message>
+					</div>
+					
+					<div class="w3-half w3-container">
+						<div class="w3-container">
+							<p:outputLabel for="password" value="#{msg['password']}" styleClass="w3-medium" style="font-weight:bold;" indicateRequired="false"/>
+							&nbsp;<i class="pi pi-question-circle w3-large" jsf:id="helpPassword"/>
+							<p:overlayPanel for="helpPassword" style="width:240px" styleClass="w3-black">
+								#{msg['password.to.login.SMTP.server']}
+							</p:overlayPanel>
+							<p/>
+							<p:password id="password" value="#{manageEmail.emailOption.password}" styleClass="w3-input"
+								required="true" requiredMessage="#{msg['email.password.required']}" redisplay="true"/>
+							<h:message id="passwordError" for="password" styleClass="w3-pale-red">
+								<p:autoUpdate/>
+							</h:message>
+						</div>
+					</div>
+
+					<div class="w3-threequarter w3-container w3-margin-top">
+						<!-- Note: to invoke the remoteCommand as below, type=button is important for it to work properly -->
+						<p:commandButton value="#{msg['update']}" type="button" icon="pi pi-check" onclick="submitForm();"/>
+						
+						<span class="w3-margin-left" onclick="$('#form\\:testConfigurationDiv').toggle();"
+							style="cursor:pointer;color:purple;font-weight:bold;">
+							#{msg['test.configuration']}
+						</span>
+						&nbsp;<i class="pi pi-question-circle w3-large" jsf:id="helpTestConfiguration"/>
+						<p:overlayPanel for="helpTestConfiguration" style="width:240px" styleClass="w3-left-align w3-black">
+							#{msg['validate.email.configuration']}
+						</p:overlayPanel>
+					</div>                	
+					
+				</div>
+				
+				<!-- Note the process attribute includes only fields relevant to email config data => we don't want JSF to validate the whole form. 
+					This is because this form contains fields (below) for testing email configuration, and those test fields are mandatory for sending test email.
+					If we don't specify specific fields to be validated, the process will stop at the validation phrase and the action will not be invoked
+					-->
+				<p:remoteCommand name="submitForm" action="#{manageEmail.update}" process="@this host port authentication tls username password"/>
+				
+				<p/>
+				
+				<div jsf:id="testConfigurationDiv" class="w3-container w3-border-top w3-animate-top">
+					
+					<div class="w3-panel w3-border w3-round w3-display-container">
+					
+						<span onclick="$('#form\\:testConfigurationDiv').hide();" class="w3-button w3-display-topright w3-grey">X</span>
+						
+						<br/><br/>
+						
+						<div class="w3-panel w3-pale-blue w3-leftbar w3-border-blue w3-margin-top">
+							<p>
+							#{msg['test.email.instruction']}
+							</p>
+						</div>
+						
+						<div jsf:id="testResultDiv" class="w3-card w3-container w3-margin-top">
+							
+							<h4><b>#{msg['test.result']}:</b></h4>
+							<h4 jsf:rendered="#{manageEmail.testRan and manageEmail.testSuccess}" class="w3-green"> #{msg['test.email.success']}</h4>
+							<h4 jsf:rendered="#{manageEmail.testRan and not manageEmail.testSuccess}" class="w3-red"> #{msg['test.email.failed']}</h4>
+						</div>
+						
+						<p/>
+						
+						<div class="w3-row-padding  w3-container">
+							
+							<p:outputLabel for="testToEmail" value="#{msg['to.email']}" styleClass="w3-medium" style="font-weight:bold;" indicateRequired="false"/>
+							<br/>
+							<p:inputText id="testToEmail" value="#{manageEmail.testToEmail}" styleClass="w3-input"
+								maxlength="80" required="true" requiredMessage="#{msg['must.enter.toEmail']}"/>
+							<h:message id="testToEmailError" for="testToEmail" styleClass="w3-pale-red">
+								<p:autoUpdate/>
+							</h:message>
+							
+							<p/>
+							<p:outputLabel for="testEmailSubject" value="#{msg['email.subject']}" styleClass="w3-medium" style="font-weight:bold;" indicateRequired="false"/>
+							<br/>
+							<p:inputText id="testEmailSubject" value="#{manageEmail.testEmailSubject}" styleClass="w3-input"
+								maxlength="100" required="true" requiredMessage="#{msg['must.enter.email.subject']}"/>
+							<h:message id="testEmailSubjectError" for="testEmailSubject" styleClass="w3-pale-red">
+								<p:autoUpdate/>
+							</h:message>
+							
+							<p/>
+							<p:outputLabel for="testEmailContent" value="#{msg['email.content']}" styleClass="w3-medium" style="font-weight:bold;" indicateRequired="false"/>
+							<br/>
+							
+							<!-- 
+								Design decision: use pe:ckEditor or p:textEditor?
+								
+									Both will have issue loading in a <div> element that is initially have 'display:none'
+									So must start without the 'display:none', then use $(document).ready(){ } callback to hide the <div>
+									
+										ckEditor has issue 
+							 -->	 
+							 					
+							<!-- <pe:ckEditor id="testEmailContent" value="#{manageEmail.testEmailContent}" skin="moono-lisa" width="100%" required="true"
+								toolbar="[['Bold', 'Italic', 'Underline', 'Strike', '-', 'Styles', 'Format', 'Font', 'FontSize', '-', 'TextColor', 'BGColor']]" 
+										requiredMessage="Test email content is required">
+							</pe:ckEditor> -->
+							
+							<!-- 
+								javax.faces.FacesException: TextEditor component is marked secure='true' but the HTML Sanitizer was not found on the classpath. 
+									Either add the HTML sanitizer to the classpath per the documentation or mark secure='false' if you would like to use the component
+									without the sanitizer.
+							 -->
+							<p:textEditor id="testEmailContent" value="#{manageEmail.testEmailContent}" widgetVar="testEmailContentVar" 
+								height="250" secure="false" required="true" requiredMessage="#{msg['must.enter.email.content']}"/>
+							<h:message id="testEmailContentError" for="testEmailContent" styleClass="w3-pale-red">
+								<p:autoUpdate/>
+							</h:message>
+							
+							<p/>
+							<p:commandButton value="#{msg['send.test.email']}" action="#{manageEmail.testEmailConfiguration}" ajax="true" icon="pi pi-send" update="testResultDiv"/>				
+							<p/>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</h:form>		
+		
+ 		</div>
+ 		
+		<script>
+			//<![CDATA[//------
+			
+			/* hide the testConfigurationDiv after the page loaded */
+			$(document).ready(function() {
+				$('#form\\:testConfigurationDiv').toggle();
+			});	
+			//]]>
+		</script>
+				
+	</ui:define>
+	
+</ui:composition>

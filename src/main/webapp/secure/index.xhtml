@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:jsf="http://xmlns.jcp.org/jsf" 
+    template="/WEB-INF/template/layout_secure.xhtml">
+
+	<!-- initialize user data after login -->
+	<!-- <f:metadata>
+		<f:viewAction action="#{userSession.initialize}"/>
+	</f:metadata> -->
+
+	<ui:define name="title">
+		#{msg['application.title']} - #{msg['dashboard.overview']} 
+	</ui:define>
+	
+	<ui:define name="pageTitle">
+		<b><i class="pi pi-palette w3-xlarge"></i> #{msg['dashboard.overview']}</b>
+	</ui:define>
+
+	<ui:define name="content">
+		
+		<div>
+			<p:messages id="messages" showDetail="true" showSummary="false" closable="true">
+				<p:autoUpdate/>
+			</p:messages>
+		</div>
+
+		<div class="w3-row-padding w3-section">
+			<div class="w3-quarter">
+				<div class="w3-container w3-card w3-padding-16 w3-deep-orange w3-opacity-min">
+					<div class="w3-left">
+						<i class="pi pi-user w3-xxlarge"/>
+					</div>
+					<div class="w3-right">
+						<h3>&#160;</h3>
+					</div>
+					<div class="w3-clear"/>
+					<h:link value="Account" outcome="/secure/accountInfo" styleClass="w3-xlarge w3-text-white"/>
+				</div>
+			</div>
+			<div class="w3-quarter">
+				<div class="w3-container w3-card w3-padding-16 w3-teal w3-opacity-min">
+					<div class="w3-left">
+						<i class="pi pi-envelope w3-xxlarge"/>
+					</div>
+					<div class="w3-right">
+						<h3>#{userDashboard.unreadMessage}/#{userDashboard.totalMessage}</h3>
+					</div>
+					<div class="w3-clear"/>
+					<h:link value="Messages" outcome="/secure/privateMessages" styleClass="w3-xlarge w3-text-white"/>
+				</div>
+			</div>
+			<div class="w3-quarter">
+				<div class="w3-container w3-card w3-padding-16 w3-indigo w3-opacity-min">
+					<div class="w3-left">
+						<i class="pi pi-comment w3-xxlarge"/>
+					</div>
+					<div class="w3-right">
+						<h3>#{userSession.user.stat.commentCount}</h3>
+					</div>
+					<div class="w3-clear"/>
+					<h:link value="Comments" outcome="/secure/myComments" styleClass="w3-xlarge w3-text-white"/>
+				</div>
+			</div>
+			<div class="w3-quarter">
+				<div class="w3-container w3-card w3-padding-16 w3-purple w3-opacity-min">
+					<div class="w3-left">
+						<i class="pi pi-pencil w3-xxlarge"/>
+					</div>
+					<div class="w3-right">
+						<h3>&#160;</h3>
+					</div>
+					<div class="w3-clear"/>
+					<h:link value="Signature" outcome="/secure/signaturePreference" styleClass="w3-xlarge w3-text-white"/>
+				</div>
+			</div>
+		</div>
+		
+	</ui:define>
+</ui:composition>

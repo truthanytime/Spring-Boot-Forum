@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="/WEB-INF/template/layout_chat.xhtml">
+
+	<!-- load data-->
+	<f:metadata>
+		<f:viewAction action="#{chatPage.onLoad}"/>
+	</f:metadata>
+
+	<ui:define name="title">
+		#{msg['application.title']} - #{msg['live.chat']} 
+	</ui:define>
+	
+	<ui:define name="pageTitle">
+		<h3><b><i class="pi pi-comments w3-large"/> #{msg['chat.rooms']}</b></h3>
+	</ui:define>
+
+	<ui:define name="content">
+	
+		<style type="text/css">
+		
+			.chatAvatarSpan36 {
+				display:inline-block;
+				font-size:0.9em;
+				line-height:36px;
+				width:36px;
+				text-align: center;
+				text-transform: uppercase;
+				color:white;
+			}
+			
+			.chatAvatarImage36 {
+				height:36px;
+				width:36px;
+			}
+			
+			.chatAvatarSpan30 {
+				display:inline-block;
+				font-size:0.8em;
+				line-height:30px;
+				width:30px;
+				text-align: center;
+				text-transform: uppercase;
+				color:white;
+			}
+			
+			.chatAvatarImage30 {
+				height:30px;
+				width:30px;
+			}
+			
+			/* override the w3-striped to have the first row shaded gray */
+			.w3-striped tr:nth-child(even) {
+				background-color: #fcfcfc !important;
+			}
+			.w3-striped tr:nth-child(odd) {
+				background-color: #f0f0f0;
+			}
+			
+			#emojiTableBody > tr > td {
+				cursor: pointer;
+				background: lightgrey;
+			}
+			
+			/* https://alligator.io/css/css-scrollbars/ */
+			
+			/* The emerging W3C standard
+			   that is currently Firefox-only */
+			* {
+			  scrollbar-width: thin;
+			  scrollbar-color: slategrey lightgrey;
+			}
+			
+			/* Works on Chrome/Edge/Safari */
+			*::-webkit-scrollbar {
+			  width: 12px;
+			}
+			*::-webkit-scrollbar-track {
+			  background: lightgrey;
+			}
+			*::-webkit-scrollbar-thumb {
+			  background-color: slategrey;
+			  border-radius: 20px;
+			  border: 3px solid lightgrey;
+			}			
+			
+		</style>
+		
+		<div jsf:id="mainContentDiv">
+			
+			<div>
+				<div  jsf:rendered="#{fn:length(chatPage.chatRooms) eq 0}">No chat room available</div>
+				<form class="" jsf:rendered="#{fn:length(chatPage.chatRooms) gt 0}">
+	                
+	                <p:commandButton id="chatRoomSelectButton" value="#{msg['select.a.chat.room']}" type="button" 
+	                	styleClass="ui-button-raised ui-button-flat" icon="pi pi-caret-down" style="font-weight:bold;"/>
+	                
+	                <p:overlayPanel for="chatRoomSelectButton" style="width:400px;background:#f5f5f5" widgetVar="chatRoomPicker">
+	                	<ui:repeat var="chatRoom" value="#{chatPage.chatRooms}">
+	                		<div style="margin:8px;" class="w3-large">
+		                    	<button id="toggleRoom#{chatRoom.id}" class="w3-btn w3-round toggleRoomButton" type="submit" onclick="PF('chatRoomPicker').hide()"
+		                    		data-roomid="#{chatRoom.id}" style="background-color:##{chatRoom.color};color:white;width:100%;">
+		                    		<b><i class="#{chatRoom.icon}"/> #{chatRoom.label}</b>
+		                    	</button>
+	                    	</div>
+	                    </ui:repeat>	                
+	                </p:overlayPanel>
+	            </form>				
+			</div>
+			
+			<!-- 
+				important note: use build time <c:forEach> instead of render time <ui:repeat> to generate dynamic id for each jsf component
+				reference: https://stackoverflow.com/questions/16043218/refer-to-jsf-dynamically-generated-ids-based-on-iteration-index
+			  -->			  
+			<c:forEach items="#{chatPage.chatRooms}" var="chatRoom">
+			
+				<div id="room#{chatRoom.id}" class="w3-card toggleRoomDiv" style="display: none;margin-top: 16px;">
+					
+					<div class="w3-cell-row w3-border-bottom" style="color:##{chatRoom.color};">
+						<div class="w3-cell w3-container">
+							<h4>
+								<b><i class="#{chatRoom.icon}"/> #{chatRoom.label} 
+								<!-- <h:outputText value=" (users: #{fn:length(chatManager.subscribedUserMap['/room/'.concat(chatRoom.id)])})" id="userCount#{chatRoom.id}"/> -->
+								</b>
+							</h4>
+						</div>
+						<div class="w3-cell" style="padding-right:5px; text-align: right;vertical-align: middle;">
+							<form>
+								<button id="clearRoomContent#{chatRoom.id}" class="w3-btn clearRoomContent" type="submit" data-roomid="#{chatRoom.id}" title="#{msg['clear.chat.content']}">
+		                    		<b><i class="pi pi-times-circle"/> #{msg['clear.chat']}</b>
+		                    	</button>
+		                    	<button id="usersRoom#{chatRoom.id}" class="w3-btn usersRoom" type="submit" data-roomid="#{chatRoom.id}" title="#{msg['show.hide.user.list']}">
+		                    		<b><i class="pi pi-users"/> #{msg['users']}</b>
+		                    	</button>
+		                    	<button id="joinRoom#{chatRoom.id}" class="w3-btn joinRoom" type="submit" data-roomid="#{chatRoom.id}" title="#{msg['join.chat.room']}">
+									<b><i class="pi pi-sign-in"/> #{msg['join']}</b>
+								</button>
+		                    	<button id="leaveRoom#{chatRoom.id}" class="w3-btn leaveRoom" type="submit" data-roomid="#{chatRoom.id}" title="#{msg['leave.chat.room']}">
+		                    		<b><i class="pi pi-sign-out"/> #{msg['leave']} </b>
+		                    	</button>
+		                    </form>
+						</div>
+					</div>
+					
+					<div class="w3-row-padding" style="display: flex;flex-direction: row;">
+					
+				        <div class="w3-col w3-rest w3-margin-top w3-margin-right" style="height: 500px; overflow: auto;" id="conversationDiv#{chatRoom.id}">
+				            <table id="conversation1000" class="w3-table w3-striped">
+				                <thead>
+					                <tr class="w3-white">
+					                	<!-- define column width here -->
+					                    <th style="width:50px;"></th>
+					                    <th></th>
+					                </tr>
+				                </thead>
+				                
+				                <tbody id="roomContent#{chatRoom.id}"/>
+				                
+				            </table>
+				        </div>
+				        
+				        <div jsf:id="roomUsersDiv#{chatRoom.id}" class="w3-margin-top w3-margin-right w3-border"
+				        	style="width:250px; height: 500px;">
+				        	<div class="w3-container w3-center w3-theme-d1">
+				        		<h6><b><i class="pi pi-users"/> #{msg['current.users']}</b></h6>
+				        	</div>
+				        	
+				        	<!-- Note: use the class userListDiv for ease of clear it when user disconnect -->
+				        	<div id="userList#{chatRoom.id}" class="w3-bar-block w3-theme-light w3-card userListDiv" style="overflow: auto;height: 454px;"/>
+			        		
+				        </div>
+				        
+			        </div>
+			        
+		            <form class="w3-container w3-padding">
+		            	<fieldset style="border:0;padding: 0;" id="chatButtonGroup#{chatRoom.id}" class="chatButtons" disabled="disabled">
+			            	<h:outputText id="counterMessage#{chatRoom.id}" styleClass="w3-opacity"/><h:outputText value=" #{msg['characters.remaining']}" styleClass="w3-opacity"/>
+		                	<p:inputTextarea rows="2" maxlength="200" counter="counterMessage#{chatRoom.id}" counterTemplate="{0}"
+		                		autoResize="false" id="messageText#{chatRoom.id}" style="overflow-x: hidden;" styleClass="w3-input" placeholder="#{msg['type.your.message']}.."/>
+		                	
+			                <button id="postMessage#{chatRoom.id}" class="w3-btn w3-theme-dark postMessage" data-roomid="#{chatRoom.id}" type="submit" style="margin-top: 5px;">
+			                	<i class="pi pi-send w3-large"/> #{msg['post']} 
+			                </button>
+			                <button id="emojiInput#{chatRoom.id}" class="w3-btn w3-theme-dark emojiInput" data-roomid="#{chatRoom.id}" type="submit"
+			                	 title="#{msg['emoji']}" style="margin-top: 5px;">
+			                	<i class="pi pi-moon w3-large"/>
+			                </button>
+			                <label>
+			                	<input type="file" id="imageInput#{chatRoom.id}" class="imageInput" data-roomid="#{chatRoom.id}" style="display:none;" accept='image/*'/>
+			                	<span class="w3-btn w3-theme-dark w3-opacity" style="margin-top: 5px;" title="#{msg['image']}"><i class="pi pi-image w3-large"/></span>
+			                </label>
+		                </fieldset>
+		            </form>
+					
+				</div>
+				
+			</c:forEach>
+			
+			<!-- image preview dialog -->
+			<div id="imagePreviewModal" class="w3-modal">
+				
+				<div class="w3-modal-content w3-card-4" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+				
+					<header class="w3-container w3-light-blue">
+						<h5 id="imagePreviewHeader"></h5>
+						<span onclick="$('#imagePreviewModal').hide();" class="w3-button w3-display-topright w3-large">&#215;</span>
+					</header>
+				
+					<div class="w3-container">						
+						
+						<div class="w3-center">
+							
+							<div class="w3-panel w3-border w3-margin">
+								<img id="imagePreview" src="#" alt="Image Preview" style="width:100%;max-width:300px;height:auto;"/>
+							</div>
+							
+							<form class="w3-container">
+								<button id="postImageButton" class="w3-btn w3-theme-dark" type="submit">
+		                			<i class="pi pi-send"/> #{msg['post']}
+		                		</button>
+		                		<button id="selectAnotherImage" class="w3-btn w3-theme-dark" type="submit" onclick="$('#imageInput' + selectedRoom).trigger('click');">
+		                			<i class="pi pi-image"/> #{msg['select.another']}
+		                		</button>
+		                		<span class="w3-btn w3-theme-dark" onclick="$('#imagePreviewModal').hide();">
+		                			<i class="pi pi-times"/> #{msg['cancel']}
+		                		</span>
+							</form>
+						</div>
+						<p/>
+					</div>
+					
+				</div>
+			
+			</div>
+			
+			<div id="emojiModal" class="w3-modal">
+				
+				<div class="w3-modal-content w3-card-4" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+				
+					<header class="w3-container w3-light-blue">
+						<h5>Emojis <i class="pi pi-times"/></h5>
+						<span onclick="$('#emojiModal').hide();" class="w3-button w3-display-topright w3-large">&#215;</span>
+					</header>
+					
+					<div class="w3-container w3-center" style="height: 500px; overflow: auto;">
+						<table id="emojiTable" style="margin:auto;" class="w3-xlarge">
+							<tbody id="emojiTableBody">
+			                </tbody>
+						</table>
+						
+						<p>
+							<span class="w3-btn w3-theme-dark" onclick="$('#emojiModal').hide();">
+		                		<i class="pi pi-times"/> Close
+		                	</span>
+						</p>
+					</div>
+					
+				</div>
+				
+			</div>			
+			
+			<!-- alert dialog -->
+			<div id="alertModal" class="w3-modal">
+				
+				<div class="w3-modal-content w3-card-4" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+				
+					<header class="w3-container w3-orange">
+						<h4>Warning</h4>
+					</header>
+				
+					<div class="w3-container w3-center">
+						
+						<p id="alertText" style="font-weight:bold;">
+						</p>
+						
+						<p>
+							<span class="w3-btn w3-theme-dark" onclick="$('#alertModal').hide();">
+			                	<i class="pi pi-check"/> OK
+			                </span>
+						</p>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+	</ui:define>
+	
+</ui:composition>

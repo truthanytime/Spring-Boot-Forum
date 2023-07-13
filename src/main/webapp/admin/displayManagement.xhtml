@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    template="/WEB-INF/template/layout_dashboard.xhtml">
+
+	<!-- load data-->
+	<f:metadata>
+		<f:viewAction action="#{manageDisplay.onLoad}"/>
+	</f:metadata>
+
+
+	<ui:define name="title">
+		#{msg['manage.display']}
+	</ui:define>
+	
+	<ui:define name="content">
+
+		<style type="text/css">
+
+			.formFieldLabel {
+				font-weight: 700;
+			}
+			
+			.boxSizingBorder {
+			    -webkit-box-sizing: border-box;
+			       -moz-box-sizing: border-box;
+			            box-sizing: border-box;
+			}	
+		
+		</style>
+		
+		<p:growl id="growl" showDetail="true" sticky="false" globalOnly="true" life="5000">
+			<p:autoUpdate/>
+		</p:growl>
+		
+		<div class="w3-panel w3-margin-top" jsf:id="mainContentDiv">
+
+ 			<div class="w3-bottombar">
+ 				<h3 style="font-weight: 800;"><i class="pi pi-desktop w3-large"/> #{msg['display.configuration']}</h3>
+			</div>
+			
+			<h:form styleClass="w3-margin-top">
+			
+				<div class="w3-container w3-large w3-border-bottom">
+					#{msg['set.default.application.themes']}
+				</div>
+				
+				<p/>
+			
+				<div class="w3-row-padding">
+					
+					<div class="w3-half w3-container">
+						
+						<p>
+							#{msg['current.color.theme.is']} <b>'#{manageDisplay.displayOption.themeColor}'</b>
+						</p>
+					
+						<p>
+							<p:outputLabel value="#{msg['select.a.new.color.theme']}" styleClass="formFieldLabel"/>
+						</p>
+						
+						<p>
+						
+							<!-- Note: #theme_color is defined in the /WEB-INF/template/public_layout.xhtml file -->
+							<p:selectOneMenu value="#{manageDisplay.displayOption.themeColor}" var="theme" style="width:100%;" >
+								
+								<f:selectItem itemValue="w3-theme-blue" itemLabel="Blue" />
+								<f:selectItem itemValue="w3-theme-blue-grey" itemLabel="Blue-Grey" />
+								<f:selectItem itemValue="w3-theme-brown" itemLabel="Brown" />
+								<f:selectItem itemValue="w3-theme-cyan" itemLabel="Cyan"/>
+								<f:selectItem itemValue="w3-theme-deep-orange" itemLabel="Deep Orange"/>
+								<f:selectItem itemValue="w3-theme-green" itemLabel="Green"/>
+								<f:selectItem itemValue="w3-theme-indigo" itemLabel="Indigo"/>
+								<f:selectItem itemValue="w3-theme-khaki" itemLabel="Khaki"/>
+								<f:selectItem itemValue="w3-theme-light-blue" itemLabel="Light Blue"/>
+								<f:selectItem itemValue="w3-theme-light-green" itemLabel="Light Green"/>
+								<f:selectItem itemValue="w3-theme-pink" itemLabel="Pink"/>
+								<f:selectItem itemValue="w3-theme-red" itemLabel="Red"/>
+								<f:selectItem itemValue="w3-theme-teal" itemLabel="Teal"/>
+								<f:selectItem itemValue="w3-theme-w3schools" itemLabel="W3Schools"/>
+								
+								<p:column style="width:100%">
+									<div class="w3-padding-16 w3-center w3-#{fn:substringAfter(theme, 'w3-theme-')}">#{theme}</div>
+								</p:column>
+								
+								<!-- <p:ajax event="change" update=":outputStylesheetCSS" /> -->
+								
+							</p:selectOneMenu>
+						
+						</p>
+						
+					</div>
+						
+					<div class="w3-half w3-container">
+						
+						<p>
+							#{msg['current.component.theme.is']} <b>'#{manageDisplay.displayOption.themeComponent}'</b>
+						</p>
+				
+						<p>
+							<p:outputLabel value="#{msg['select.a.new.component.theme']}" styleClass="formFieldLabel"/>
+						</p>
+					
+						<p>
+							<p:selectOneMenu id="themeSelectMenu" value="#{switchTheme.themeComponent}" style="width:100%;">
+						         <p:ajax process="@this" oncomplete="PrimeFaces.changeTheme($('#frmTheme\\:themeSelectMenu_label').text());"/>
+						         <f:selectItem itemValue="saga" itemLabel="Saga" />
+								 <f:selectItem itemValue="vela" itemLabel="Vela" />
+								 <f:selectItem itemValue="arya" itemLabel="Arya"/>
+						    </p:selectOneMenu>
+						
+							<!-- <p:selectOneMenu value="#{manageDisplay.displayOption.themeComponent}" var="theme" style="width:100%;" >
+							
+								<f:selectItem itemValue="nova-light" itemLabel="Nova-Light" />
+								<f:selectItem itemValue="nova-dark" itemLabel="Nova-Dark" />
+								<f:selectItem itemValue="nova-colored" itemLabel="Nova-Colored"/>
+								<f:selectItem itemValue="luna-blue" itemLabel="Luna-Blue"/>
+								<f:selectItem itemValue="luna-amber" itemLabel="Luna-Amber"/>
+								<f:selectItem itemValue="luna-green" itemLabel="Luna-Green"/>
+								<f:selectItem itemValue="luna-pink" itemLabel="Luna-Pink"/>
+								<f:selectItem itemValue="omega" itemLabel="Omega"/>
+							
+								<p:column style="width:100%">
+									#{theme}
+								</p:column>
+						
+							</p:selectOneMenu> -->
+					
+						</p>
+							
+					</div>
+						
+				</div>
+				
+				<div class="w3-container w3-padding">
+					<p:commandButton value=" #{msg['save']}" icon="pi pi-save" ajax="true" action="#{manageDisplay.update}"/>
+				</div>
+			
+			</h:form>
+			
+			<p/>
+			
+			<h:form>
+
+				<div class="w3-container w3-large w3-border-bottom">
+					#{msg['homepage.banner.content']}
+				</div>			
+			
+				<div class="w3-row w3-margin-top w3-padding">
+					<p:inputTextarea id="homePageBannerContent" value="#{manageDisplay.displayOption.homePageBannerContent}" 
+						styleClass="boxSizingBorder" style="width:100%" rows="12"/>
+					<h:message id="contentError" for="homePageBannerContent" styleClass="w3-pale-red"/>				
+				</div>
+				
+				<div class="w3-container w3-padding">
+					<p:commandButton value=" #{msg['save']}" icon="pi pi-save" ajax="true" action="#{manageDisplay.update}"/>
+				</div>
+			</h:form>	
+			
+			<p/>
+			
+			<h:form>
+				
+				<p/>
+
+				<div class="w3-container w3-large w3-border-bottom">
+					#{msg['discussions.display.on.home.page']}
+				</div>
+				
+				<p/>
+				
+				<div class="w3-row-padding">
+				
+					<div class="w3-quarter container">
+						<p:outputLabel for="showMostViewsDiscussionsCheckBox" value="#{msg['show.most.views.discussions']}" styleClass="formFieldLabel"/>
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:selectBooleanCheckbox value="#{manageDisplay.displayOption.showMostViewsDiscussions}" id="showMostViewsDiscussionsCheckBox"/>
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:outputLabel for="numMostViewsDiscussionsInput" value="#{msg['number.of.most.views.discussions']}" styleClass="formFieldLabel"/>
+					</div>
+					<div class="w3-quarter container">
+						<p:inputNumber value="#{manageDisplay.displayOption.numMostViewsDiscussions}" id="numMostViewsDiscussionsInput"/>
+					</div>
+				</div>
+				<p/>
+				<div class="w3-row-padding">
+					
+					<div class="w3-quarter container">
+						<p:outputLabel for="showMostCommentDiscussionsCheckBox" value="#{msg['show.most.comments.discussions']}" styleClass="formFieldLabel"/>
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:selectBooleanCheckbox value="#{manageDisplay.displayOption.showMostCommentsDiscussions}" id="showMostCommentDiscussionsCheckBox"/>
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:outputLabel for="numMostCommentDiscussionsInput" value="#{msg['number.of.most.comments.discussions']}" styleClass="formFieldLabel"/>	
+					</div>
+				
+					<div class="w3-quarter container">
+						<p:inputNumber value="#{manageDisplay.displayOption.numMostCommentsDiscussions}" id="numMostCommentDiscussionsInput"/>	
+					</div>
+				</div>
+				<p/>
+				<div class="w3-row-padding">	
+					<div class="w3-quarter container">
+						<p:outputLabel for="showMostRecentDiscussionsCheckBox" value="#{msg['show.most.recent.discussions']}" styleClass="formFieldLabel"/>
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:selectBooleanCheckbox value="#{manageDisplay.displayOption.showMostRecentDiscussions}" id="showMostRecentDiscussionsCheckBox"/>
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:outputLabel for="numMostRecentDiscussionsInput" value="#{msg['number.of.most.recent.discussions']}" styleClass="formFieldLabel"/>	
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:inputNumber value="#{manageDisplay.displayOption.numMostRecentDiscussions}" id="numMostRecentDiscussionsInput"/>	
+					</div>
+					
+				</div>
+				
+				<p/>
+				
+				<div class="w3-container w3-padding">
+					<p:commandButton value=" #{msg['save']}" ajax="true" action="#{manageDisplay.update}" icon="pi pi-save"/>
+				</div>
+				
+			</h:form>
+			
+			<p/> <!-- ////// -->
+			
+			<h:form styleClass="w3-padding-top w3-padding-bottom">
+				
+				<div class="w3-container w3-large w3-border-bottom">
+					#{msg['tags.display.on.home.page']}
+				</div>
+				
+				<p/>
+				
+				<div class="w3-row-padding">
+
+					<div class="w3-quarter container">
+						<p:outputLabel for="showDiscussionsForTagCheckBox" value="#{msg['show.discussions.per.tags']}" styleClass="formFieldLabel"/>	
+					</div>
+					<div class="w3-quarter container">
+						<p:selectBooleanCheckbox value="#{manageDisplay.displayOption.showDiscussionsForTag}" id="showDiscussionsForTagCheckBox"/>
+					</div>
+					
+					<div class="w3-quarter container">
+						<p:outputLabel for="numDiscussionsPerTagInput" value="#{msg['number.of.discussions.per.tag']}" styleClass="formFieldLabel"/>
+					</div>
+					<div class="w3-quarter container">
+						<p:inputNumber value="#{manageDisplay.displayOption.numDiscussionsPerTag}" id="numDiscussionsPerTagInput"/>
+					</div>
+					
+					<div class="w3-col w3-rest container"> <!-- note: use w3-rest for full-width column -->
+						
+						<p/>
+					    
+					    <p:pickList id="tagPickList" value="#{manageDisplay.tagDualList}" var="tag"
+					                itemValue="#{tag}" itemLabel="#{tag.label}" showSourceControls="true"
+					                showTargetControls="true" converter="#{manageDisplay.tagConverter}" responsive="true">
+					 
+					        <f:facet name="sourceCaption">#{msg['all.tags']}</f:facet>
+					        <f:facet name="targetCaption">#{msg['tags.to.display']}</f:facet>
+					 
+					        <p:column style="width:15%">
+					            <i class="#{tag.icon} w3-xlarge" style="color: ##{tag.color}"/>
+					        </p:column>
+					 
+					        <p:column style="width:85%;">
+					            <h:outputText value="#{tag.label}" />
+					        </p:column>
+					    </p:pickList>
+					
+					</div>
+				
+				</div>				
+				
+				<p/>
+				
+				<div class="w3-container w3-padding">
+					<p:commandButton value=" #{msg['save']}" ajax="true" action="#{manageDisplay.updateDisplayTags}" icon="pi pi-save"/>
+				</div>
+				
+			</h:form>
+ 			
+ 		</div>
+		
+	</ui:define>
+	
+</ui:composition>

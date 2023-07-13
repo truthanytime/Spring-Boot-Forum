@@ -1,0 +1,739 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:func="http://bootforum.chipolaris.github.com/functions"
+    xmlns:bf="http://bootforum.chipolaris.github.com/jsf/component"
+    template="/WEB-INF/template/layout_public.xhtml">
+
+	<!-- set request parameter values from URL to backing bean -->
+	<f:metadata>
+		<f:viewParam name="id" value="#{viewDiscussion.id}"/>
+		<f:viewAction action="#{viewDiscussion.onLoad}"/>
+	</f:metadata>
+	
+	<ui:define name="title">
+		Discussion
+	</ui:define>
+	
+	<ui:define name="content">
+				
+		<style type="text/css">
+			
+			blockquote {
+				font-family: Georgia, serif;
+				font-size: 10pt;
+				font-style: italic;
+				margin: 0.25em 0;
+				padding: 0.25em 40px;
+				line-height: 1.45;
+				position: relative;
+				color: #383838;
+				background:#ececec;
+				border-radius: 3px;
+				
+				/* disable text select for blockquote */
+				-moz-user-select: none;
+  				-khtml-user-select: none;
+  				-webkit-user-select: none;
+  				user-select: none;
+			}
+			
+			blockquote:before {
+				display: block;
+				content: "\201C";
+				font-size: 30pt;
+				position: absolute;
+				left: 5px;
+				top: -10px;
+				color: #7a7a7a;
+			}
+			
+			blockquote cite {
+				color: #999999;
+				font-size: 10.5pt;
+				display: block;
+				margin-top: 5px;
+			}
+			
+			blockquote cite:before {
+				content: "\2014 \2009";
+			}
+			
+			.commentText img {
+				max-width:100%;
+				height:auto;
+			}
+			
+			.ui-dataview.headerless > .ui-dataview-header {
+  				display: none;
+			}
+			
+			/* remove border from fieldset and dataview */
+			body .ui-fieldset, form .ui-dataview-row, .ui-paginator, .ui-datatable-header {
+				border-style: none !important;
+			}
+			
+			.ui-datatable.borderless thead th,
+			.ui-datatable.borderless tbody,
+			.ui-datatable.borderless tbody tr,
+			.ui-datatable.borderless tbody td {
+			    border-style: none !important;
+			}
+			
+			body .ui-fieldset .ui-fieldset-legend {
+				padding: 0.5rem;
+			}
+
+			.popupQuote {
+				position:absolute;
+				z-index:1000; /* make sure this will always be on top, not behind other elements */
+				display:none;
+				border-radius: 3px;
+				color:white;
+				padding:8px;
+				font-size:1.2rem;
+				font-weight:bold;				
+				cursor:pointer;
+				-webkit-filter: drop-shadow(0 1px 10px rgba(113,158,206,0.8));
+			}
+		</style>
+		
+		<script>
+			//<![CDATA[
+			function getSelected() {
+				if(window.getSelection) { return window.getSelection(); }
+				else if(document.getSelection) { return document.getSelection(); }
+				else {
+					var selection = document.selection && document.selection.createRange();
+					if(selection.text) { return selection.text; }
+						return false;
+					}
+					return false;
+			}
+			
+			/* listener function to text selected action by user */
+			var selectTextListener = function() {
+				
+				$('div.commentText').mouseup(function(event) {
+					quoteText = getSelected();
+					quoteText = $.trim(quoteText);
+			        if(quoteText.length > 0 && quoteText.length <= 300){
+				        $("span.popupQuote").css("display","block");
+				        $("span.popupQuote").css("top",event.pageY);
+				        $("span.popupQuote").css("left",event.pageX);
+				        
+				        /* 
+				        store commentid and commentor data before user click the 'Quote' button
+				        note: dataset.<attribute> must be all lowercase 
+				        */ 
+				        commentId = this.dataset.commentid;
+				        commentor = this.dataset.commentor;
+			        }
+			        else{
+			        	$("span.popupQuote").css("display","none");
+			        }
+				});
+			}
+			
+			var commentId = '';
+			var commentor = '';
+			var quoteText = '';
+			
+			function quoteSelectedText() {
+				
+				var url = "./secure/replyComment.xhtml?id=" + commentId + "&quoteCommentor=" 
+						+ commentor + "&quoteText=" + encodeURIComponent(quoteText);
+				
+				window.location.href = url;
+			}
+			
+			$(document).ready(function() {
+				selectTextListener();
+			});	
+			
+			//]]>
+		</script>
+
+		<p:growl id="growl" showDetail="true" sticky="false" globalOnly="true" life="5000">
+			<p:autoUpdate/>
+		</p:growl>
+		
+		<div class="w3-panel w3-card-4 w3-white" jsf:id="mainContentDiv">		
+			
+			<div jsf:id="viewDiscussionDiv">
+			
+				<div class="w3-hide-small w3-margin-top">
+					<p:breadCrumb model="#{breadCrumbBuilder.buildBreadCrumbModel(viewDiscussion.discussion)}"/>
+				</div>
+				
+				<div class="w3-padding-16 w3-theme-dark w3-opacity-min w3-center" style="margin: 16px -16px;">
+ 					
+ 					<p:inplace id="discussionTitleInplace" editor="true" 
+ 						rendered="#{userSession.user.username eq viewDiscussion.discussion.createBy and not viewDiscussion.discussion.closed and viewDiscussion.commentOption.allowDiscussionTitleEdit}"
+ 						saveLabel="#{msg['save']}" cancelLabel="#{msg['cancel']}">
+ 						
+ 						<p:ajax event="save" listener="#{viewDiscussion.saveDiscussionTitle}" update="growl discussionTitleInplace" partialSubmit="true"/>
+ 						<f:facet name="output">
+                			<span class="w3-xlarge" title="*Note: click to edit the discussion title">#{viewDiscussion.discussion.title} <i class="pi pi-pencil w3-large"/></span>
+            			</f:facet>
+            			
+            			<f:facet name="input">
+            				<p:message for="discussionTitle"/><p/>
+            				<p:inputText id="discussionTitle" value="#{viewDiscussion.discussion.title}" label="text" size="80"
+            					maxlength="255" validatorMessage="Discussion title length must be between 1 to 255">
+            					<f:validateLength minimum="1" maximum="255"/>
+            				</p:inputText>
+            			</f:facet>
+        			</p:inplace>
+ 					
+ 					<h3 jsf:rendered="#{userSession.user.username ne viewDiscussion.discussion.createBy}">#{viewDiscussion.discussion.title}</h3>
+ 					<h5 jsf:rendered="#{viewDiscussion.discussion.closed}">#{msg['discussion.is.closed']}</h5>
+			    	
+ 				</div>
+ 				 				
+ 				<div class="w3-row">
+				
+					<div class="w3-col l9 m12 s12 w3-container">
+						
+						<!-- popup quote span when user highlight comment Text -->
+						<span class="popupQuote w3-theme-dark" onclick="quoteSelectedText();"><i class="pi pi-code"/> #{msg['quote']}</span>
+					
+						<h:form>
+						
+							<p:dataView var="comment" value="#{viewDiscussion.commentListLazyModel}" rows="15" paginator="true" lazy="true" rowIndexVar="rowIndex" styleClass="headerless">
+		                    
+		                    	<p:ajax event="page" oncomplete="changeAvatarBackgrounds();window.scrollTo(0,0);selectTextListener();"/>
+						                            	
+		                    	<p:dataViewListItem>
+		
+									<div class="w3-container w3-margin-bottom" style="padding:10px 0 0 0;">
+										
+										<div class="w3-cell-row">
+											<div class="w3-container w3-cell" style="width: 60px;padding-right: 0px;">
+
+					             					<p:commandLink update=":userDetailsForm:userStatOutputPanel" action="#{userStatManager.loadUserStat(comment.createBy)}" 
+														oncomplete="PF('userStatOverlayPanel').show('#{component.clientId}')">
+					               						
+					               						<div class="w3-display-container" style="width:50px">
+					               						
+						               						<h:graphicImage value="#{requestContext}/avatar/#{comment.createBy}" class="w3-circle"
+																id="commentorAvatar" height="50" width="50" style="float:left;" 
+																title="click to view #{comment.createBy} profile"
+																rendered="#{fileHandler.isAvatarExists(comment.createBy)}"/>
+															
+															<span jsf:rendered="#{!fileHandler.isAvatarExists(comment.createBy)}" class="w3-circle avatarSpan"
+																title="#{comment.createBy}"
+							  									style="display:inline-block;font-size:1.4rem;line-height:50px;width:50px;text-align:center;text-transform: uppercase;color:white;">
+							  									#{fn:substring(comment.createBy, 0, 3)}
+							  								</span>
+															
+															<!-- TODO: show icon for user based on group(s) user is in. For now, hard code to pi-user -->
+															<span class="w3-display-topright w3-badge w3-theme-dark" title="user"><i class="pi pi-user w3-large"/></span>
+														
+														</div>
+														
+					           						</p:commandLink>
+											
+											</div>											
+											
+											<!-- comment title -->
+											<div class="w3-container w3-cell" style="vertical-align: middle;">
+
+													<h:outputText value="#{comment.title} " style="font-size:1.2rem;font-weight:700"/>
+												    
+												    <p:commandLink rendered="#{not empty comment.replyTo}" 
+												    	onclick="$('#replyTo_#{rowIndex}_Div').toggle(300); return false;">
+												    	<br/>
+												    	<i class="pi pi-reply"/>
+												    	<span>@#{comment.replyTo.createBy}: </span>
+												    	<h:outputText value=" #{comment.replyTo.title}" style="font-weight:bold;font-style:italic;" />
+												    </p:commandLink>
+											
+											</div>
+											
+											
+											<div class="w3-container w3-cell w3-right-align" style="font-size: small;">
+
+							        			#{msg['created']} <pe:timeAgo value="#{comment.createDate}" titlePattern="MMMM dd, yyyy 'at' h:mm:ss a" style="font-size:small;"/>
+							        			<span jsf:rendered="#{not empty comment.updateDate}">.
+							        				#{msg['edited']} <pe:timeAgo value="#{comment.updateDate}" titlePattern="MMMM dd, yyyy 'at' h:mm:ss a" style="font-size:small;"/>
+							        			</span>			        		
+								        		
+								        		<h:outputText value=" [#{rowIndex + 1}]" style="font-weight:bold;"/>
+											
+											</div>
+										
+										</div>
+																		        
+								        <div jsf:rendered="#{not empty comment.replyTo}" style="margin: 10px 20px;display:none;" id="replyTo_#{rowIndex}_Div">
+								        	<div class="w3-panel w3-border w3-round-large">
+								        		
+								        		<p/>
+								        	
+								        		<h:graphicImage value="#{requestContext}/avatar/#{comment.replyTo.createBy}" class="w3-circle"
+													height="36" width="36" title="#{comment.replyTo.createBy}" rendered="#{fileHandler.isAvatarExists(comment.replyTo.createBy)}"/>
+													
+												<span jsf:rendered="#{!fileHandler.isAvatarExists(comment.replyTo.createBy)}" class="w3-circle avatarSpan"
+													title="#{comment.replyTo.createBy}"
+													style="display:inline-block;font-size:1.1rem;line-height:36px;width:36px;text-align:center;text-transform: uppercase;color:white;">
+													#{fn:substring(comment.replyTo.createBy, 0, 3)}
+												</span>
+													
+										        <span style="font-size: 1.2rem;font-weight:800">#{comment.replyTo.title}</span>
+										        
+										        <p/>
+										        
+										        <div class="w3-panel w3-round-large w3-padding w3-theme-light">
+											  		<h:outputText value="#{comment.replyTo.content}" escape="false"/>
+												</div>
+								        		
+								        		<div class="w3-opacity">
+								        			#{msg['By']} #{comment.replyTo.createBy} #{msg['on']} #{comment.replyTo.createDate}. #{msg['last.edited.on']} #{comment.replyTo.updateDate}
+								        		</div>
+								        		
+								        		<p/>
+								        		
+								        		<a onclick="$('#replyTo_#{rowIndex}_Div').toggle(300);" style="cursor:pointer;font-size: large;">
+								        			[ <i class="pi pi-caret-up" title="Collapse"/> #{msg['collapse']} ]
+								        		</a>
+								        		
+								        		<h:link outcome="commentThread">
+											    	<b>[#{msg['view.this.comment.thread']}]</b>
+											    	<f:param name="id" value="#{comment.id}"/>
+											    </h:link>
+								        		
+								        		<p/>
+								        		
+								        	</div>				        
+								        </div>					        				        
+								        
+								        <div class="w3-panel">
+								        
+								        	<div jsf:id="commentIsHiddenDiv" jsf:rendered="#{comment.hidden}" >
+								        		<div class="w3-panel w3-round-large w3-theme-l4">
+								        			<h:outputText value="This comment is hidden by Administrator" style="font-weight:bold;color:red;"/>
+								        		</div>
+								        	</div>
+								        
+								        	<div jsf:id="commentIsShownDiv" jsf:rendered="#{not comment.hidden}" >
+								        	
+									        	<div class="w3-panel w3-round-large w3-padding w3-theme-l5 commentText" data-commentor="#{comment.createBy}" data-commentid="#{comment.id}">
+									        		<h:outputText value="#{comment.content}" escape="false"/>
+												</div>
+												
+												<p/>
+												
+												<p:fieldset legend="#{msg['images']}" rendered="#{not empty comment.thumbnails}" toggleable="true" collapsed="false" style="margin-bottom:16px;">
+													<bf:slideshow value="#{comment.thumbnails}" var="thumbnail" maxWidth="800px;" id="slideshow">
+													
+														<!-- <h:graphicImage value="data:#{thumbnail.contentType};base64,#{fileHandler.getCommentThumbnailBase64(thumbnail)}"/> -->
+														<h:graphicImage value="#{requestContext}/thumbnail/#{thumbnail.id}"/>
+													
+													</bf:slideshow>
+												</p:fieldset>
+																				
+												<p:fieldset legend="#{msg['attachments']}" rendered="#{not empty comment.attachments}" toggleable="true" collapsed="false" style="margin-bottom:16px;">
+													
+										    		<div class="w3-row" style="padding:0">
+								
+										    			<div class="w3-section">
+										    				
+								    						<p:repeat var="attachment" value="#{comment.attachments}" varStatus="rowNumber">
+																												
+																<p:panel styleClass="w3-col w3-quarter" style="margin:5px; text-align:center;width:135px;word-wrap: break-word;">
+																		
+																	<f:facet name="header"><span style="font-size:8pt;">#{empty attachment.description ? 'File ' + (rowNumber.index + 1) : attachment.description}</span></f:facet>
+																		
+																	<h:commandLink>
+																		<p:fileDownload value="#{fileHandler.getCommentAttachment(attachment)}"/>
+																		<p:graphicImage alt="#{attachment.description}" library="images" name="#{func:contentTypeIcon(attachment.contentType)}"/>
+																	</h:commandLink>
+																			
+																</p:panel>
+																					
+															</p:repeat>
+										    				
+										    			</div>
+		
+										    		</div>
+													
+												</p:fieldset>
+											
+											</div>  
+									        			        	
+								       	</div>
+									    
+									    <!-- large screen and tablet -->
+									    <div class="w3-bar w3-hide-small w3-padding">
+			
+											<p:linkButton outcome="/secure/replyComment" value=" #{msg['reply']}" icon="pi pi-reply" 
+												styleClass="ui-button-raised ui-button-flat" style="font-weight:bold;" rendered="#{not viewDiscussion.discussion.closed}">
+						        				<f:param name="id" value="#{comment.id}"/>
+						    				</p:linkButton>
+						    				
+						    				<p:linkButton outcome="/secure/replyComment" value=" #{msg['quote']}" icon="pi pi-code" 
+												styleClass="ui-button-raised ui-button-flat ui-button-help" style="font-weight:bold;margin-left:5px;" rendered="#{not viewDiscussion.discussion.closed}">
+						        				<f:param name="id" value="#{comment.id}"/>
+												<f:param name="quote" value="true"/>
+						    				</p:linkButton>
+						    				
+						    				<p:linkButton outcome="/secure/editComment" value=" #{msg['edit']}" icon="pi pi-pencil" 
+						    					styleClass="ui-button-raised ui-button-flat ui-button-danger" style="font-weight:bold;margin-left:5px;" 
+												rendered="#{userSession.user.username eq comment.createBy and not viewDiscussion.discussion.closed and viewDiscussion.commentOption.allowCommentEdit}">
+						        				<f:param name="id" value="#{comment.id}"/>
+						    				</p:linkButton>
+						    				
+								        	
+								        	<!-- right side: like buttons -->
+								        	
+								        	<p:commandButton action="#{voteManager.voteDown(comment)}" process="@this" icon="pi pi-thumbs-down w3-large" value="#{comment.commentVote.voteDownCount}"
+								        		styleClass="rounded-button ui-button-raised ui-button-flat ui-button-warning w3-right" id="voteDownButton"
+								        		rendered="#{not viewDiscussion.discussion.closed}" title="#{msg['dislike']}" update="growl @this voteScoreMobile" style="margin-left:5px;"/>
+								        	
+								        	<p:commandButton action="#{voteManager.voteUp(comment)}" process="@this" icon="pi pi-thumbs-up w3-large" value="#{comment.commentVote.voteUpCount}" id="voteUpButton"
+								        		styleClass="rounded-button ui-button-raised ui-button-flat ui-button-success w3-right" title="#{msg['like']}" update="growl @this voteScoreMobile"
+								        		rendered="#{not viewDiscussion.discussion.closed}"/>
+								        		
+									    </div>
+			
+										<!-- mobile screen -->
+										<div class="w3-bar w3-hide-medium w3-hide-large w3-padding">
+											
+											<p:linkButton outcome="/secure/replyComment" icon="pi pi-reply" title="#{msg['reply']}" 
+												styleClass="ui-button-raised ui-button-flat" style="font-weight:bold;" rendered="#{not viewDiscussion.discussion.closed}">
+						        				<f:param name="id" value="#{comment.id}"/>
+						    				</p:linkButton>
+						    				
+						    				<p:linkButton outcome="/secure/replyComment" icon="pi pi-chevron-circle-right" title="#{msg['quote']}"
+												styleClass="ui-button-raised ui-button-flat ui-button-help" style="font-weight:bold;margin-left:5px;" rendered="#{not viewDiscussion.discussion.closed}">
+						        				<f:param name="id" value="#{comment.id}"/>
+												<f:param name="quote" value="true"/>
+						    				</p:linkButton>
+						    				
+						    				<p:linkButton outcome="/secure/editComment" icon="pi pi-pencil" title="#{msg['edit']}"
+						    					styleClass="ui-button-raised ui-button-flat ui-button-warning" style="font-weight:bold;margin-left:5px;" 
+												rendered="#{userSession.user.username eq comment.createBy and not viewDiscussion.discussion.closed and viewDiscussion.commentOption.allowCommentEdit}">
+						        				<f:param name="id" value="#{comment.id}"/>
+						    				</p:linkButton>
+							        			
+							        			
+							        		<!-- right side: like buttons -->	
+								        	
+								        	<p:commandButton action="#{voteManager.voteDown(comment)}" process="@this" icon="pi pi-thumbs-down w3-large" 
+								        		styleClass="rounded-button ui-button-raised ui-button-flat ui-button-warning w3-right"
+								        		title="#{msg['dislike']}" rendered="#{not viewDiscussion.discussion.closed}" update="growl voteScoreMobile voteDownButton"/>
+								        	
+								        	<p:badge value="#{comment.commentVote.voteUpCount}" id="voteScoreMobile" styleClass="w3-right" size="large" style="margin:0px 5px;"/>
+								        	
+								        	<p:commandButton action="#{voteManager.voteUp(comment)}" process="@this" icon="pi pi-thumbs-up w3-large" 
+								        		styleClass="rounded-button ui-button-raised ui-button-flat ui-button-success w3-right" title="#{msg['like']}" 
+								        		rendered="#{not viewDiscussion.discussion.closed}" update="growl voteScoreMobile voteUpButton"/>				        			
+							        			
+									    </div>
+							        					        					        
+							        </div>
+		
+		                    	</p:dataViewListItem>
+		                    	
+		                    </p:dataView>        
+		
+					    </h:form>
+
+						<p/>
+						
+						<!-- Suggested discussions -->
+		
+						<p:outputPanel id="suggestedDiscussionsPanel">
+						
+							<p:dataTable value="#{viewDiscussion.suggestedDiscussions}" var="suggestedDiscussion" lazy="false" stripedRows="true" styleClass="borderless"
+								rendered="#{viewDiscussion.suggestedDiscussions != null}" emptyMessage="#{msg['no.suggested.discussion.found']}">
+								
+								<p:ajax event="sort" oncomplete="changeAvatarBackgrounds();"/>
+								
+								<f:facet name="header">
+            						<center><b><i class="pi pi-comments"/> #{msg['suggested.discussions']}</b></center>
+        						</f:facet>
+        						
+								<p:column sortBy="#{suggestedDiscussion.title}" style="text-align:left;" responsivePriority="1">
+									<f:facet name="header">
+										<h:outputText value="#{msg['discussion.title']}" style="font-weight:bold;"/>
+									</f:facet>
+									
+									<h:link outcome="discussion">
+										#{suggestedDiscussion.title}
+										<f:param name="id" value="#{suggestedDiscussion.id}"/>
+									</h:link>
+									<br/>
+		
+									<h:link outcome="memberProfile">
+										<h:graphicImage value="#{requestContext}/avatar/#{suggestedDiscussion.createBy}" class="w3-circle"
+												id="creatorAvatar" height="30" width="30" title="#{suggestedDiscussion.createBy}"
+												rendered="#{fileHandler.isAvatarExists(suggestedDiscussion.createBy)}"/>
+																		
+										<span jsf:rendered="#{!fileHandler.isAvatarExists(suggestedDiscussion.createBy)}" class="w3-circle avatarSpan"
+											 title="#{suggestedDiscussion.createBy}"
+		  									style="display:inline-block;font-size:0.9rem;line-height:30px;width:30px;text-align:center;text-transform: uppercase;color:white">
+		  									#{fn:substring(suggestedDiscussion.createBy, 0, 3)}
+		  								</span>									
+										<f:param name="username" value="#{suggestedDiscussion.createBy}"/>
+									</h:link>
+			
+									#{msg['started']} <pe:timeAgo value="#{suggestedDiscussion.createDate}" titlePattern="MMMMM dd yyyy" />
+									
+									<p:repeat var="tag" value="#{suggestedDiscussion.tags}">
+										<h:link outcome="tag">
+											<span class="w3-tag" style="background-color:##{tag.color};margin-top:5px;">#{tag.label} <i class="#{tag.icon} fa-lg"/></span>
+											<f:param name="id" value="#{tag.id}"/>
+										</h:link>
+									</p:repeat>
+								</p:column>
+								
+								<p:column sortBy="#{suggestedDiscussion.stat.commentCount}" style="text-align:center;width:120px;" responsivePriority="3">
+									<f:facet name="header">
+										<h:outputText value="#{msg['comments']}" style="font-weight:bold;"/>
+									</f:facet>
+									
+									<span><b>#{suggestedDiscussion.stat.commentCount}</b></span>
+									
+								</p:column>
+		
+								<p:column sortBy="#{suggestedDiscussion.stat.viewCount}" style="text-align:center;width:90px;" responsivePriority="4">
+									<f:facet name="header">
+										<h:outputText value="#{msg['views']}" style="font-weight:bold;"/>
+									</f:facet>
+									
+									<span><b>#{suggestedDiscussion.stat.viewCount}</b></span>
+									
+								</p:column>
+		
+								<p:column sortBy="#{suggestedDiscussion.stat.lastComment.commentDate}" style="text-align:right;width:190px;" responsivePriority="2">
+									<f:facet name="header">
+										<h:outputText value="#{msg['latest.comment']}" />
+									</f:facet>
+									
+									<div>
+										<pe:timeAgo value="#{suggestedDiscussion.stat.lastComment.commentDate}" titlePattern="MMMMM dd yyyy" /> #{msg['by']}
+										<h:link outcome="memberProfile">
+											<!-- <h:graphicImage value="data:image/png;base64,#{fileHandler.getAvatarBase64(suggestedDiscussion.stat.lastComment.commentor)}" class="w3-circle"
+													id="commentorAvatar" height="30" width="30" style="border:3px;margin-right:15px;" title="#{suggestedDiscussion.stat.lastComment.commentor}"/> -->
+											<h:graphicImage value="#{requestContext}/avatar/#{suggestedDiscussion.stat.lastComment.commentor}" class="w3-circle"
+													id="commentorAvatar" height="30" width="30" title="#{suggestedDiscussion.stat.lastComment.commentor}"
+													rendered="#{fileHandler.isAvatarExists(suggestedDiscussion.stat.lastComment.commentor)}"/>
+																			
+											<span jsf:rendered="#{!fileHandler.isAvatarExists(suggestedDiscussion.stat.lastComment.commentor)}" class="w3-circle avatarSpan"
+												 title="#{suggestedDiscussion.stat.lastComment.commentor}"
+			  									style="display:inline-block;font-size:0.9rem;line-height:30px;width:30px;text-align:center;text-transform: uppercase;color:white">
+			  									#{fn:substring(suggestedDiscussion.stat.lastComment.commentor, 0, 3)}
+			  								</span>									
+											<f:param name="username" value="#{suggestedDiscussion.stat.lastComment.commentor}"/>
+										</h:link>
+									</div>
+								</p:column>
+							
+							</p:dataTable>
+						
+						</p:outputPanel>
+						
+						<p/>
+
+			    	</div>
+			    	
+			    	<div class="w3-col l3 m12 s12 w3-container" id="infoDiv" style="position: -webkit-sticky; /* Safari */; position: sticky; top: 70px;">
+			    	
+	 					<div>
+							<p:linkButton outcome="/secure/replyComment" value="&#xe90d; #{msg['add.new.comment']}" disabled="#{viewDiscussion.discussion.closed}" 
+								title="#{viewDiscussion.discussion.closed ? 'Discussion is closed' : 'Click to add new comment'}"
+								styleClass="ui-button-raised ui-button-flat" style="font-weight:bold;width:100%;padding:8px 0;font-family: Helvetica, Arial, sans-serif, PrimeIcons">
+	       						<f:param name="discussionId" value="#{viewDiscussion.id}"/>
+	   						</p:linkButton>
+				        </div>
+				        
+				        <p/>
+				        
+				        <!-- discussion info -->
+						<div class="w3-card w3-cursive">
+							<header class="w3-container w3-center">
+							  <h4><i class="pi pi-info-circle w3-large"/> #{msg['discussion.info']}</h4>
+							</header>
+							
+							<div class="w3-container w3-small">
+			
+								<p>
+									#{msg['started.by']}&#160;
+															
+									<h:link outcome="memberProfile"> 
+			
+						        		<h:graphicImage value="#{requestContext}/avatar/#{viewDiscussion.discussion.createBy}" class="w3-circle"
+											height="36" width="36" title="#{viewDiscussion.discussion.createBy}" rendered="#{fileHandler.isAvatarExists(viewDiscussion.discussion.createBy)}"/>
+											
+										<span jsf:rendered="#{!fileHandler.isAvatarExists(viewDiscussion.discussion.createBy)}" class="w3-circle avatarSpan"
+											title="#{viewDiscussion.discussion.createBy}"
+											style="display:inline-block;font-size:0.9rem;line-height:36px;width:36px;text-align:center;text-transform: uppercase;color:white;">
+											#{fn:substring(viewDiscussion.discussion.createBy, 0, 3)}
+										</span>
+										<f:param name="username" value="#{viewDiscussion.discussion.createBy}"/>
+									</h:link>
+									&#160;
+									<pe:timeAgo value="#{viewDiscussion.discussion.createDate}" titlePattern="MMM dd, yyyy 'at' h:mm:ss a" styleClass="w3-small"/>
+								</p>
+								
+								<p>
+									#{msg['latest.comment']}&#160;
+									<h:link outcome="memberProfile"> 
+			
+						        		<h:graphicImage value="#{requestContext}/avatar/#{viewDiscussion.discussion.stat.lastComment.commentor}" class="w3-circle"
+											height="36" width="36" title="#{viewDiscussion.discussion.stat.lastComment.commentor}" rendered="#{fileHandler.isAvatarExists(viewDiscussion.discussion.stat.lastComment.commentor)}"/>
+											
+										<span jsf:rendered="#{!fileHandler.isAvatarExists(viewDiscussion.discussion.stat.lastComment.commentor)}" class="w3-circle avatarSpan"
+											title="#{viewDiscussion.discussion.stat.lastComment.commentor}"
+											style="display:inline-block;font-size:0.9rem;line-height:36px;width:36px;text-align:center;text-transform: uppercase;color:white;">
+											#{fn:substring(viewDiscussion.discussion.stat.lastComment.commentor, 0, 3)}
+										</span>
+										<f:param name="username" value="#{viewDiscussion.discussion.stat.lastComment.commentor}"/>
+									</h:link>
+									&#160;
+									<pe:timeAgo value="#{viewDiscussion.discussion.stat.lastComment.commentDate}" titlePattern="MMM dd, yyyy 'at' h:mm:ss a" styleClass="w3-small"/>
+								</p>
+								
+								<p>
+									<i class="pi pi-comments"/> #{msg['comments']}: <b>#{viewDiscussion.discussion.stat.commentCount}</b>
+								</p>
+								
+								<p>
+									<i class="pi pi-image"/> #{msg['thumbnails']}: <b>#{viewDiscussion.discussion.stat.thumbnailCount}</b>
+								</p>
+								
+								<p>
+									<i class="pi pi-paperclip"/> #{msg['attachments']}: <b>#{viewDiscussion.discussion.stat.attachmentCount}</b>
+								</p>
+																
+								<p>
+									<i class="pi pi-eye"/> #{msg['views']}: <b>#{viewDiscussion.discussion.stat.viewCount}</b>
+								</p>
+								
+								<p>
+									<i class="pi pi-users"/> #{msg['total.participants']}: <b>#{fn:length(viewDiscussion.discussion.stat.commentors)}</b>
+								</p>
+								
+								<p jsf:rendered="#{not empty viewDiscussion.discussion.tags}">
+									<i class="pi pi-tags"/> #{msg['discussion.tags']}:
+									<br/>
+									<p:repeat var="tag" value="#{viewDiscussion.discussion.tags}">
+										<h:link outcome="tag">
+											<!-- add margin-top for small/medium screen so the tags separated vertically -->
+											<span class="w3-tag w3-padding" style="background-color:##{tag.color};margin-top:4px;">
+												#{tag.label} <i class="#{tag.icon}"/></span>
+											<f:param name="id" value="#{tag.id}"/>
+										</h:link>
+									</p:repeat>
+								</p>
+							</div>
+						</div>
+						
+						<p/>				        
+
+						<!-- participants -->
+						<div class="w3-card">
+							<header class="w3-container w3-center">
+							  <h4><i class="pi pi-users w3-large"/> #{msg['top.participants']}</h4>
+							</header>
+							
+							<div class="w3-container w3-small">
+
+								<p:repeat var="username" value="#{viewDiscussion.sortedCommentors.keySet().toArray()}">
+									<span class="w3-tag w3-white">
+										&#160;<br/>
+										<h:link outcome="memberProfile" style="position: relative"> 
+				
+							        		<h:graphicImage value="#{requestContext}/avatar/#{username}" class="w3-circle"
+												height="36" width="36" title="#{username}" rendered="#{fileHandler.isAvatarExists(username)}"/>
+												
+											<span jsf:rendered="#{!fileHandler.isAvatarExists(username)}" class="w3-circle avatarSpan" title="#{username}"
+												style="display:inline-block;font-size:0.9rem;line-height:36px;width:36px;text-align:center;text-transform: uppercase;color:white;">
+												#{fn:substring(username, 0, 3)}
+											</span>
+											<f:param name="username" value="#{username}"/>
+											<span class="w3-badge w3-theme-dark w3-tiny" style="position:absolute; top: -12px; right:-8px;">
+												<b>#{viewDiscussion.sortedCommentors[username]}</b>
+											</span>
+										</h:link><br/>
+										&#160;
+									</span>
+								</p:repeat>
+							
+							</div>
+						</div>
+						
+						<p/>
+						
+						<div>
+							<script>
+								/* JS variable to keep track if suggested discussions has been called or not */ 
+								var suggestedDiscussionLoaded = false;
+							</script>
+							
+							<p:commandButton value="&#xe97e; #{msg['suggested.discussions']}" type="button" 
+								onclick="if(window.suggestedDiscussionLoaded == false) { fetchSuggestedDiscussions(); window.suggestedDiscussionLoaded = true; } else { window.scrollTo(0,document.body.scrollHeight); }"
+								widgetVar="suggestedDiscussionsButton"  
+								ajax="true" styleClass="ui-button-raised ui-button-flat" style="width:100%;font-weight:bold;padding:8px 0;font-family: Helvetica, Arial, sans-serif, PrimeIcons"/>
+							<p/>
+							
+							<p:remoteCommand name="fetchSuggestedDiscussions" action="#{viewDiscussion.fetchSuggestedDiscussions}"
+								oncomplete="changeAvatarBackgrounds();window.scrollTo(0,document.body.scrollHeight);" update="suggestedDiscussionsPanel"/>						
+						</div>
+				    
+			    	</div>
+			    		
+			    </div>
+			    
+			</div>
+			
+			<p:scrollTop />
+			
+			<h:form id="userDetailsForm">
+				<p:overlayPanel widgetVar="userStatOverlayPanel" showEffect="fade" hideEffect="fade" dismissable="false" showCloseIcon="true">
+					<p:outputPanel id="userStatOutputPanel" style="text-align:center;">
+						<p:panelGrid columns="2" rendered="#{not empty userStatManager.userStat}">
+							<f:facet name="header">
+								<h5>#{msg['member']}: <b>#{userStatManager.username}</b></h5>
+							</f:facet>
+							<f:facet name="footer">
+								<h:link outcome="memberProfile">
+									<center><h6>#{msg['view.full.profile']}</h6></center>
+									<f:param name="username" value="#{userStatManager.username}"/>
+								</h:link>   
+							</f:facet>
+	
+			                <h:outputText value="#{msg['joined.date']}: " />
+			                <pe:timeAgo value="#{userStatManager.userStat.createDate}"/>
+			 
+			                <h:outputText value="#{msg['discussions.started']}: " />
+			                <h:outputText value="#{userStatManager.userStat.discussionCount}" />
+			 
+			                <h:outputText value="#{msg['comments']}: " />
+			                <h:outputText value="#{userStatManager.userStat.commentCount}"/>
+			             
+			             	<h:outputText value="#{msg['reputation']}: " />
+			                <h:outputText value="#{userStatManager.userStat.reputation}"/>
+			             
+			                <h:outputText value="#{msg['last.login']}: " />
+			                <pe:timeAgo value="#{userStatManager.userStat.lastLogin}"/>
+
+							<h:outputText value="#{msg['latest.comment']}: " />
+							<pe:timeAgo value="#{userStatManager.userStat.lastComment.createDate}"/>
+			                			                						
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:overlayPanel>
+			</h:form>
+			
+		</div>
+	</ui:define>
+	
+</ui:composition>

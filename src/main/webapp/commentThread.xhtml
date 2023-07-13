@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:func="http://bootforum.chipolaris.github.com/functions"
+    xmlns:bf="http://bootforum.chipolaris.github.com/jsf/component"
+    template="/WEB-INF/template/layout_public.xhtml">
+
+	<!-- set request parameter values from URL to backing bean -->
+	<f:metadata>
+		<f:viewParam name="id" value="#{commentThread.commentId}"/>
+		<f:viewAction action="#{commentThread.onLoad}"/>
+	</f:metadata>
+	
+	<ui:define name="title">
+		#{msg['comment.thread']}
+	</ui:define>
+	
+	<ui:define name="content">
+	
+		<div class="w3-panel w3-card-4 w3-white" jsf:id="mainContentDiv">
+			
+			<div jsf:id="commentThreadDiv" >
+				
+				<p/>
+				
+				<div class="w3-hide-small">
+					<p:breadCrumb model="#{breadCrumbBuilder.buildBreadCrumbModel(commentThread.comment)}"/>
+				</div>
+				
+				<div class="w3-padding-16 w3-theme-dark w3-opacity-min w3-center" style="margin: 16px -16px;">
+ 					<h3 style="font-weight:700">#{msg['comment.thread']} '#{commentThread.comment.title}'</h3>
+ 				</div>
+ 
+ 				<div class="w3-row">
+				
+					<div class="w3-col l9 m12 s12 w3-container">
+					
+		  				<div id="commentThreads" class="w3-container">
+		  					
+		  					<h:link outcome="discussion">
+		  						<center><h4 style="font-weight:700;">#{msg['discussion']} <b>#{commentThread.comment.discussion.title}</b></h4></center>
+		  						<f:param name="id" value="#{commentThread.comment.discussion.id}"/>
+		  					</h:link>		
+		
+							<p:chronoline id="chronolineDiv" value="#{commentThread.comments}" var="comment" align="left" styleClass="customized-chronoline" style="margin-left:-100%;">
+							
+								<p:card styleClass="w3-section">
+						            <f:facet name="title">
+						                <b>#{comment.title}</b>
+						            </f:facet>
+						            <f:facet name="subtitle">
+						                <b><pe:timeAgo value="#{comment.createDate}" titlePattern="MMMM dd, yyyy 'at' h:mm:ss a"/></b>
+						            </f:facet>
+						            
+						            <h:outputText value="#{comment.content}" escape="false"/>
+									
+								  	<p/>
+								  	
+								  	<p:badge severity="success" value="#{comment.commentVote.voteUpCount} #{msg['like']}"/>
+								  	<p:badge severity="warning" value="#{comment.commentVote.voteDownCount} #{msg['dislike']}" style="margin-left:5px;"/>
+						            						
+								</p:card>
+								
+						        <f:facet name="marker">
+						        	<h:link outcome="memberProfile">
+										<h:graphicImage value="#{requestContext}/avatar/#{comment.createBy}" class="w3-circle"
+											height="40" width="40" title="#{comment.createBy}"
+											rendered="#{fileHandler.isAvatarExists(comment.createBy)}"/>
+														
+										<span class="w3-circle avatarSpan" jsf:rendered="#{!fileHandler.isAvatarExists(comment.createBy)}" title="#{comment.createBy}"
+					  						style="display:inline-block;font-size:1.0rem;line-height:40px;width:40px;text-align:center;text-transform: uppercase;color:white;">
+					  						#{fn:substring(comment.createBy, 0, 3)}
+					  					</span>
+										<f:param name="username" value="#{comment.createBy}"/>
+									</h:link>	
+						        </f:facet>					
+							</p:chronoline>
+		 					
+		 				</div> <!-- end commentThreads -->
+		 				
+			    	</div>
+			    
+ 					<div class="w3-col l3 m12 s12 w3-container" id="infoDiv" style="position: -webkit-sticky; /* Safari */; position: sticky; top: 20px;">
+ 					
+ 				        <!-- discussion info -->
+						<div class="w3-card w3-cursive" style="margin: 66px 0 16px 0;">
+							<header class="w3-container w3-center">
+							  <h4><i class="pi pi-info-circle w3-large"/> #{msg['discussion.info']}</h4>
+							</header>
+							
+							<div class="w3-container w3-small">
+			
+								<p>
+									#{msg['started.by']}&#160;
+															
+									<h:link outcome="memberProfile"> 
+			
+						        		<h:graphicImage value="#{requestContext}/avatar/#{commentThread.comment.discussion.createBy}" class="w3-circle"
+											height="36" width="36" title="#{commentThread.comment.discussion.createBy}" rendered="#{fileHandler.isAvatarExists(commentThread.comment.discussion.createBy)}"/>
+											
+										<span jsf:rendered="#{!fileHandler.isAvatarExists(commentThread.comment.discussion.createBy)}" class="w3-circle avatarSpan"
+											title="#{commentThread.comment.discussion.createBy}"
+											style="display:inline-block;font-size:0.9rem;line-height:36px;width:36px;text-align:center;text-transform: uppercase;color:white;">
+											#{fn:substring(commentThread.comment.discussion.createBy, 0, 3)}
+										</span>
+										<f:param name="username" value="#{commentThread.comment.discussion.createBy}"/>
+									</h:link>
+									&#160;
+									<pe:timeAgo value="#{commentThread.comment.discussion.createDate}" titlePattern="MMM dd, yyyy 'at' h:mm:ss a" styleClass="w3-small"/>
+								</p>
+								
+								<p>
+									#{msg['latest.comment']}&#160;
+									<h:link outcome="memberProfile"> 
+			
+						        		<h:graphicImage value="#{requestContext}/avatar/#{commentThread.comment.discussion.stat.lastComment.commentor}" class="w3-circle"
+											height="36" width="36" title="#{commentThread.comment.discussion.stat.lastComment.commentor}" rendered="#{fileHandler.isAvatarExists(commentThread.comment.discussion.stat.lastComment.commentor)}"/>
+											
+										<span jsf:rendered="#{!fileHandler.isAvatarExists(commentThread.comment.discussion.stat.lastComment.commentor)}" class="w3-circle avatarSpan"
+											title="#{commentThread.comment.discussion.stat.lastComment.commentor}"
+											style="display:inline-block;font-size:0.9rem;line-height:36px;width:36px;text-align:center;text-transform: uppercase;color:white;">
+											#{fn:substring(commentThread.comment.discussion.stat.lastComment.commentor, 0, 3)}
+										</span>
+										<f:param name="username" value="#{commentThread.comment.discussion.stat.lastComment.commentor}"/>
+									</h:link>
+									&#160;
+									<pe:timeAgo value="#{commentThread.comment.discussion.stat.lastComment.commentDate}" titlePattern="MMM dd, yyyy 'at' h:mm:ss a" styleClass="w3-small"/>
+								</p>
+								
+								<p>
+									<i class="pi pi-comments"/> #{msg['comments']}: <b>#{commentThread.comment.discussion.stat.commentCount}</b>
+								</p>
+								
+								<p>
+									<i class="pi pi-image"/> #{msg['thumbnails']}: <b>#{commentThread.comment.discussion.stat.thumbnailCount}</b>
+								</p>
+								
+								<p>
+									<i class="pi pi-paperclip"/> #{msg['attachments']}: <b>#{commentThread.comment.discussion.stat.attachmentCount}</b>
+								</p>
+																
+								<p>
+									<i class="pi pi-eye"/> #{msg['views']}: <b>#{commentThread.comment.discussion.stat.viewCount}</b>
+								</p>
+								
+								<p>
+									<i class="pi pi-users"/> #{msg['total.participants']}: <b>#{fn:length(commentThread.comment.discussion.stat.commentors)}</b>
+								</p>
+								
+								<p jsf:rendered="#{not empty commentThread.comment.discussion.tags}">
+									<i class="pi pi-tags"/> #{msg['discussion.tags']}:
+									<br/>
+									<p:repeat var="tag" value="#{commentThread.comment.discussion.tags}">
+										<h:link outcome="tag">
+											<!-- add margin-top for small/medium screen so the tags separated vertically -->
+											<span class="w3-tag w3-padding" style="background-color:##{tag.color};margin-top:4px;">
+												#{tag.label} <i class="#{tag.icon}"/></span>
+											<f:param name="id" value="#{tag.id}"/>
+										</h:link>
+									</p:repeat>
+								</p>
+							</div>
+						</div>
+ 
+ 					
+ 					
+ 					</div>
+ 					
+				</div>
+				
+				
+			</div> <!-- end contentThreadDiv -->
+			
+			<div id="thumbnailAttachmentModal" class="w3-modal">
+			
+				<div class="w3-modal-content w3-card-4 w3-animate-zoom" jsf:id="thumbnailAttachmentsContent">
+		
+					<span onclick="$('#thumbnailAttachmentModal').hide();" class="w3-button w3-xlarge w3-transparent w3-text-white w3-display-topright" title="Close">&#215;</span>
+		
+					<header class="w3-container w3-padding w3-theme-dark w3-center">
+						<span class="w3-xlarge"><i class="pi pi-paperclip"/> #{msg['images.attachments']}</span>
+					</header>
+					
+					<p/>
+
+					<p:fieldset legend="#{msg['images']}" rendered="#{not empty commentThread.selectedComment.thumbnails}" 
+						toggleable="true" collapsed="false" styleClass="w3-margin">
+						<bf:slideshow value="#{commentThread.selectedComment.thumbnails}" var="thumbnail" maxWidth="800px;" id="slideshow">
+						
+							<h:graphicImage value="#{requestContext}/thumbnail/#{thumbnail.id}"/>
+						
+						</bf:slideshow>
+					</p:fieldset>
+													
+					<p:fieldset legend="#{['attachments']}" rendered="#{not empty commentThread.selectedComment.attachments}" 
+						toggleable="true" collapsed="false" styleClass="w3-margin">
+						
+			    		<div class="w3-row">
+	
+			    			<div class="w3-section">
+			    				<h:form>
+		    						<p:repeat var="attachment" value="#{commentThread.selectedComment.attachments}" varStatus="rowNumber">
+																						
+										<p:panel styleClass="w3-col w3-quarter" style="margin:5px; text-align:center;width:135px;word-wrap: break-word;">
+												
+											<f:facet name="header"><span style="font-size:8pt;">#{empty attachment.description ? 'File ' + (rowNumber.index + 1) : attachment.description}</span></f:facet>
+												
+											<h:commandLink>
+												<p:fileDownload value="#{fileHandler.getCommentAttachment(attachment)}"/>
+												<p:graphicImage alt="#{attachment.description}" library="images" name="#{func:contentTypeIcon(attachment.contentType)}"/>
+											</h:commandLink>
+													
+										</p:panel>
+															
+									</p:repeat>
+			    				</h:form>
+			    			</div>
+			    					    			
+			    		</div>
+						
+					</p:fieldset>
+					
+					<p>&#160;</p>
+					
+				</div>
+				
+			</div>
+			
+		</div> <!-- end mainContentDiv -->
+		
+		<style type="text/css">
+		
+		    @media screen and (max-width: 960px) {
+		        .customized-chronoline .ui-chronoline-event:nth-child(even) {
+		            flex-direction: row !important;
+		        }
+		
+		        .customized-chronoline .ui-chronoline-event:nth-child(even) .ui-chronoline-event-content {
+		            text-align: left !important;
+		        }
+		
+		        .customized-chronoline .ui-chronoline-event-opposite {
+		            flex: 0;
+		        }
+		
+		        .customized-chronoline .ui-card {
+		            margin-top: 1rem;
+		        }
+		        
+		        #chronolineDiv {
+		    		margin-left:-24px !important;
+		    	}
+		    }
+		    	
+		</style>
+	
+		<script>
+			//<![CDATA[
+			
+			//]]>
+		</script>		
+		
+	</ui:define>
+	
+</ui:composition>

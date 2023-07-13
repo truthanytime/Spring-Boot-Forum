@@ -1,0 +1,610 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    template="/WEB-INF/template/layout_admin.xhtml">
+
+	<ui:define name="title">
+		#{msg['application.title']} - Forums Management
+	</ui:define>
+	
+	<ui:define name="content">
+
+		<style type="text/css">
+
+			/* https://alligator.io/css/css-scrollbars/ */
+			
+			/* The emerging W3C standard
+			   that is currently Firefox-only */
+			* {
+			  scrollbar-width: thin;
+			  scrollbar-color: slategrey lightgrey;
+			}
+			
+			/* Works on Chrome/Edge/Safari */
+			*::-webkit-scrollbar {
+			  width: 12px;
+			}
+			*::-webkit-scrollbar-track {
+			  background: lightgrey;
+			}
+			*::-webkit-scrollbar-thumb {
+			  background-color: slategrey;
+			  border-radius: 20px;
+			  border: 3px solid lightgrey;
+			}
+			
+		</style>
+
+		<script type="text/javascript">
+ 			//<![CDATA[
+				$(document).ready(function(){
+					
+					customizePrimefaceButtons();
+				});
+				
+				function customizePrimefaceButtons() {
+					// primefaces buttons, exclude color picker button
+ 					$('.ui-button.ui-widget').not('.ui-colorpicker > .ui-button.ui-widget').addClass("w3-btn w3-theme-dark w3-border-0");
+					// primefaces color buttons
+ 					$('.ui-colorpicker > .ui-button.ui-widget').addClass('w3-btn w3-white w3-large');
+ 				}
+				
+				function toggleDiv(divIdToShow) {
+					$('.toggleDiv').hide();
+					$('#' + divIdToShow).show();
+				}
+			//]]>	
+		</script>
+	
+		<div class="w3-panel w3-card-4 w3-margin-top w3-padding w3-white" jsf:id="mainContentDiv">
+		
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate/>
+			</p:messages>
+			
+			<div class="w3-panel w3-round w3-theme-d5 w3-center">
+ 				<h3><b>#{msg['manage.forums']}</b></h3>
+ 			</div>
+				   		
+			<div jsf:id="editForumDiv" class="toggleDiv w3-animate-top" style="display:none;">
+				
+				<h4><i class="pi pi-pencil"/> Edit Forum</h4>
+				
+				<div class="w3-panel w3-border w3-round w3-display-container" jsf:rendered="#{not empty forumManagement.selectedForum}">
+				
+					<span onclick="$('#editForumDiv').hide();" class="w3-button w3-display-topright">X</span>
+					
+					<h:form>
+						<div class="w3-row-padding"> <!-- responsive -->
+						
+							<div class="w3-row w3-section"><p/></div> <!-- vertical spacer -->
+						
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.title']}:" for="title"/>
+							</div>
+						
+							<div class="w3-col m8 l9">
+				  				<p:inputText id="title" value="#{forumManagement.selectedForum.title}" validatorMessage="Forum title is required"
+				  					styleClass="w3-input">
+				  					<f:validateLength minimum="1" maximum="100"/>
+				  				</p:inputText>
+				  			</div>
+
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="Forum Description" for="description"/>
+							</div>
+						
+							<div class="w3-col m8 l9">
+				  				<p:inputText id="description" value="#{forumManagement.selectedForum.description}" validatorMessage="Forum description is required"
+				  					styleClass="w3-input">
+				  					<f:validateLength minimum="1" maximum="255"/>
+				  				</p:inputText>
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">		
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.icon']}:" for="icon"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:selectOneMenu id="icon" value="#{forumManagement.selectedForum.icon}" panelStyle="width:250px" style="width:270px;"
+				  					effect="fade" filter="true" filterMatchMode="startsWith" filterPlaceholder="search" var="f">
+				  					<f:selectItems value="#{primeIcons.list}" var="font" itemLabel="#{font}" itemValue="pi pi-#{font}"/>
+				  					
+					  				<p:column style="width:10%">
+					  					<i class="#{f} fa-2x"/>
+					  				</p:column>
+					  				
+					  				<p:column>
+					  					<h:outputText value="#{f}"/>
+					  				</p:column>
+				  					
+				  				</p:selectOneMenu>
+		  				
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">	
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.iconColor']}:" for="color"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:colorPicker id="color" value="#{forumManagement.selectedForum.iconColor}"/>
+			  				</div>
+
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+							
+							<div class="w3-col m4 l3">	
+				  				<h:outputLabel value="#{msg['forumManagement.createForum.form.active']}:" for="active"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<h:selectBooleanCheckbox id="active" value="#{forumManagement.selectedForum.active}" styleClass="w3-check"/>
+			  				</div>
+			  				
+			  				<div class="w3-row w3-section"/> <!-- vertical spacer -->							
+			  			
+			  				<div class="w3-row">
+				  				<p:commandButton id="editForum" ajax="true" action="#{forumManagement.editForum}"
+					            	value="#{msg['userAction.save']}" update=":messages :forumMapForm:forumMapTree"
+					            	oncomplete="$('.toggleDiv').hide();" icon="pi pi-save"/>
+					            <p:commandButton type="button" onclick="$('.toggleDiv').hide();" 
+					            	value="#{msg['userAction.cancel']}" icon="pi pi-times" style="margin-left:5px;"/>
+
+								<p:commandButton value="Delete" icon="pi pi-trash" title="Delete this Forum" style="margin-left:5px;"
+									action="#{forumManagement.deleteForum}" update=":messages :forumMapForm:forumMapTree"
+		        					oncomplete="$('.toggleDiv').hide();">
+				        			
+				        			<p:confirm header="Confirm Delete" message="Delete Forum '#{forumManagement.selectedForum.title}'?" icon="pi pi-exclamation-triangle"/>
+				        			
+				        		</p:commandButton>
+
+			  				</div>
+			  				
+			  				<div class="w3-row w3-section"/> <!-- vertical spacer -->
+						
+						</div>
+					
+					</h:form>
+
+	   			</div>
+	   			
+	   		</div>
+	   		
+	   		<p/>
+
+			<div jsf:id="addForumDiv" class="toggleDiv w3-animate-top" style="display:none;">
+				
+				<h4><i class="pi pi-plus"/> Add Forum for <b>"#{empty forumManagement.selectedForumGroup ? 'Home' : forumManagement.selectedForumGroup.title}"</b></h4>
+				
+				<div class="w3-panel w3-border w3-round w3-display-container" jsf:rendered="#{not empty forumManagement.newForum}">
+
+					<span onclick="$('#addForumDiv').hide();" class="w3-button w3-display-topright">X</span>
+					
+					<h:form>
+						<div class="w3-row-padding"> <!-- responsive -->
+						
+							<div class="w3-row w3-section"><p/></div> <!-- vertical spacer -->
+						
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="#{msg['forumManagement.createForum.form.title']}:" for="title"/>
+							</div>
+						
+							<div class="w3-col m8 l9">
+				  				<p:inputText id="title" value="#{forumManagement.newForum.title}" validatorMessage="Forum title is required"
+				  					styleClass="w3-input">
+				  					<f:validateLength  minimum="1" maximum="100"/>
+				  				</p:inputText>
+				  			</div>
+
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="Forum Description:" for="description"/>
+							</div>
+						
+							<div class="w3-col m8 l9">
+				  				<p:inputText id="description" value="#{forumManagement.newForum.description}" validatorMessage="Forum description is required"
+				  					styleClass="w3-input">
+				  					<f:validateLength  minimum="1" maximum="255"/>
+				  				</p:inputText>
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">		
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.icon']}:" for="icon"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:selectOneMenu id="icon" value="#{forumManagement.newForum.icon}" panelStyle="width:250px" style="width:270px;"
+				  					effect="fade" filter="true" filterMatchMode="startsWith" filterPlaceholder="search" var="f">
+				  					<f:selectItems value="#{primeIcons.list}" var="font" itemLabel="#{font}" itemValue="pi pi-#{font}"/>
+				  					
+					  				<p:column style="width:10%">
+					  					<i class="#{f} fa-2x"/>
+					  				</p:column>
+					  				
+					  				<p:column>
+					  					<h:outputText value="#{f}"/>
+					  				</p:column>
+				  					
+				  				</p:selectOneMenu>
+		  				
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">	
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.iconColor']}:" for="color"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:colorPicker id="color" value="#{forumManagement.newForum.iconColor}"/>
+			  				</div>
+
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+
+							<div class="w3-col m4 l3">	
+				  				<h:outputLabel value="#{msg['forumManagement.createForum.form.active']}:" for="active"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<h:selectBooleanCheckbox id="active" value="#{forumManagement.newForum.active}" styleClass="w3-check"/>
+			  				</div>
+			  				
+			  				<div class="w3-row w3-section"/> <!-- vertical spacer -->
+			  			
+			  				<div class="w3-row">
+				  				<p:commandButton id="addForum" ajax="true" action="#{forumManagement.createForum}"
+					            	value="#{msg['userAction.save']}" update=":messages :forumMapForm:forumMapTree"
+					            	oncomplete="$('.toggleDiv').hide();" icon="pi pi-save"/>
+					            <p:commandButton type="button" onclick="$('.toggleDiv').hide();" 
+					            	value="#{msg['userAction.cancel']}" icon="pi pi-times" style="margin-left:5px;"/>
+			  				</div>
+			  				
+			  				<div class="w3-row w3-section"/> <!-- vertical spacer -->
+						
+						</div>
+					
+					</h:form>
+
+	   			</div>
+	   			
+	   		</div>
+	   		
+	   		<p/>
+	   		
+			<div jsf:id="editForumGroupDiv" class="toggleDiv w3-animate-top" style="display:none;">
+				
+				<h4><i class="pi pi-pencil"/> Edit Forum Group</h4>
+				
+				<div class="w3-panel w3-border w3-round w3-display-container" jsf:rendered="#{not empty forumManagement.selectedForumGroup}">
+				
+					<span onclick="$('#editForumGroupDiv').hide();" class="w3-button w3-display-topright">X</span>
+				
+					<h:form>
+						<div class="w3-row-padding"> <!-- responsive -->
+						
+							<div class="w3-row w3-section"><p/></div> <!-- vertical spacer -->
+						
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.title']}:" for="title"/>
+							</div>
+							<div class="w3-col m8 l9">
+				  				<p:inputText id="title" value="#{forumManagement.selectedForumGroup.title}" validatorMessage="Forum Group title is required"
+				  					styleClass="w3-input">
+				  					<f:validateLength  minimum="1" maximum="100"/>
+				  				</p:inputText>
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">		
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.icon']}:" for="icon"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:selectOneMenu id="icon" value="#{forumManagement.selectedForumGroup.icon}" panelStyle="width:250px" style="width:270px;"
+				  					effect="fade" filter="true" filterMatchMode="startsWith" filterPlaceholder="search" var="f">
+				  					<f:selectItems value="#{primeIcons.list}" var="font" itemLabel="#{font}" itemValue="pi pi-#{font}"/>
+				  					
+					  				<p:column style="width:10%">
+					  					<i class="#{f} fa-2x"/>
+					  				</p:column>
+					  				
+					  				<p:column>
+					  					<h:outputText value="#{f}"/>
+					  				</p:column>
+				  					
+				  				</p:selectOneMenu>
+		  				
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">	
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.iconColor']}:" for="color"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:colorPicker id="color" value="#{forumManagement.selectedForumGroup.iconColor}"/>
+			  				</div>
+			  			
+			  				<div class="w3-row w3-section"/> <!-- vertical spacer -->
+			  			
+			  				<div class="w3-row">
+				  				<p:commandButton id="editForumGroup" ajax="true" action="#{forumManagement.editForumGroup}"
+					            	value="#{msg['userAction.save']}" update=":messages :forumMapForm:forumMapTree"
+					            	oncomplete="$('.toggleDiv').hide();" icon="pi pi-save"/>
+					            <p:commandButton type="button" onclick="$('.toggleDiv').hide();" 
+					            	value="#{msg['userAction.cancel']}" icon="pi pi-times" style="margin-left:5px;"/>
+
+								<p:commandButton value="Delete" icon="pi pi-trash" title="Delete this Forum Group" style="margin-left:5px;"
+									action="#{forumManagement.deleteForumGroup}" update=":messages :forumMapForm:forumMapTree"
+		        					oncomplete="$('.toggleDiv').hide();">
+				        			
+				        			<p:confirm header="Confirm Delete" message="Delete Forum Group '#{forumManagement.selectedForumGroup.title}' and associated sub Forum Groups?" icon="pi pi-exclamation-triangle"/>
+				        			
+				        		</p:commandButton>
+
+			  				</div>	
+			  				
+		  				</div>
+	  				</h:form>
+	  				
+	  				<p/>
+	  				
+				</div>
+				
+			</div>
+		
+			<div jsf:id="addForumGroupDiv" class="toggleDiv w3-animate-top" style="display:none;">
+			
+				<h4><i class="pi pi-plus"/> Add Forum Group for <b>"#{empty forumManagement.selectedForumGroup ? 'Home' : forumManagement.selectedForumGroup.title}"</b></h4>
+			
+				<div class="w3-panel w3-border w3-round w3-display-container" jsf:rendered="#{not empty forumManagement.newForumGroup}">
+			
+					<span onclick="$('#addForumGroupDiv').hide();" class="w3-button w3-display-topright">X</span>
+				
+					<h:form>
+						<div class="w3-row-padding"> <!-- responsive -->
+							
+							<div class="w3-row w3-section"><p/></div> <!-- vertical spacer -->
+						
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.title']}:" for="title"/>
+							</div>
+							
+							<div class="w3-col m8 l9">
+				  				<p:inputText id="title" value="#{forumManagement.newForumGroup.title}" validatorMessage="Forum Group Title is required" styleClass="w3-input">
+				  					<f:validateLength  minimum="1" maximum="100"/>
+				  				</p:inputText>
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">		
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.icon']}:" for="icon"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:selectOneMenu id="icon" value="#{forumManagement.newForumGroup.icon}" panelStyle="width:250px" style="width:270px;"
+				  					effect="fade" filter="true" filterMatchMode="startsWith" filterPlaceholder="search" var="f">
+				  					<f:selectItems value="#{primeIcons.list}" var="font" itemLabel="#{font}" itemValue="pi pi-#{font}"/>
+				  					
+					  				<p:column style="width:10%">
+					  					<i class="#{f} fa-2x"/>
+					  				</p:column>
+					  				
+					  				<p:column>
+					  					<h:outputText value="#{f}"/>
+					  				</p:column>
+				  					
+				  				</p:selectOneMenu>
+		  				
+				  			</div>
+				  			
+				  			<div class="w3-row w3-section"/> <!-- vertical spacer -->
+				  			
+				  			<div class="w3-col m4 l3">	
+				  				<h:outputLabel value="#{msg['forumManagement.createForumGroup.form.iconColor']}:" for="color"/>
+				  			</div>
+				  			<div class="w3-col m8 l9">
+				  				<p:colorPicker id="color" value="#{forumManagement.newForumGroup.iconColor}" widgetVar="colorPickerButton"/>
+			  				</div>
+			  				
+			  				<div class="w3-row w3-section"/> <!-- vertical spacer -->
+			  				
+			  				<div class="w3-row">
+	
+				  				<p:commandButton id="createForumGroup" ajax="true" action="#{forumManagement.createForumGroup}"
+					            	value="#{msg['save']}" update=":messages :forumMapForm:forumMapTree"
+					            	oncomplete="$('.toggleDiv').hide();" icon="pi pi-plus"/>
+					            	
+					            <p:commandButton type="button" onclick="$('.toggleDiv').hide();" value="Cancel"
+	            					icon="pi pi-times" style="margin-left:5px;"/>
+		            			
+			  				</div>
+			  				
+			  				<div class="w3-row w3-section"/> <!-- vertical spacer -->
+			  				
+		  				</div>
+	  				</h:form>
+  				
+  				</div>
+			</div>
+
+			<p/>
+
+	   		<div jsf:id="forumMapDiv" class="w3-border w3-round">
+				
+				<header class="w3-container w3-theme-d2 w3-center w3-xlarge">
+					<h4><b><i class="pi pi-sitemap w3-large"/> #{msg['forum.map']}</b></h4>
+				</header>
+				
+				<div style="resize: vertical; overflow: auto;">
+				
+					<h:form id="forumMapForm">
+						<p:tree id="forumMapTree" value="#{forumMap.managementRootTreeNode}" var="data" 
+							style="margin: 0 auto;width:100%;border:0;scroll:auto;height:650px;">
+							
+							<p:treeNode type="Root">
+																	        	
+					        	<span class="w3-large w3-opacity-min">
+					        		<i class="pi pi-sitemap w3-xlarge"/> #{msg['home']}
+					        		
+					        		<p:commandLink action="#{forumManagement.populateOrderLists}" update=":orderContent" 
+					        			oncomplete="$('#orderModal').show();customizePrimefaceButtons();">
+					        			[#{msg['reorder.children']} <i class="pi pi-sort"/>]
+					        			<f:setPropertyActionListener value="#{null}" target="#{forumManagement.selectedOrderForumGroup}"/>
+					        		</p:commandLink>
+					        	</span>
+					        	
+					        </p:treeNode>
+							
+							<p:treeNode type="Forum">
+								<p:commandLink update=":editForumDiv" oncomplete="toggleDiv('editForumDiv');customizePrimefaceButtons()">
+									
+									<span class="w3-tag" style="line-height:30px;width:30px;height:30px;border-radius:2px;color:#fff;background-color:##{data.iconColor};">
+					        			<i class="#{data.icon}"/>
+					        		</span>
+					        		
+					        		<b>#{data.title}</b>					        		
+					        		
+					        		<f:setPropertyActionListener value="#{data}" target="#{forumManagement.selectedForum}"/>
+				        		</p:commandLink>
+				        		
+				        	</p:treeNode>
+				        	
+				        	<p:treeNode type="AddForum">
+				        		<p:commandLink update=":addForumDiv" action="#{forumManagement.createEmptyForum}"
+				        			oncomplete="toggleDiv('addForumDiv');customizePrimefaceButtons()">
+						        	<span class="w3-text-orange">
+						        		<i class="pi pi-plus w3-large"/> Add Forum
+						        	</span>
+						        	
+						        	<f:setPropertyActionListener value="#{data}" target="#{forumManagement.selectedForumGroup}"/>
+						        	
+					        	</p:commandLink>
+							</p:treeNode>
+				        	
+				        	<p:treeNode type="ForumGroup">
+				        		<p:commandLink update=":editForumGroupDiv" oncomplete="toggleDiv('editForumGroupDiv');customizePrimefaceButtons()">				        	
+						        	<span class="w3-large w3-opacity-min">
+						        		<i class="pi pi-sitemap w3-xlarge"/> #{data.title}
+						        	</span>
+						        	<f:setPropertyActionListener value="#{data}" target="#{forumManagement.selectedForumGroup}"/>
+					        	</p:commandLink>
+					        	
+								<p:commandLink action="#{forumManagement.populateOrderLists}" update=":orderContent" 
+				        			oncomplete="$('#orderModal').show();customizePrimefaceButtons();">
+				        			[#{msg['reorder.children']} <i class="pi pi-sort"/>]
+				        			<f:setPropertyActionListener value="#{data}" target="#{forumManagement.selectedOrderForumGroup}"/>
+				        		</p:commandLink>			        	
+					        	
+					        </p:treeNode>
+					        
+					        <p:treeNode type="AddForumGroup">
+					        	<p:commandLink update=":addForumGroupDiv" action="#{forumManagement.createEmptyForumGroup}" 
+					        		oncomplete="toggleDiv('addForumGroupDiv');customizePrimefaceButtons()">
+						        	<span class="w3-text-orange">
+						        		<i class="pi pi-plus w3-large"/> Add Forum Group
+						        	</span>
+						        	<f:setPropertyActionListener value="#{data}" target="#{forumManagement.selectedForumGroup}"/>
+					        	</p:commandLink>
+					        </p:treeNode>
+					        
+						</p:tree>
+					</h:form>
+				</div>
+	   			
+	   		</div>
+		
+		</div>
+
+   		<div id="orderModal" class="w3-modal">
+   		
+   			<div class="w3-modal-content w3-animate-zoom" jsf:id="orderContent">
+   				<span onclick="$('#orderModal').hide();" class="w3-button w3-xlarge w3-transparent w3-text-white w3-display-topright" title="Close">&#215;</span>
+	
+				<header class="w3-container w3-padding w3-theme-dark w3-center">
+					<span class="w3-xlarge"><i class="pi pi-sitemap"/> Order Forum Group '#{forumManagement.selectedOrderForumGroup.title}' Children</span>
+				</header>
+				
+				<p/>
+				
+				<p:messages id="orderMessages" for="orderActionMessage" showDetail="true" closable="true"/>
+				
+				<div class="w3-container" jsf:rendered="#{not empty forumManagement.orderForumList}">
+				
+					<h4>Order Forums</h4>
+				
+					<h:form>
+						<p:orderList value="#{forumManagement.orderForumList}" var="forum" itemValue="#{forum}" converter="#{forumManagement.forumConverter}" 
+							controlsLocation="right" responsive="true" >
+							
+							<p:column style="width:60px;text-align:center;">
+								<i class="#{forum.icon} w3-xlarge" style="color:##{forum.iconColor}"/>
+							</p:column>
+						
+							<p:column>
+								<h5>#{forum.title}</h5>
+							</p:column>
+							
+						</p:orderList>
+						
+						<p/>
+						
+						<p:commandButton ajax="true" value="#{msg['save']}" icon="pi pi-check" action="#{forumManagement.forumOrderSubmit}" 
+							update=":forumMapForm:forumMapTree :orderMessages"/>
+						
+					</h:form>
+					
+					<p/>
+				
+				</div>				
+
+				<p/>
+
+				<div class="w3-container" jsf:rendered="#{not empty forumManagement.orderForumGroupList}">
+				
+					<h4>Order Forum Groups</h4>
+				
+					<h:form>
+						<p:orderList value="#{forumManagement.orderForumGroupList}" var="forumGroup" itemValue="#{forumGroup}" converter="#{forumManagement.forumGroupConverter}" 
+							controlsLocation="right" responsive="true" >
+							
+							<p:column style="width:60px;text-align:center;">
+								<i class="#{forumGroup.icon} w3-xlarge" style="color:##{forumGroup.iconColor}"/>
+							</p:column>
+						
+							<p:column>
+								<h5>#{forumGroup.title}</h5>
+							</p:column>
+							
+						</p:orderList>
+						
+						<p/>
+						
+						<p:commandButton ajax="true" value="#{msg['save']}" icon="pi pi-check" action="#{forumManagement.forumGroupOrderSubmit}" 
+							update=":forumMapForm:forumMapTree :orderMessages"/>
+						
+					</h:form>
+					
+					<p/>
+				
+				</div>				
+			</div>
+			
+		</div>
+				
+		<!-- global confirm dialog -->
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true">
+       		<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+       		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+   		</p:confirmDialog>
+		
+	</ui:define>
+    
+</ui:composition>

@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    template="/WEB-INF/template/layout_admin.xhtml">
+
+	<ui:define name="title">
+		#{msg['application.title']} - Chat Room Management
+	</ui:define>
+	
+	<ui:define name="content">
+	
+		<style type="text/css">	
+			
+			.ui-orderlist .ui-orderlist-list {
+			    height: 400px !important;
+			}
+						 
+		</style>
+
+		<script type="text/javascript">
+ 			//<![CDATA[
+				$(document).ready(function(){
+					
+					customizePrimefaceButtons();
+				});
+				
+				function customizePrimefaceButtons() {
+					// primefaces buttons, exclude color picker button
+ 					$('.ui-button.ui-widget').not('.ui-colorpicker > .ui-button.ui-widget').addClass("w3-btn w3-theme-dark w3-border-0");
+					// primefaces color buttons
+ 					$('.ui-colorpicker > .ui-button.ui-widget').addClass('w3-btn w3-white w3-large');
+ 				}
+				
+				function toggleDiv(divIdToShow) {
+					$('.toggleDiv').hide();
+					$('#' + divIdToShow).show();
+				}				
+			//]]>	
+		</script>
+		
+		<div class="w3-panel w3-card-4 w3-margin-top w3-padding w3-white" jsf:id="mainContentDiv">
+			
+			<div class="w3-panel w3-round w3-theme-dark w3-center w3-round">
+ 				<h3><b>#{msg['manage.chat.rooms']}</b></h3>
+ 			</div>
+ 			
+ 			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate/>
+			</p:messages>
+			
+			<div jsf:id="newChatRoomDiv" class="toggleDiv w3-animate-bottom" style="display: none;border-bottom: 2px solid gray;">
+			
+				<h3><i class="pi pi-plus"/> #{msg['add.a.new.chat.room']}</h3>
+				
+				<div class="w3-panel w3-border w3-round w3-display-container">
+					<span onclick="$('#newChatRoomDiv').hide();" class="w3-button w3-display-topright">X</span>
+					
+					<h:form>
+					
+						<div class="w3-row-padding"> <!-- responsive -->
+						
+							<div class="w3-row w3-section"><p/></div> <!-- vertical spacer -->
+					
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="Label:" for="label"/>
+							</div>
+							
+							<div class="w3-col m8 l9">
+								<p:inputText id="label" value="#{chatManagement.newChatRoom.label}" styleClass="w3-input" maxlength="30"/>
+							</div>
+								
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+							
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="Icon:" for="icon"/>
+							</div>
+							
+							<div class="w3-col m8 l9">
+								<p:selectOneMenu id="icon" value="#{chatManagement.newChatRoom.icon}" panelStyle="width:250px" style="width:270px;"
+				  					effect="fade" filter="true" filterMatchMode="startsWith" filterPlaceholder="search" var="f">
+				  					<f:selectItems value="#{primeIcons.list}" var="font" itemLabel="#{font}" itemValue="pi pi-#{font}"/>
+				  					
+					  				<p:column style="width:10%">
+					  					<i class="#{f} w3-large"/>
+					  				</p:column>
+					  				
+					  				<p:column>
+					  					<h:outputText value="#{f}"/>
+					  				</p:column>
+				  					
+				  				</p:selectOneMenu>
+							</div>
+							
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+							
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="Color:" for="color"/>
+							</div>
+							
+							<div class="w3-col m8 l9">
+								<p:colorPicker id="color" value="#{chatManagement.newChatRoom.color}"/>
+							</div>
+							
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+							
+							<div class="w3-col m4 l3">
+								<h:outputLabel value="Disabled:" for="disabled"/>
+							</div>
+							
+							<div class="w3-col m8 l9">
+								<h:selectBooleanCheckbox id="disabled" value="#{chatManagement.newChatRoom.disabled}" styleClass="w3-check"/>
+							</div>
+							
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+							
+							<div class="w3-row">
+								<p:commandButton value="#{msg['save']}" ajax="true" action="#{chatManagement.createChatRoom}" update=":listChatRoomsDiv :chatRoomOrderContent" 
+									icon="pi pi-plus" oncomplete="$('#newChatRoomDiv').hide();customizePrimefaceButtons();"/>
+								<p:commandButton type="button" value="Cancel" icon="pi pi-times" style="margin-left:5px;" onclick="$('#newChatRoomDiv').hide()"/>
+							</div>
+							
+							<div class="w3-row w3-section"/> <!-- vertical spacer -->
+							
+						</div>
+						
+					</h:form>
+				</div>
+			</div> <!-- end newChatRoomDiv -->
+
+			<div jsf:id="editChatRoomDiv" class="toggleDiv w3-animate-bottom" style="display: none;border-bottom: 2px solid gray;">
+				<div jsf:rendered="#{not empty chatManagement.selectedChatRoom}">
+				
+					<h3><i class="pi pi-pencil"/> Edit Chat Room '#{chatManagement.selectedChatRoom.label}'</h3>
+					<div class="w3-panel w3-border w3-round w3-display-container">
+						<span onclick="$('#editChatRoomDiv').hide();" class="w3-button w3-display-topright">X</span>
+						
+						<h:form>
+						
+							<div class="w3-row-padding"> <!-- responsive -->
+							
+								<div class="w3-row w3-section"><p/></div> <!-- vertical spacer -->
+						
+								<div class="w3-col m4 l3">
+									<h:outputLabel value="Label:" for="label"/>
+								</div>
+								
+								<div class="w3-col m8 l9">
+									<p:inputText id="label" value="#{chatManagement.selectedChatRoom.label}" styleClass="w3-input" maxlength="30"/>
+								</div>
+									
+								<div class="w3-row w3-section"/> <!-- vertical spacer -->
+								
+								<div class="w3-col m4 l3">
+									<h:outputLabel value="Icon:" for="icon"/>
+								</div>
+								
+								<div class="w3-col m8 l9">
+									<p:selectOneMenu id="icon" value="#{chatManagement.selectedChatRoom.icon}" panelStyle="width:250px" style="width:270px;"
+					  					effect="fade" filter="true" filterMatchMode="startsWith" filterPlaceholder="search" var="f">
+					  					<f:selectItems value="#{primeIcons.list}" var="font" itemLabel="#{font}" itemValue="pi pi-#{font}"/>
+					  					
+						  				<p:column style="width:10%">
+						  					<i class="#{f} w3-large"/>
+						  				</p:column>
+						  				
+						  				<p:column>
+						  					<h:outputText value="#{f}"/>
+						  				</p:column>
+					  					
+					  				</p:selectOneMenu>
+								</div>
+								
+								<div class="w3-row w3-section"/> <!-- vertical spacer -->
+								
+								<div class="w3-col m4 l3">
+									<h:outputLabel value="Color:" for="color"/>
+								</div>
+								
+								<div class="w3-col m8 l9">
+									<p:colorPicker id="color" value="#{chatManagement.selectedChatRoom.color}"/>
+								</div>
+								
+								<div class="w3-row w3-section"/> <!-- vertical spacer -->
+								
+								<div class="w3-col m4 l3">
+									<h:outputLabel value="Disabled:" for="disabled"/>
+								</div>
+								
+								<div class="w3-col m8 l9">
+									<h:selectBooleanCheckbox id="disabled" value="#{chatManagement.selectedChatRoom.disabled}" styleClass="w3-check"/>
+								</div>
+								
+								<div class="w3-row w3-section"/> <!-- vertical spacer -->
+								
+								<div class="w3-row">
+									<p:commandButton value="Submit" ajax="true" action="#{chatManagement.editChatRoom}" update=":listChatRoomsDiv :chatRoomOrderContent" 
+										icon="pi pi-check" oncomplete="$('#editChatRoomDiv').hide();customizePrimefaceButtons();"/>
+									<p:commandButton type="button" value="Cancel" icon="pi pi-times" style="margin-left:5px;" onclick="$('#editChatRoomDiv').hide()"/>
+								</div>
+								
+								<div class="w3-row w3-section"/> <!-- vertical spacer -->
+								
+							</div>
+							
+						</h:form>						
+
+					</div>
+				</div>
+			</div> <!-- end editChatRoomDiv -->
+			
+			<div class="w3-panel w3-round w3-theme-light w3-center">
+			
+				<h3>#{msg['chat.room.list']}</h3>
+				
+				<button onclick="toggleDiv('newChatRoomDiv');return;" class="w3-button w3-left-align w3-border">
+					<i class="pi pi-plus"/> #{msg['add.a.new.chat.room']}
+				</button>
+				<button onclick="$('#chatRoomOrderModal').show();return;" class="w3-button w3-left-align w3-border" style="margin-left:5px;">
+					<i class="pi pi-sort"/> #{msg['order.chat.rooms']}
+				</button>
+				<p/>
+			</div>	
+			
+			<div jsf:id="listChatRoomsDiv" class="w3-row">			
+			
+				<p:repeat var="chatRoom" value="#{chatManagement.chatRooms}">
+				
+					<div class="w3-col l3 m6 s12" style="padding: 8px;position:relative">
+					    <div class="w3-display-container w3-padding-16 w3-hover-grey" style="color:white;background-color: ##{chatRoom.color}">
+							<span jsf:rendered="#{chatRoom.disabled}" class="w3-display-topright w3-margin" style="color:red;">
+					        	<i class="pi pi-ban w3-xlarge" title="Disabled"/>
+					        </span>
+					        <div class="w3-center">
+					        	<i class="#{chatRoom.icon} w3-xxxlarge"></i>
+					        	<p/>
+					        	<h4>#{chatRoom.label}</h4>
+					        </div>
+					        
+					        <!-- use w3-display-hover to only show these when the mouse is hovered over -->
+					        <div class="w3-display-bottommiddle w3-display-hover">
+					        	
+					        	<p:commandLink ajax="true" update=":editChatRoomDiv"
+					        		 oncomplete="toggleDiv('editChatRoomDiv');document.getElementById('editChatRoomDiv').scrollIntoView();customizePrimefaceButtons();" 
+					        		title="Edit this chat room">
+					        		<i class="pi pi-pencil w3-xlarge w3-text-black"/>
+					        		<f:setPropertyActionListener value="#{chatRoom}" target="#{chatManagement.selectedChatRoom}"/>
+					        	</p:commandLink>
+					        	<p:commandLink action="#{chatManagement.deleteChatRoom}" update=":listChatRoomsDiv"  oncomplete="window.scrollTo(0,0);" 
+					        		title="Delete this Chat Room" style="margin-left:5px;">
+					        		<i class="pi pi-trash w3-xlarge w3-text-black"/>
+					        		<p:confirm header="Confirm Delete" message="Delete Chat Room?" icon="pi pi-exclamation-triangle"/>
+					        		<f:setPropertyActionListener value="#{chatRoom}" target="#{chatManagement.selectedChatRoom}"/>
+					        	</p:commandLink>
+					        </div>
+					    </div>				
+					</div>
+				
+				</p:repeat>
+				
+				<h4 jsf:rendered="#{empty chatManagement.chatRooms}"><b>No Chat Room</b></h4>
+				
+			</div>		
+
+
+    		<div id="chatRoomOrderModal" class="w3-modal">
+    		
+    			<div class="w3-modal-content w3-animate-zoom" jsf:id="chatRoomOrderContent">
+    				<span onclick="$('#chatRoomOrderModal').hide();" class="w3-button w3-xlarge w3-transparent w3-text-white w3-display-topright" title="Close">&#215;</span>
+		
+					<header class="w3-container w3-padding w3-theme-dark w3-center">
+						<span class="w3-xlarge"><i class="pi pi-sort w3-xlarge"/> Order Chat Room</span>
+					</header>
+					
+					<p/>
+					
+					<div class="w3-container">
+					
+						<h:form>
+							<p:orderList value="#{chatManagement.chatRooms}" var="chatRoom" itemValue="#{chatRoom}" converter="#{chatManagement.chatRoomConverter}" 
+								controlsLocation="right" responsive="true" >
+								
+								<p:column style="width:60px;text-align:center;">
+									<i class="#{chatRoom.icon} w3-xlarge" style="color:##{chatRoom.color}"/>
+								</p:column>
+							
+								<p:column>
+									<h5>#{chatRoom.label}</h5>
+								</p:column>
+								
+							</p:orderList>
+							
+							<p/>
+							
+							<p:commandButton ajax="true" value="#{msg['save']}" icon="pi pi-check" action="#{chatManagement.chatRoomOrderSubmit}" 
+								update=":listChatRoomsDiv" oncomplete="$('#chatRoomOrderModal').hide();" />
+							
+						</h:form>
+						
+						<p/>
+					
+					</div>				
+					
+				</div>
+				
+			</div>
+			
+			<!-- global confirm dialog -->
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true">
+        		<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+        		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+    		</p:confirmDialog>
+			
+		</div>
+	</ui:define>
+	
+</ui:composition>

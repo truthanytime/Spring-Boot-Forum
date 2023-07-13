@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    template="/WEB-INF/template/layout_public.xhtml">
+
+	<!-- set request parameter values from URL to backing bean -->
+	<f:metadata>
+		<f:viewParam name="sort" value="#{listDiscussions.sort}"/>
+		<f:viewParam name="order" value="#{listDiscussions.order}"/>
+		<f:viewParam name="pageSize" value="#{listDiscussions.pageSize}"/>
+		<f:viewAction action="#{listDiscussions.onLoad}"/>
+	</f:metadata>
+	
+	<ui:define name="title">
+		#{msg['list.discussions']}
+	</ui:define>
+	
+	<ui:define name="content">
+		
+		<style type="text/css">
+			body .ui-datascroller .ui-datascroller-content {
+				 border-style: none;
+			}			
+		</style>
+		
+		<script type="text/javascript">
+ 			//<![CDATA[
+ 				
+			//]]>	
+		</script>
+	
+		<div class="w3-panel w3-card-4 w3-white" jsf:id="mainContentDiv">		
+						
+			<div>
+				<p:messages id="messages" showDetail="true" showSummary="false">
+					<p:autoUpdate/>
+				</p:messages>
+			</div>
+			
+			<div jsf:id="listDiscussionsDiv">
+			
+				<div class="w3-hide-small w3-margin-top">
+					<p:breadCrumb>
+						<p:menuitem value="Home" url="#{request.contextPath}/" />
+   						<p:menuitem value="#{msg['list.discussions']}" url="#{request.requestURI}?#{request.queryString}" />
+					</p:breadCrumb>
+				</div>
+
+				<div class="w3-padding-16 w3-theme-dark w3-opacity-min w3-center" style="margin: 16px -16px;">
+ 					<h3>#{msg['list.discussions']}</h3>
+ 				</div>
+ 				
+  				<div class="w3-row">
+				
+					<div class="w3-col l9 m12 s12 w3-container">					
+ 				
+				
+						<div jsf:id="paginationDiv">
+							<b>#{msg['sort.by']}:</b>
+							
+							<p:commandLink ajax="true" action="#{listDiscussions.onLoad}" update=":form :paginationDiv" disabled="#{empty listDiscussions.sort or listDiscussions.sort eq 'createDate'}">
+								<span class="w3-tag w3-round w3-large #{empty listDiscussions.sort or listDiscussions.sort eq 'createDate' ? 'w3-white w3-border' : 'w3-theme-d1'}">#{msg['date.started']} <i class="pi pi-clock"/></span>
+								<f:setPropertyActionListener value="createDate" target="#{listDiscussions.sort}"/>
+							</p:commandLink>
+							
+							<p:commandLink ajax="true" action="#{listDiscussions.onLoad}" update=":form :paginationDiv" disabled="#{listDiscussions.sort eq 'stat.commentCount'}">
+								<span class="w3-tag w3-round w3-large #{listDiscussions.sort eq 'stat.commentCount' ? 'w3-white w3-border' : 'w3-theme-d1'}">#{msg['comment.count']} <i class="pi pi-comment"/></span>
+								<f:setPropertyActionListener value="stat.commentCount" target="#{listDiscussions.sort}"/>
+							</p:commandLink>
+							
+							<p:commandLink ajax="true" action="#{listDiscussions.onLoad}" update=":form :paginationDiv" disabled="#{listDiscussions.sort eq 'stat.viewCount'}">
+								<span class="w3-tag w3-round w3-large #{listDiscussions.sort eq 'stat.viewCount' ? 'w3-white w3-border' : 'w3-theme-d1'}">#{msg['view.count']} <i class="pi pi-eye"/></span>
+								<f:setPropertyActionListener value="stat.viewCount" target="#{listDiscussions.sort}"/>
+							</p:commandLink>
+							
+							&#160;&#160; <!-- add some white spaces for separation -->
+							
+							<b>#{msg['sort.order']}:</b>
+		
+							<p:commandLink ajax="true" action="#{listDiscussions.onLoad}" update=":form :paginationDiv" disabled="#{listDiscussions.order eq 'asc'}">
+								<span class="w3-tag w3-round w3-large #{listDiscussions.order eq 'asc' ? 'w3-white w3-border' : 'w3-theme-d3'}"><i class="pi pi-arrow-up"/></span>
+								<f:setPropertyActionListener value="asc" target="#{listDiscussions.order}"/>
+							</p:commandLink>
+		
+							<p:commandLink ajax="true" action="#{listDiscussions.onLoad}" update=":form :paginationDiv" disabled="#{empty listDiscussions.order or listDiscussions.order eq 'desc'}">
+								<span class="w3-tag w3-round w3-large #{empty listDiscussions.order or listDiscussions.order eq 'desc' ? 'w3-white w3-border' : 'w3-theme-d3'}"><i class="pi pi-arrow-down"/></span>
+								<f:setPropertyActionListener value="desc" target="#{listDiscussions.order}"/>
+							</p:commandLink>
+							
+							&#160;&#160; <!-- add some white spaces for separation -->
+							
+							<b>#{msg['page.size']}:</b>
+							
+							<ui:repeat var="pageSize" value="#{[10, 20, 50]}">
+								<p:commandLink ajax="true" action="#{listDiscussions.onLoad}" update=":form :paginationDiv" disabled="#{listDiscussions.pageSize eq pageSize}">
+									<span class="w3-tag w3-round w3-large #{listDiscussions.pageSize eq pageSize ? 'w3-white w3-border' : 'w3-theme-d5'}">#{pageSize}</span>
+									<f:setPropertyActionListener value="#{pageSize}" target="#{listDiscussions.pageSize}"/>
+								</p:commandLink>
+							</ui:repeat>
+							
+						</div>
+						
+						<p/>
+						
+						<div class="w3-card">
+						
+							<h:form id="form">
+							
+								<p:dataScroller value="#{listDiscussions.discussionsLazyModel}" var="discussion" lazy="true" 
+									rowIndexVar="rowIndex" chunkSize="#{listDiscussions.pageSize}"> 
+															
+									<f:facet name="loader">
+										<div class="w3-center">
+											<p:commandButton type="button" value="#{msg['view.more']}" icon="pi pi-angle-down"/>
+										</div>
+									</f:facet>
+									
+									<p>
+										<h:link outcome="discussion">
+											#{discussion.title}
+											<f:param name="id" value="#{discussion.id}"/>
+										</h:link>
+										(<b>#{discussion.stat.commentCount}</b> #{msg['comments']}, <b>#{discussion.stat.viewCount}</b> #{msg['views']})
+										#{msg['created.by']}
+										<h:link outcome="memberProfile"> 
+											<b>#{discussion.createBy}</b>
+											<f:param name="username" value="#{discussion.createBy}"/>
+										</h:link>
+										- <pe:timeAgo value="#{discussion.createDate}"/>
+										<p:repeat var="tag" value="#{discussion.tags}">
+											<h:link outcome="tag">
+												<span class="w3-tag" style="color:##{tag.color};background-color:#fff;border: 1px solid grey;border-radius: 3px;"><i class="pi pi-tag"/> #{tag.label}</span>
+												<f:param name="id" value="#{tag.id}"/>
+											</h:link>
+										</p:repeat>
+										[#{msg['forum']} 
+										<h:outputLink value="viewForum.xhtml">
+											<b>#{discussion.forum.title}</b>
+											<f:param name="id" value="#{discussion.forum.id}"/>
+										</h:outputLink>]
+									</p>
+								</p:dataScroller>
+			
+						    </h:form>
+					    
+					    </div>
+					    
+					    <p/>
+			    	</div>
+			    
+				    <div class="w3-col l3 m12 s12 w3-container" id="infoDiv" style="position: -webkit-sticky; /* Safari */; position: sticky; top: 70px;">					
+						
+						<div class="w3-card w3-cursive" style="margin: 45px 0 16px 0;">
+							<header class="w3-container w3-center">
+							  <h4>#{msg['forum.info']}</h4>
+							</header>
+							
+							<div class="w3-container w3-small">
+							
+								<p>
+									#{msg['forums']}: <b>#{systemInfo.statistics.forumCount}</b>
+								</p>
+								
+								<p>
+									#{msg['discussions']}: <b>#{systemInfo.statistics.discussionCount}</b>
+								</p>
+								
+								<p>
+									#{msg['discussion.tags']}: <b>#{systemInfo.statistics.tagCount}</b>
+								</p>
+							
+								<p>
+									#{msg['comments']}: <b>#{systemInfo.statistics.commentCount}</b>
+								</p>							
+							
+								<p>
+									#{msg['latest.comments']}:
+									<h:link outcome="commentThread"> 
+										<b>#{systemInfo.statistics.lastComment.commentor}</b>
+										<f:param name="id" value="#{systemInfo.statistics.lastComment.commentId}"/>
+									</h:link>
+									- <pe:timeAgo value="#{systemInfo.statistics.lastComment.commentDate}" styleClass="w3-small"/>
+								</p>
+								
+								<p>
+									#{msg['members']}: <b>#{systemInfo.statistics.userCount}</b>
+								</p>
+							
+								<p>
+									#{msg['latest.member']}:
+									<h:link outcome="memberProfile"> 
+										<b>#{systemInfo.statistics.lastRegisteredUser}</b>
+										<f:param name="username" value="#{systemInfo.statistics.lastRegisteredUser}"/>
+									</h:link> 
+									- <pe:timeAgo value="#{systemInfo.statistics.lastUserRegisteredDate}" styleClass="w3-small"/>
+								</p>
+							
+								<p>
+									#{msg['logging.on.members']}: <b>#{fn:length(systemInfo.loggedOnUsers)}</b>
+								</p>
+								
+								<p>
+									#{msg['anonymous.users']}: <b>#{systemInfo.sessionCount - fn:length(systemInfo.loggedOnUsers)}</b>
+								</p>
+								
+								<p>
+									#{msg['chat.rooms']}: <b>#{systemInfo.statistics.chatRoomCount}</b>
+								</p>
+							</div>
+	
+						</div>
+						
+					</div>
+			    
+			    </div>
+			    
+			</div>
+			
+		</div>
+	</ui:define>
+	
+</ui:composition>
