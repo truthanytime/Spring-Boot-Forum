@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.List;
 
@@ -7,13 +7,13 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.DisplayOption;
-import com.github.chipolaris.bootforum.domain.Tag;
-import com.github.chipolaris.bootforum.service.DiscussionService;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
-import com.github.chipolaris.bootforum.service.TagService;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.DisplayOption;
+import com.github.truthanytime.bootforum.domain.Tag;
+import com.github.truthanytime.bootforum.service.DiscussionService;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.service.TagService;
 
 @Component
 @Scope("view")

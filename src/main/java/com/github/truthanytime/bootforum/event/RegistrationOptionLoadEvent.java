@@ -1,8 +1,8 @@
-package com.github.chipolaris.bootforum.event;
+package com.github.truthanytime.bootforum.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.github.chipolaris.bootforum.domain.RegistrationOption;
+import com.github.truthanytime.bootforum.domain.RegistrationOption;
 
 public class RegistrationOptionLoadEvent extends ApplicationEvent {
 

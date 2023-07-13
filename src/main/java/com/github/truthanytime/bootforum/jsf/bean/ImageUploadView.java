@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.ByteArrayInputStream;
 
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
 
 /*
  * Note: the "view" scope does not work because the StreamedContent does not work in view scope

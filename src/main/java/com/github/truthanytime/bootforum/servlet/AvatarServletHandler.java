@@ -1,8 +1,8 @@
-package com.github.chipolaris.bootforum.servlet;
+package com.github.truthanytime.bootforum.servlet;
 
-import static com.github.chipolaris.bootforum.servlet.ServletUtils.buildETag;
-import static com.github.chipolaris.bootforum.servlet.ServletUtils.notModified;
-import static com.github.chipolaris.bootforum.servlet.ServletUtils.setCacheHeaders;
+import static com.github.truthanytime.bootforum.servlet.ServletUtils.buildETag;
+import static com.github.truthanytime.bootforum.servlet.ServletUtils.notModified;
+import static com.github.truthanytime.bootforum.servlet.ServletUtils.setCacheHeaders;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

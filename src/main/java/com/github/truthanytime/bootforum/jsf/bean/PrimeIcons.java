@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 import java.util.Arrays;
 import java.util.List;
 

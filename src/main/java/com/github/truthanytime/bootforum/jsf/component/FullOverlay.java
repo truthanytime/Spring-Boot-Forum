@@ -1,14 +1,14 @@
-package com.github.chipolaris.bootforum.jsf.component;
+package com.github.truthanytime.bootforum.jsf.component;
 
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIData;
 
 @FacesComponent(value = FullOverlay.COMPONENT_TYPE, tagName="fullOverlay", createTag = true,
-	namespace="http://bootforum.chipolaris.github.com/jsf/component")
+	namespace="http://bootforum.truthanytime.github.com/jsf/component")
 public class FullOverlay extends UIData {
 
-	public static final String COMPONENT_FAMILY = "com.github.chipolaris.bootforum.jsf.component.Overlay";
-	public static final String COMPONENT_TYPE = "com.github.chipolaris.bootforum.jsf.component.Overlay.FullOverlay";
+	public static final String COMPONENT_FAMILY = "com.github.truthanytime.bootforum.jsf.component.Overlay";
+	public static final String COMPONENT_TYPE = "com.github.truthanytime.bootforum.jsf.component.Overlay.FullOverlay";
 	
 	protected enum PropertyKeys {
 		widgetVarId,

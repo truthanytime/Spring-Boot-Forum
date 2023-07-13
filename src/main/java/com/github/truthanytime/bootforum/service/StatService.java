@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.Date;
 import java.util.List;
@@ -14,20 +14,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.dao.CommentDAO;
-import com.github.chipolaris.bootforum.dao.DiscussionDAO;
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.StatDAO;
-import com.github.chipolaris.bootforum.dao.VoteDAO;
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.CommentInfo;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.DiscussionStat;
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.ForumStat;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.domain.UserStat;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.dao.CommentDAO;
+import com.github.truthanytime.bootforum.dao.DiscussionDAO;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.StatDAO;
+import com.github.truthanytime.bootforum.dao.VoteDAO;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.CommentInfo;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.DiscussionStat;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.ForumStat;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.domain.UserStat;
 
 import net.htmlparser.jericho.Source;
 import net.htmlparser.jericho.TextExtractor;

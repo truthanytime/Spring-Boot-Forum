@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
 
 @Component @Scope("view")
 public class SwitchTheme {

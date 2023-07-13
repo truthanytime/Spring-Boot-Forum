@@ -1,8 +1,8 @@
-package com.github.chipolaris.bootforum.servlet;
+package com.github.truthanytime.bootforum.servlet;
 
-import static com.github.chipolaris.bootforum.servlet.ServletUtils.buildETag;
-import static com.github.chipolaris.bootforum.servlet.ServletUtils.notModified;
-import static com.github.chipolaris.bootforum.servlet.ServletUtils.setCacheHeaders;
+import static com.github.truthanytime.bootforum.servlet.ServletUtils.buildETag;
+import static com.github.truthanytime.bootforum.servlet.ServletUtils.notModified;
+import static com.github.truthanytime.bootforum.servlet.ServletUtils.setCacheHeaders;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,8 +25,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestHandler;
 
-import com.github.chipolaris.bootforum.domain.FileInfo;
-import com.github.chipolaris.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.domain.FileInfo;
+import com.github.truthanytime.bootforum.service.GenericService;
 
 
 

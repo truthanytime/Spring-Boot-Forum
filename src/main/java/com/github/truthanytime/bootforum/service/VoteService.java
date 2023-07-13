@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.Date;
 import java.util.Map;
@@ -8,10 +8,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.VoteDAO;
-import com.github.chipolaris.bootforum.domain.CommentVote;
-import com.github.chipolaris.bootforum.domain.Vote;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.VoteDAO;
+import com.github.truthanytime.bootforum.domain.CommentVote;
+import com.github.truthanytime.bootforum.domain.Vote;
 
 @Service 
 @Transactional

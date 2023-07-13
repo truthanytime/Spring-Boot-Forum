@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -24,12 +24,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.domain.FileInfo;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.FileService;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.domain.FileInfo;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.FileService;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
 
 @Component
 public class FileHandler {
@@ -41,7 +41,7 @@ public class FileHandler {
 	
 	/**
 	 * Note: CacheManager is created by Spring at runtime since we enable caching 
-	 * through @EnableCaching from class {@link com.github.chipolaris.bootforum.CachingConfig class}
+	 * through @EnableCaching from class {@link com.github.truthanytime.bootforum.CachingConfig class}
 	 */
 	@Resource 
 	private CacheManager cacheManager;

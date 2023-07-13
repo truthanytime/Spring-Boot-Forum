@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.component;
+package com.github.truthanytime.bootforum.jsf.component;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javax.faces.render.Renderer;
 public class FullOverlayRenderer extends Renderer {
 
 	private static final String WIDGET_DIV_ID = "DivId";
-	public static final String RENDERER_TYPE = "com.github.chipolaris.bootforum.jsf.component.FullOverlayRenderer";
+	public static final String RENDERER_TYPE = "com.github.truthanytime.bootforum.jsf.component.FullOverlayRenderer";
 		
 	@Override
 	public void encodeBegin(FacesContext context, UIComponent component) 

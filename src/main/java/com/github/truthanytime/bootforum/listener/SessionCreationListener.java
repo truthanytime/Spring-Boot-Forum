@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.listener;
+package com.github.truthanytime.bootforum.listener;
 
 import javax.annotation.Resource;
 
@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.core.session.SessionCreationEvent;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.service.SystemInfoService;
+import com.github.truthanytime.bootforum.service.SystemInfoService;
 
 @Component
 public class SessionCreationListener implements ApplicationListener<SessionCreationEvent> {

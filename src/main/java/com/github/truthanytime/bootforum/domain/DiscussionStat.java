@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.domain;
+package com.github.truthanytime.bootforum.domain;
 
 import java.util.Date;
 import java.util.Map;
@@ -23,11 +23,13 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="DISCUSSION_STAT_T")
-@TableGenerator(name="DiscussionStatIdGenerator", table="ENTITY_ID_T", pkColumnName="GEN_KEY", 	pkColumnValue="DISCUSSION_STAT_ID", valueColumnName="GEN_VALUE", initialValue = 1000, allocationSize=10)
+@TableGenerator(name="DiscussionStatIdGenerator", table="ENTITY_ID_T", pkColumnName="GEN_KEY", 
+	pkColumnValue="DISCUSSION_STAT_ID", valueColumnName="GEN_VALUE", initialValue = 1000, allocationSize=10)
 public class DiscussionStat extends BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="DiscussionStatIdGenerator")	private Long id;
+	@GeneratedValue(strategy=GenerationType.TABLE, generator="DiscussionStatIdGenerator")
+	private Long id;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="LAST_COMMENT_INFO_ID", foreignKey = @ForeignKey(name="FK_DISC_STAT_LAST_COMMEN"))
@@ -62,7 +64,8 @@ public class DiscussionStat extends BaseEntity {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}	
+	}
+	
 	public CommentInfo getLastComment() {
 		return lastComment;
 	}

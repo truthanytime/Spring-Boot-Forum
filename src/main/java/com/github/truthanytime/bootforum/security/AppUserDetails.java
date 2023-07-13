@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.security;
+package com.github.truthanytime.bootforum.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,8 +6,8 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.enumeration.AccountStatus;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.enumeration.AccountStatus;
 
 public class AppUserDetails implements UserDetails {
 

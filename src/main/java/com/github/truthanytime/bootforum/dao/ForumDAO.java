@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.dao;
+package com.github.truthanytime.bootforum.dao;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.ForumGroup;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.ForumGroup;
 
 @Repository
 public class ForumDAO {

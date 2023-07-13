@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.servlet;
+package com.github.truthanytime.bootforum.servlet;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;

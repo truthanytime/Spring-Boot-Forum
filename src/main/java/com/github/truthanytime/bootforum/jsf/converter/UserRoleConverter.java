@@ -1,9 +1,9 @@
-package com.github.chipolaris.bootforum.jsf.converter;
+package com.github.truthanytime.bootforum.jsf.converter;
 
 import javax.faces.convert.EnumConverter;
 import javax.faces.convert.FacesConverter;
 
-import com.github.chipolaris.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
 
 /**
  * 

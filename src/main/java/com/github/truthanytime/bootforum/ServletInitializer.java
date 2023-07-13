@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum;
+package com.github.truthanytime.bootforum;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import org.primefaces.model.file.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.UploadedFileData;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.UploadedFileData;
 
 /**
  * Helper class to manage uploaded files (upload/temporary store/delete)

@@ -1,11 +1,11 @@
-package com.github.chipolaris.bootforum.jsf.converter;
+package com.github.truthanytime.bootforum.jsf.converter;
 
 import javax.faces.convert.EnumConverter;
 
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.enumeration.AccountStatus;
-import com.github.chipolaris.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.enumeration.AccountStatus;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
 
 @Component("enumConverters")
 public class EnumConverters {

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.config;
+package com.github.truthanytime.bootforum.jsf.config;
 
 import java.util.ArrayList;
 import java.util.Iterator;

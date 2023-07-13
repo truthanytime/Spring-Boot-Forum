@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.util;
+package com.github.truthanytime.bootforum.util;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;

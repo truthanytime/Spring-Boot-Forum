@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.IOException;
 
@@ -14,18 +14,18 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.CommentOption;
-import com.github.chipolaris.bootforum.domain.FileInfo;
-import com.github.chipolaris.bootforum.event.CommentEditEvent;
-import com.github.chipolaris.bootforum.event.CommentFileEvent;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.CommentService;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
-import com.github.chipolaris.bootforum.service.UploadedFileData;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.CommentOption;
+import com.github.truthanytime.bootforum.domain.FileInfo;
+import com.github.truthanytime.bootforum.event.CommentEditEvent;
+import com.github.truthanytime.bootforum.event.CommentFileEvent;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.CommentService;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.service.UploadedFileData;
 
 @Component
 @Scope("view")

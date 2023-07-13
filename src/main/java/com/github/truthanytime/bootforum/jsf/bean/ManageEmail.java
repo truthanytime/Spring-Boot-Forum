@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import javax.annotation.Resource;
 
@@ -7,12 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.EmailOption;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
-import com.github.chipolaris.bootforum.util.EmailSender;
+import com.github.truthanytime.bootforum.domain.EmailOption;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.util.EmailSender;
 
 @Component
 @Scope("view")

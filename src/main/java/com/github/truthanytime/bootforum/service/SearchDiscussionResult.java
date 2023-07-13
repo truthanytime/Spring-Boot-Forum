@@ -1,8 +1,8 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.List;
 
-import com.github.chipolaris.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.Discussion;
 
 /**
  * 

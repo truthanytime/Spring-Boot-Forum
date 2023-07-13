@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.listener;
+package com.github.truthanytime.bootforum.listener;
 
 import java.util.Date;
 import java.util.List;
@@ -13,21 +13,21 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.StatDAO;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.DiscussionStat;
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.event.DiscussionAddEvent;
-import com.github.chipolaris.bootforum.event.DiscussionDeleteEvent;
-import com.github.chipolaris.bootforum.event.DiscussionMovedEvent;
-import com.github.chipolaris.bootforum.event.DiscussionUpdateEvent;
-import com.github.chipolaris.bootforum.event.DiscussionViewEvent;
-import com.github.chipolaris.bootforum.service.IndexService;
-import com.github.chipolaris.bootforum.service.StatService;
-import com.github.chipolaris.bootforum.service.SystemInfoService;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.StatDAO;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.DiscussionStat;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.event.DiscussionAddEvent;
+import com.github.truthanytime.bootforum.event.DiscussionDeleteEvent;
+import com.github.truthanytime.bootforum.event.DiscussionMovedEvent;
+import com.github.truthanytime.bootforum.event.DiscussionUpdateEvent;
+import com.github.truthanytime.bootforum.event.DiscussionViewEvent;
+import com.github.truthanytime.bootforum.service.IndexService;
+import com.github.truthanytime.bootforum.service.StatService;
+import com.github.truthanytime.bootforum.service.SystemInfoService;
 
 @Component
 public class DiscussionEventsListener {

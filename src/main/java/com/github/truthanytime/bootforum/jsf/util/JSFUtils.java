@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.util;
+package com.github.truthanytime.bootforum.jsf.util;
 
 import java.util.Locale;
 import java.util.Map;
@@ -10,7 +10,7 @@ import javax.faces.context.Flash;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.github.chipolaris.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
 
 public class JSFUtils {
 

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.domain;
+package com.github.truthanytime.bootforum.domain;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -24,8 +24,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 
-import com.github.chipolaris.bootforum.enumeration.AccountStatus;
-import com.github.chipolaris.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.enumeration.AccountStatus;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
 
 @Entity
 @Table(name="USER_T", 

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum;
+package com.github.truthanytime.bootforum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ import org.springframework.transaction.jta.JtaTransactionManager;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("com.github.chipolaris.bootforum")
+@EnableJpaRepositories("com.github.truthanytime.bootforum")
 public class JpaConfig extends JpaBaseConfiguration {
 
     protected JpaConfig(DataSource dataSource, JpaProperties properties,

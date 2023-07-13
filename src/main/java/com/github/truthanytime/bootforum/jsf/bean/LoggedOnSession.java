@@ -1,7 +1,7 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.security.AppUserDetails;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.security.AppUserDetails;
 
 public interface LoggedOnSession {
 

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.AbstractMap;
 import java.util.Collections;
@@ -13,11 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.ForumDAO;
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.ForumGroup;
-import com.github.chipolaris.bootforum.domain.ForumStat;
+import com.github.truthanytime.bootforum.dao.ForumDAO;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.ForumGroup;
+import com.github.truthanytime.bootforum.domain.ForumStat;
 
 @Service
 @Transactional

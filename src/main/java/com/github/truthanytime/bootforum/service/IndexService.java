@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,10 +48,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.Tag;
-import com.github.chipolaris.bootforum.util.ZipUtil;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.Tag;
+import com.github.truthanytime.bootforum.util.ZipUtil;
 
 import net.htmlparser.jericho.Source;
 import net.htmlparser.jericho.TextExtractor;

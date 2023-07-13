@@ -4,13 +4,13 @@
                 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
                 version="2.0">
 
-    <namespace>http://bootforum.chipolaris.github.com/jsf/component</namespace>
+    <namespace>http://bootforum.truthanytime.github.com/jsf/component</namespace>
 
  	<tag>
     	<tag-name>fullOverlay</tag-name>
     	<component>
-    		<component-type>com.github.chipolaris.bootforum.jsf.component.Overlay.FullOverlay</component-type>
-    		<renderer-type>com.github.chipolaris.bootforum.jsf.component.FullOverlayRenderer</renderer-type>
+    		<component-type>com.github.truthanytime.bootforum.jsf.component.Overlay.FullOverlay</component-type>
+    		<renderer-type>com.github.truthanytime.bootforum.jsf.component.FullOverlayRenderer</renderer-type>
     	</component>
     	<attribute>
             <description>Id of the widget</description>
@@ -65,8 +65,8 @@
     <tag>
     	<tag-name>slideshow</tag-name>
     	<component>
-    		<component-type>com.github.chipolaris.jsf.components.display.Slideshow</component-type>
-    		<renderer-type>com.github.chipolaris.jsf.components.display.Slideshow</renderer-type>
+    		<component-type>com.github.truthanytime.jsf.components.display.Slideshow</component-type>
+    		<renderer-type>com.github.truthanytime.jsf.components.display.Slideshow</renderer-type>
     	</component>
     	<attribute>
             <description>Id of the widget</description>

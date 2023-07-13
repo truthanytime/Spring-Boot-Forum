@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,15 +17,15 @@ import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.DisplayOption;
-import com.github.chipolaris.bootforum.domain.EmailOption;
-import com.github.chipolaris.bootforum.domain.RegistrationOption;
-import com.github.chipolaris.bootforum.domain.RemoteIPFilterOption;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.IndexService;
-import com.github.chipolaris.bootforum.service.StatService;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
-import com.github.chipolaris.bootforum.service.SystemInfoService;
+import com.github.truthanytime.bootforum.domain.DisplayOption;
+import com.github.truthanytime.bootforum.domain.EmailOption;
+import com.github.truthanytime.bootforum.domain.RegistrationOption;
+import com.github.truthanytime.bootforum.domain.RemoteIPFilterOption;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.IndexService;
+import com.github.truthanytime.bootforum.service.StatService;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.service.SystemInfoService;
 
 @Component
 @Scope("application")

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.security.AppUserDetails;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.security.AppUserDetails;
 
 /*
  * Session scope bean for uses in XHTML pages

@@ -1,11 +1,11 @@
-package com.github.chipolaris.bootforum.dao;
+package com.github.truthanytime.bootforum.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.chipolaris.bootforum.dao.QueryFilterMeta.MatchMode;
+import com.github.truthanytime.bootforum.dao.QueryFilterMeta.MatchMode;
 
 public class QueryMeta<E> {
 	

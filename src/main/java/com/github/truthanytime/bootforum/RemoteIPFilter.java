@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum;
+package com.github.truthanytime.bootforum;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -14,9 +14,9 @@ import org.springframework.security.web.util.matcher.IpAddressMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.github.chipolaris.bootforum.domain.RemoteIPFilterOption;
-import com.github.chipolaris.bootforum.domain.RemoteIPFilterOption.FilterType;
-import com.github.chipolaris.bootforum.event.RemoteIPFilterOptionLoadEvent;
+import com.github.truthanytime.bootforum.domain.RemoteIPFilterOption;
+import com.github.truthanytime.bootforum.domain.RemoteIPFilterOption.FilterType;
+import com.github.truthanytime.bootforum.event.RemoteIPFilterOptionLoadEvent;
 
 @Component
 public class RemoteIPFilter extends OncePerRequestFilter {

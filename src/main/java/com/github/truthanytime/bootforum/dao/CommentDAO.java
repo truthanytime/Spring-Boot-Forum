@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.dao;
+package com.github.truthanytime.bootforum.dao;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,8 +12,8 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.Discussion;
 
 @Repository
 public class CommentDAO {

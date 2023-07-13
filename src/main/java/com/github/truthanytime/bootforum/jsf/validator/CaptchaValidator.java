@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.validator;
+package com.github.truthanytime.bootforum.jsf.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -7,7 +7,7 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
 
 /*
  * Note: the @FacesValidator here is not effect in embedded Tomcat. 

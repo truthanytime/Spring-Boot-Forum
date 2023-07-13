@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.converter;
+package com.github.truthanytime.bootforum.jsf.converter;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import com.github.chipolaris.bootforum.domain.BaseEntity;
+import com.github.truthanytime.bootforum.domain.BaseEntity;
 
 public class EntityConverter<E extends BaseEntity> implements Converter<E> {
 

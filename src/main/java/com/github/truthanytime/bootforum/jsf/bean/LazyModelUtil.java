@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,9 +6,9 @@ import java.util.Map;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.SortMeta;
 
-import com.github.chipolaris.bootforum.dao.QueryFilterMeta.MatchMode;
-import com.github.chipolaris.bootforum.dao.QueryMeta;
-import com.github.chipolaris.bootforum.dao.QuerySortMeta;
+import com.github.truthanytime.bootforum.dao.QueryFilterMeta.MatchMode;
+import com.github.truthanytime.bootforum.dao.QueryMeta;
+import com.github.truthanytime.bootforum.dao.QuerySortMeta;
 
 public class LazyModelUtil {
 

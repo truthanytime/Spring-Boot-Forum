@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.dao;
+package com.github.truthanytime.bootforum.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +18,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.github.chipolaris.bootforum.dao.QuerySortMeta.SortOrder;
+import com.github.truthanytime.bootforum.dao.QuerySortMeta.SortOrder;
 
 @Repository
 public class GenericQuery {

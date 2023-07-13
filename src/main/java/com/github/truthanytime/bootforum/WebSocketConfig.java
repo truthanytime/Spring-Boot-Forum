@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum;
+package com.github.truthanytime.bootforum;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

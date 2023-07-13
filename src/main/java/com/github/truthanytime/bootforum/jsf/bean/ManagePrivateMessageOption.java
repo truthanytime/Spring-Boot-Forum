@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.PrivateMessageOption;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.domain.PrivateMessageOption;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
 
 @Component @Scope("view")
 public class ManagePrivateMessageOption {

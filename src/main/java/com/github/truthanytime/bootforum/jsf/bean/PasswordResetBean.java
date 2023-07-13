@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -12,12 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.PasswordReset;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
-import com.github.chipolaris.bootforum.service.UserService;
+import com.github.truthanytime.bootforum.domain.PasswordReset;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.UserService;
 
 @Component
 @Scope("view")

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum;
+package com.github.truthanytime.bootforum;
 
 import javax.annotation.Resource;
 

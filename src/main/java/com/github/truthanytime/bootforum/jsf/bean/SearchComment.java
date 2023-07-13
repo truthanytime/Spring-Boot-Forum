@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import javax.annotation.Resource;
 
@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.IndexService;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.IndexService;
 
 @Component @Scope("view")
 public class SearchComment {

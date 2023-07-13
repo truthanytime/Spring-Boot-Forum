@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.listener;
+package com.github.truthanytime.bootforum.listener;
 
 import javax.annotation.Resource;
 
@@ -10,13 +10,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.domain.UserStat;
-import com.github.chipolaris.bootforum.event.UserProfileViewEvent;
-import com.github.chipolaris.bootforum.event.UserRegistrationEvent;
-import com.github.chipolaris.bootforum.service.SystemInfoService;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.domain.UserStat;
+import com.github.truthanytime.bootforum.event.UserProfileViewEvent;
+import com.github.truthanytime.bootforum.event.UserRegistrationEvent;
+import com.github.truthanytime.bootforum.service.SystemInfoService;
 
 @Component
 public class UserEventsListener {

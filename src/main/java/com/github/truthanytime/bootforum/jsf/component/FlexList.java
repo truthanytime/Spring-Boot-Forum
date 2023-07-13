@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.component;
+package com.github.truthanytime.bootforum.jsf.component;
 
 import java.util.List;
 
@@ -10,15 +10,15 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.model.DataModel;
 
 @FacesComponent(value = FlexList.COMPONENT_TYPE, tagName="flexList", createTag = true,
-	namespace="http://bootforum.chipolaris.github.com/jsf/component")
+	namespace="http://bootforum.truthanytime.github.com/jsf/component")
 @ResourceDependencies({
 	@ResourceDependency(library="jsf", name="css/w3.css"),
 	@ResourceDependency(library="primefaces", name="jquery/jquery.js")
 })
 public class FlexList extends UIData /*implements ClientBehaviorHolder*/ {
 	
-	public static final String COMPONENT_FAMILY = "com.github.chipolaris.jsf.components.FlexList";
-	public static final String COMPONENT_TYPE = "com.github.chipolaris.jsf.components.FlexList.LazyLoadingList";
+	public static final String COMPONENT_FAMILY = "com.github.truthanytime.jsf.components.FlexList";
+	public static final String COMPONENT_TYPE = "com.github.truthanytime.jsf.components.FlexList.LazyLoadingList";
 	
 	protected enum PropertyKeys {
 		widgetVarId,

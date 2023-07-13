@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.List;
 import java.util.Map;
@@ -9,9 +9,9 @@ import org.primefaces.model.SortMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.Tag;
-import com.github.chipolaris.bootforum.service.TagService;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.Tag;
+import com.github.truthanytime.bootforum.service.TagService;
 
 public class TagDiscussionsLazyModel extends LazyDataModel<Discussion> {
 	

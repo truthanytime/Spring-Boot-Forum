@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.listener;
+package com.github.truthanytime.bootforum.listener;
 
 import javax.annotation.Resource;
 
@@ -9,12 +9,12 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.StatDAO;
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.UserStat;
-import com.github.chipolaris.bootforum.event.CommentVoteEvent;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.StatDAO;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.UserStat;
+import com.github.truthanytime.bootforum.event.CommentVoteEvent;
 
 @Component
 public class CommentVoteEventListener implements ApplicationListener<CommentVoteEvent> {

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,21 +13,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.UserDAO;
-import com.github.chipolaris.bootforum.domain.DeletedUser;
-import com.github.chipolaris.bootforum.domain.EmailOption;
-import com.github.chipolaris.bootforum.domain.Person;
-import com.github.chipolaris.bootforum.domain.Preferences;
-import com.github.chipolaris.bootforum.domain.Registration;
-import com.github.chipolaris.bootforum.domain.RegistrationOption;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.domain.UserStat;
-import com.github.chipolaris.bootforum.enumeration.AccountStatus;
-import com.github.chipolaris.bootforum.enumeration.UserRole;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.util.EmailSender;
-import com.github.chipolaris.bootforum.util.Validators;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.UserDAO;
+import com.github.truthanytime.bootforum.domain.DeletedUser;
+import com.github.truthanytime.bootforum.domain.EmailOption;
+import com.github.truthanytime.bootforum.domain.Person;
+import com.github.truthanytime.bootforum.domain.Preferences;
+import com.github.truthanytime.bootforum.domain.Registration;
+import com.github.truthanytime.bootforum.domain.RegistrationOption;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.domain.UserStat;
+import com.github.truthanytime.bootforum.enumeration.AccountStatus;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.util.EmailSender;
+import com.github.truthanytime.bootforum.util.Validators;
 
 @Service @Transactional
 public class RegistrationService {

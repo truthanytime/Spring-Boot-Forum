@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.DeletedUser;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.UserService;
+import com.github.truthanytime.bootforum.domain.DeletedUser;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.UserService;
 
 @Component @Scope("view")
 public class DeletedUsers {

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,13 +19,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.ForumGroup;
-import com.github.chipolaris.bootforum.event.ForumGroupUpdateEvent;
-import com.github.chipolaris.bootforum.event.ForumUpdateEvent;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.ForumGroup;
+import com.github.truthanytime.bootforum.event.ForumGroupUpdateEvent;
+import com.github.truthanytime.bootforum.event.ForumUpdateEvent;
 
 @Component //@Scope("application")
 public class BreadCrumbBuilder {

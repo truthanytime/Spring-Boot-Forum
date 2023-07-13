@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,17 +14,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.ForumGroup;
-import com.github.chipolaris.bootforum.event.ApplicationDataInitializedEvent;
-import com.github.chipolaris.bootforum.event.DiscussionMovedEvent;
-import com.github.chipolaris.bootforum.event.ForumAddEvent;
-import com.github.chipolaris.bootforum.event.ForumDeleteEvent;
-import com.github.chipolaris.bootforum.event.ForumGroupAddEvent;
-import com.github.chipolaris.bootforum.event.ForumGroupDeleteEvent;
-import com.github.chipolaris.bootforum.event.ForumGroupUpdateEvent;
-import com.github.chipolaris.bootforum.event.ForumUpdateEvent;
-import com.github.chipolaris.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.ForumGroup;
+import com.github.truthanytime.bootforum.event.ApplicationDataInitializedEvent;
+import com.github.truthanytime.bootforum.event.DiscussionMovedEvent;
+import com.github.truthanytime.bootforum.event.ForumAddEvent;
+import com.github.truthanytime.bootforum.event.ForumDeleteEvent;
+import com.github.truthanytime.bootforum.event.ForumGroupAddEvent;
+import com.github.truthanytime.bootforum.event.ForumGroupDeleteEvent;
+import com.github.truthanytime.bootforum.event.ForumGroupUpdateEvent;
+import com.github.truthanytime.bootforum.event.ForumUpdateEvent;
+import com.github.truthanytime.bootforum.service.GenericService;
 
 // application scope JSF backing bean
 @Component

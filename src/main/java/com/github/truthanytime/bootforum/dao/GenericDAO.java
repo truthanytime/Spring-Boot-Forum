@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.dao;
+package com.github.truthanytime.bootforum.dao;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.github.chipolaris.bootforum.dao.SortSpec.Direction;
-import com.github.chipolaris.bootforum.domain.BaseEntity;
+import com.github.truthanytime.bootforum.dao.SortSpec.Direction;
+import com.github.truthanytime.bootforum.domain.BaseEntity;
 
 /**
  * A generic DAO class to use in basic CRUD operations

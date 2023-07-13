@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -14,15 +14,15 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.DeletedUser;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.event.UserProfileViewEvent;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.CommentService;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
-import com.github.chipolaris.bootforum.service.UserService;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.DeletedUser;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.event.UserProfileViewEvent;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.CommentService;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.UserService;
 
 @Component
 @Scope("view")

@@ -1,8 +1,8 @@
-package com.github.chipolaris.bootforum.event;
+package com.github.truthanytime.bootforum.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.github.chipolaris.bootforum.domain.CommentOption;
+import com.github.truthanytime.bootforum.domain.CommentOption;
 
 public class CommentOptionLoadEvent extends ApplicationEvent {
 

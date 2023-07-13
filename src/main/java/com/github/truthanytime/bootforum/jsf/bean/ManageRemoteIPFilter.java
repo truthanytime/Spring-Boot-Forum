@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +12,13 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.RemoteIPFilterOption;
-import com.github.chipolaris.bootforum.event.RemoteIPFilterOptionLoadEvent;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
-import com.github.chipolaris.bootforum.util.Validators;
+import com.github.truthanytime.bootforum.domain.RemoteIPFilterOption;
+import com.github.truthanytime.bootforum.event.RemoteIPFilterOptionLoadEvent;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.util.Validators;
 
 @Component
 @Scope("view")

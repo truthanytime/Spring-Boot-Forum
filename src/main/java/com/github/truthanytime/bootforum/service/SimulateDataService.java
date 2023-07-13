@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,24 +21,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.UserDAO;
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.DiscussionStat;
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.ForumGroup;
-import com.github.chipolaris.bootforum.domain.Message;
-import com.github.chipolaris.bootforum.domain.Person;
-import com.github.chipolaris.bootforum.domain.Preferences;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.domain.UserStat;
-import com.github.chipolaris.bootforum.enumeration.AccountStatus;
-import com.github.chipolaris.bootforum.enumeration.UserRole;
-import com.github.chipolaris.bootforum.event.DiscussionAddEvent;
-import com.github.chipolaris.bootforum.event.ForumGroupAddEvent;
-import com.github.chipolaris.bootforum.event.UserRegistrationEvent;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.UserDAO;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.DiscussionStat;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.ForumGroup;
+import com.github.truthanytime.bootforum.domain.Message;
+import com.github.truthanytime.bootforum.domain.Person;
+import com.github.truthanytime.bootforum.domain.Preferences;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.domain.UserStat;
+import com.github.truthanytime.bootforum.enumeration.AccountStatus;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.event.DiscussionAddEvent;
+import com.github.truthanytime.bootforum.event.ForumGroupAddEvent;
+import com.github.truthanytime.bootforum.event.UserRegistrationEvent;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 

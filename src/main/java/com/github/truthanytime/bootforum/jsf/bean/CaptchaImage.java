@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,10 +14,10 @@ import org.primefaces.model.StreamedContent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.CaptchaService;
-import com.github.chipolaris.bootforum.service.CaptchaService.Captcha;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.CaptchaService;
+import com.github.truthanytime.bootforum.service.CaptchaService.Captcha;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
 
 @Component @Scope("application")
 public class CaptchaImage {

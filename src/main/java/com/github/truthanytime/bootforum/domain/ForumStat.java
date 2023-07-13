@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.domain;
+package com.github.truthanytime.bootforum.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

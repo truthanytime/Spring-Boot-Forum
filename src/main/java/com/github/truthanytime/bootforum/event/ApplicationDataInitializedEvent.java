@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.event;
+package com.github.truthanytime.bootforum.event;
 
 import org.springframework.context.ApplicationEvent;
 

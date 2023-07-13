@@ -1,10 +1,10 @@
-package com.github.chipolaris.bootforum.event;
+package com.github.truthanytime.bootforum.event;
 
 import java.util.List;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.github.chipolaris.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.Discussion;
 
 public class DiscussionDeleteEvent extends ApplicationEvent {
 	

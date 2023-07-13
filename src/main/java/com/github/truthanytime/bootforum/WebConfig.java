@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum;
+package com.github.truthanytime.bootforum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
-import com.github.chipolaris.bootforum.jsf.config.ViewScope;
+import com.github.truthanytime.bootforum.jsf.config.ViewScope;
 //import com.sun.faces.config.ConfigureListener;
 
 @Configuration

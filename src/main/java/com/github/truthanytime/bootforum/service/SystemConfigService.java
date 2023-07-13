@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import javax.annotation.Resource;
 
@@ -7,21 +7,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.domain.AvatarOption;
-import com.github.chipolaris.bootforum.domain.CommentOption;
-import com.github.chipolaris.bootforum.domain.DisplayOption;
-import com.github.chipolaris.bootforum.domain.EmailOption;
-import com.github.chipolaris.bootforum.domain.PrivateMessageOption;
-import com.github.chipolaris.bootforum.domain.RegistrationOption;
-import com.github.chipolaris.bootforum.domain.RemoteIPFilterOption;
-import com.github.chipolaris.bootforum.event.AvatarOptionLoadEvent;
-import com.github.chipolaris.bootforum.event.CommentOptionLoadEvent;
-import com.github.chipolaris.bootforum.event.DisplayOptionLoadEvent;
-import com.github.chipolaris.bootforum.event.EmailOptionLoadEvent;
-import com.github.chipolaris.bootforum.event.PrivateMessageOptionLoadEvent;
-import com.github.chipolaris.bootforum.event.RegistrationOptionLoadEvent;
-import com.github.chipolaris.bootforum.event.RemoteIPFilterOptionLoadEvent;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.domain.AvatarOption;
+import com.github.truthanytime.bootforum.domain.CommentOption;
+import com.github.truthanytime.bootforum.domain.DisplayOption;
+import com.github.truthanytime.bootforum.domain.EmailOption;
+import com.github.truthanytime.bootforum.domain.PrivateMessageOption;
+import com.github.truthanytime.bootforum.domain.RegistrationOption;
+import com.github.truthanytime.bootforum.domain.RemoteIPFilterOption;
+import com.github.truthanytime.bootforum.event.AvatarOptionLoadEvent;
+import com.github.truthanytime.bootforum.event.CommentOptionLoadEvent;
+import com.github.truthanytime.bootforum.event.DisplayOptionLoadEvent;
+import com.github.truthanytime.bootforum.event.EmailOptionLoadEvent;
+import com.github.truthanytime.bootforum.event.PrivateMessageOptionLoadEvent;
+import com.github.truthanytime.bootforum.event.RegistrationOptionLoadEvent;
+import com.github.truthanytime.bootforum.event.RemoteIPFilterOptionLoadEvent;
 
 @Service @Transactional
 public class SystemConfigService {

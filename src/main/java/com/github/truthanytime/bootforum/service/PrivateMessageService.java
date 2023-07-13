@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,14 +14,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.UserDAO;
-import com.github.chipolaris.bootforum.domain.FileInfo;
-import com.github.chipolaris.bootforum.domain.Message;
-import com.github.chipolaris.bootforum.domain.Preferences;
-import com.github.chipolaris.bootforum.domain.PrivateMessage;
-import com.github.chipolaris.bootforum.domain.PrivateMessage.MessageType;
-import com.github.chipolaris.bootforum.domain.User;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.UserDAO;
+import com.github.truthanytime.bootforum.domain.FileInfo;
+import com.github.truthanytime.bootforum.domain.Message;
+import com.github.truthanytime.bootforum.domain.Preferences;
+import com.github.truthanytime.bootforum.domain.PrivateMessage;
+import com.github.truthanytime.bootforum.domain.PrivateMessage.MessageType;
+import com.github.truthanytime.bootforum.domain.User;
 
 @Service @Transactional
 public class PrivateMessageService {

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.domain;
+package com.github.truthanytime.bootforum.domain;
 
 import java.util.Date;
 

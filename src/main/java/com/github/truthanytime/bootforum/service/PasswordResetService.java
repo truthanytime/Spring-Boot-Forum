@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.QuerySpec;
-import com.github.chipolaris.bootforum.dao.UserDAO;
-import com.github.chipolaris.bootforum.domain.EmailOption;
-import com.github.chipolaris.bootforum.domain.PasswordReset;
-import com.github.chipolaris.bootforum.domain.RegistrationOption;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.util.EmailSender;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.QuerySpec;
+import com.github.truthanytime.bootforum.dao.UserDAO;
+import com.github.truthanytime.bootforum.domain.EmailOption;
+import com.github.truthanytime.bootforum.domain.PasswordReset;
+import com.github.truthanytime.bootforum.domain.RegistrationOption;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.util.EmailSender;
 
 @Service
 @Transactional

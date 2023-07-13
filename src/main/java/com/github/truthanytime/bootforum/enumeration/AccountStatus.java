@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.enumeration;
+package com.github.truthanytime.bootforum.enumeration;
 
 public enum AccountStatus {
 

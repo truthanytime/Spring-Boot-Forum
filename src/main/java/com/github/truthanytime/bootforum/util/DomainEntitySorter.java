@@ -1,8 +1,8 @@
-package com.github.chipolaris.bootforum.util;
+package com.github.truthanytime.bootforum.util;
 
 import java.util.Comparator;
 
-import com.github.chipolaris.bootforum.domain.BaseEntity;
+import com.github.truthanytime.bootforum.domain.BaseEntity;
 
 public class DomainEntitySorter {
 

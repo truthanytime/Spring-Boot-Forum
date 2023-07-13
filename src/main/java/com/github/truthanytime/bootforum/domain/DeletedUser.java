@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.domain;
+package com.github.truthanytime.bootforum.domain;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.github.chipolaris.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
 
 @Entity
 @Table(name="DELETED_USER_T", 

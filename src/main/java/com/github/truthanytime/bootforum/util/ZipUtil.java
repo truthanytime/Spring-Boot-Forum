@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.util;
+package com.github.truthanytime.bootforum.util;
 
 import java.io.File;
 import java.io.FileInputStream;

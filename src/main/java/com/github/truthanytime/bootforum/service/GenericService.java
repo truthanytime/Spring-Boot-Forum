@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,11 +10,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.GenericQuery;
-import com.github.chipolaris.bootforum.dao.QueryMeta;
-import com.github.chipolaris.bootforum.dao.QuerySpec;
-import com.github.chipolaris.bootforum.dao.SortSpec;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.GenericQuery;
+import com.github.truthanytime.bootforum.dao.QueryMeta;
+import com.github.truthanytime.bootforum.dao.QuerySpec;
+import com.github.truthanytime.bootforum.dao.SortSpec;
 
 @Service @Transactional
 public class GenericService {

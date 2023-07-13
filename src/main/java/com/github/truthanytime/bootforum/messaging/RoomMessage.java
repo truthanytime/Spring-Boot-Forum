@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.messaging;
+package com.github.truthanytime.bootforum.messaging;
 
 public class RoomMessage implements StompMessage {
 

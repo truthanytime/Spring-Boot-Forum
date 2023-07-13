@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.dao;
+package com.github.truthanytime.bootforum.dao;
 
 public class QueryFilterMeta {
 

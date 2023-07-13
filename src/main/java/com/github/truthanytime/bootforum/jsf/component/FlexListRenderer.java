@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.component;
+package com.github.truthanytime.bootforum.jsf.component;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -17,13 +17,13 @@ import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 
-import com.github.chipolaris.bootforum.util.VelocityTemplateUtil;
+import com.github.truthanytime.bootforum.util.VelocityTemplateUtil;
 
 @FacesRenderer(componentFamily = FlexList.COMPONENT_FAMILY, 
 		rendererType=FlexListRenderer.RENDERER_TYPE)
 public class FlexListRenderer extends Renderer {
 	
-	public static final String RENDERER_TYPE = "com.github.chipolaris.bootforum.jsf.component.FlexListRenderer";
+	public static final String RENDERER_TYPE = "com.github.truthanytime.bootforum.jsf.component.FlexListRenderer";
 	
 	private String clientId;
 	

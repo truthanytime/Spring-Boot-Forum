@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.component;
+package com.github.truthanytime.bootforum.jsf.component;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -12,13 +12,13 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 
-import com.github.chipolaris.bootforum.util.VelocityTemplateUtil;
+import com.github.truthanytime.bootforum.util.VelocityTemplateUtil;
 
 @FacesRenderer(componentFamily = Slideshow.COMPONENT_FAMILY, 
 		rendererType=SlideshowRenderer.RENDERER_TYPE)
 public class SlideshowRenderer extends Renderer {
 	
-	public static final String RENDERER_TYPE = "com.github.chipolaris.bootforum.jsf.component.SlideshowRenderer";
+	public static final String RENDERER_TYPE = "com.github.truthanytime.bootforum.jsf.component.SlideshowRenderer";
 	
 	//private String clientId;
 	

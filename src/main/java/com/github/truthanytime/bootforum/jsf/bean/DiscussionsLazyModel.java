@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,10 +10,10 @@ import org.primefaces.model.SortMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.chipolaris.bootforum.dao.QueryMeta;
-import com.github.chipolaris.bootforum.dao.QuerySortMeta.SortOrder;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.dao.QueryMeta;
+import com.github.truthanytime.bootforum.dao.QuerySortMeta.SortOrder;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.service.GenericService;
 
 public class DiscussionsLazyModel extends LazyDataModel<Discussion> {
 	

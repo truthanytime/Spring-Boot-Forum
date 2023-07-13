@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.io.IOException;
 
@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.CommentInfo;
-import com.github.chipolaris.bootforum.domain.Tag;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.TagService;
+import com.github.truthanytime.bootforum.domain.CommentInfo;
+import com.github.truthanytime.bootforum.domain.Tag;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.TagService;
 
 @Component(value="viewTag")
 @Scope("view")

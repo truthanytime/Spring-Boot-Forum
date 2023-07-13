@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.List;
 import java.util.Map;
@@ -9,11 +9,11 @@ import org.primefaces.model.SortMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.chipolaris.bootforum.dao.QueryFilterMeta;
-import com.github.chipolaris.bootforum.dao.QueryMeta;
-import com.github.chipolaris.bootforum.domain.PrivateMessage;
-import com.github.chipolaris.bootforum.domain.PrivateMessage.MessageType;
-import com.github.chipolaris.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.dao.QueryFilterMeta;
+import com.github.truthanytime.bootforum.dao.QueryMeta;
+import com.github.truthanytime.bootforum.domain.PrivateMessage;
+import com.github.truthanytime.bootforum.domain.PrivateMessage.MessageType;
+import com.github.truthanytime.bootforum.service.GenericService;
 
 public class PrivateMessagesLazyModel extends LazyDataModel<PrivateMessage> {
 

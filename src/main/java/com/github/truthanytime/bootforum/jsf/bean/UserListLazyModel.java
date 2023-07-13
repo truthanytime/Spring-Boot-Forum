@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.List;
 import java.util.Map;
@@ -9,12 +9,12 @@ import org.primefaces.model.SortMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.chipolaris.bootforum.dao.QueryFilterMeta;
-import com.github.chipolaris.bootforum.dao.QueryMeta;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.enumeration.AccountStatus;
-import com.github.chipolaris.bootforum.enumeration.UserRole;
-import com.github.chipolaris.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.dao.QueryFilterMeta;
+import com.github.truthanytime.bootforum.dao.QueryMeta;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.enumeration.AccountStatus;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.service.GenericService;
 
 public class UserListLazyModel extends LazyDataModel<User> {
 

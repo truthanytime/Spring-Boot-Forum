@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +12,16 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.CachingConfig;
-import com.github.chipolaris.bootforum.domain.ChatRoom;
-import com.github.chipolaris.bootforum.domain.DisplayOption;
-import com.github.chipolaris.bootforum.domain.Tag;
-import com.github.chipolaris.bootforum.jsf.converter.EntityConverter;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.CachingConfig;
+import com.github.truthanytime.bootforum.domain.ChatRoom;
+import com.github.truthanytime.bootforum.domain.DisplayOption;
+import com.github.truthanytime.bootforum.domain.Tag;
+import com.github.truthanytime.bootforum.jsf.converter.EntityConverter;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
 
 @Component
 @Scope("view")

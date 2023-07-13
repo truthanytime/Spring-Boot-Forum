@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.FileInfo;
+import com.github.truthanytime.bootforum.domain.FileInfo;
 
 @Component
 public class FileInfoHelper {

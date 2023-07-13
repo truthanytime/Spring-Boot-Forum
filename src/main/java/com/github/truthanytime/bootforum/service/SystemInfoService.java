@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.Collections;
 import java.util.Date;
@@ -15,17 +15,17 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.StatDAO;
-import com.github.chipolaris.bootforum.domain.ChatRoom;
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.CommentInfo;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.Forum;
-import com.github.chipolaris.bootforum.domain.ForumGroup;
-import com.github.chipolaris.bootforum.domain.Tag;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.event.ApplicationDataInitializedEvent;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.StatDAO;
+import com.github.truthanytime.bootforum.domain.ChatRoom;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.CommentInfo;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.Forum;
+import com.github.truthanytime.bootforum.domain.ForumGroup;
+import com.github.truthanytime.bootforum.domain.Tag;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.event.ApplicationDataInitializedEvent;
 
 @Service
 public class SystemInfoService {

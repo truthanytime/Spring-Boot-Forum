@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +10,12 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.event.UserRegistrationEvent;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.RegistrationService;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.event.UserRegistrationEvent;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.RegistrationService;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
 
 @Component
 @Scope("request")

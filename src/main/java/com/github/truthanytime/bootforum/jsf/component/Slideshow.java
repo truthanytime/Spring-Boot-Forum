@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.component;
+package com.github.truthanytime.bootforum.jsf.component;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -6,14 +6,14 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.UIOutput;
 
 @FacesComponent(value = Slideshow.COMPONENT_TYPE, tagName="slideshow", createTag = true,
-	namespace="http://bootforum.chipolaris.github.com/jsf/component")
+	namespace="http://bootforum.truthanytime.github.com/jsf/component")
 @ResourceDependencies({
 	@ResourceDependency(library="jsf", name="css/w3.css")
 })
 public class Slideshow extends UIOutput {
 	
-	public static final String COMPONENT_FAMILY = "com.github.chipolaris.jsf.components.Slideshow";
-	public static final String COMPONENT_TYPE = "com.github.chipolaris.jsf.components.display.Slideshow";
+	public static final String COMPONENT_FAMILY = "com.github.truthanytime.jsf.components.Slideshow";
+	public static final String COMPONENT_TYPE = "com.github.truthanytime.jsf.components.display.Slideshow";
 	
 	protected enum PropertyKeys {
 		widgetVarId,

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,17 +14,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Message;
-import com.github.chipolaris.bootforum.domain.PrivateMessage;
-import com.github.chipolaris.bootforum.domain.PrivateMessage.MessageType;
-import com.github.chipolaris.bootforum.domain.PrivateMessageOption;
-import com.github.chipolaris.bootforum.jsf.util.JSFUtils;
-import com.github.chipolaris.bootforum.service.AckCodeType;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.PrivateMessageService;
-import com.github.chipolaris.bootforum.service.ServiceResponse;
-import com.github.chipolaris.bootforum.service.SystemConfigService;
-import com.github.chipolaris.bootforum.service.UserService;
+import com.github.truthanytime.bootforum.domain.Message;
+import com.github.truthanytime.bootforum.domain.PrivateMessage;
+import com.github.truthanytime.bootforum.domain.PrivateMessage.MessageType;
+import com.github.truthanytime.bootforum.domain.PrivateMessageOption;
+import com.github.truthanytime.bootforum.jsf.util.JSFUtils;
+import com.github.truthanytime.bootforum.service.AckCodeType;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.PrivateMessageService;
+import com.github.truthanytime.bootforum.service.ServiceResponse;
+import com.github.truthanytime.bootforum.service.SystemConfigService;
+import com.github.truthanytime.bootforum.service.UserService;
 
 @Component 
 @Scope("view")

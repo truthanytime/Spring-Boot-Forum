@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.messaging;
+package com.github.truthanytime.bootforum.messaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
-import com.github.chipolaris.bootforum.jsf.bean.FileHandler;
+import com.github.truthanytime.bootforum.jsf.bean.FileHandler;
 
 @Controller
 public class ChatRoomController {

@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.listener;
+package com.github.truthanytime.bootforum.listener;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.session.SessionDestroyedEvent;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.security.AppUserDetails;
-import com.github.chipolaris.bootforum.service.SystemInfoService;
+import com.github.truthanytime.bootforum.security.AppUserDetails;
+import com.github.truthanytime.bootforum.service.SystemInfoService;
 
 @Component
 public class SessionDestroyedListener implements ApplicationListener<SessionDestroyedEvent> {

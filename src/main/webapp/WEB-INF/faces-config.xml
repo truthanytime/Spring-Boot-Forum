@@ -16,22 +16,22 @@
     -->
     <converter>
     	<converter-for-class>java.lang.String</converter-for-class>
-    	<converter-class>com.github.chipolaris.bootforum.jsf.converter.StringConverter</converter-class>
+    	<converter-class>com.github.truthanytime.bootforum.jsf.converter.StringConverter</converter-class>
     </converter>
     
     <converter>
     	<converter-id>accountStatusConverter</converter-id>
-    	<converter-class>com.github.chipolaris.bootforum.jsf.converter.AccountStatusConverter</converter-class>
+    	<converter-class>com.github.truthanytime.bootforum.jsf.converter.AccountStatusConverter</converter-class>
     </converter>
 
     <converter>
     	<converter-id>userRoleConverter</converter-id>
-    	<converter-class>com.github.chipolaris.bootforum.jsf.converter.UserRoleConverter</converter-class>
+    	<converter-class>com.github.truthanytime.bootforum.jsf.converter.UserRoleConverter</converter-class>
     </converter>
     
     <validator>
         <validator-id>captchaValidator</validator-id>
-        <validator-class>com.github.chipolaris.bootforum.jsf.validator.CaptchaValidator</validator-class>
+        <validator-class>com.github.truthanytime.bootforum.jsf.validator.CaptchaValidator</validator-class>
     </validator>
     
 	<application>
@@ -48,13 +48,13 @@
 		
 		<system-event-listener>
 			
-		    <system-event-listener-class>com.github.chipolaris.bootforum.jsf.config.ViewScopeCallbackRegistrar</system-event-listener-class>
+		    <system-event-listener-class>com.github.truthanytime.bootforum.jsf.config.ViewScopeCallbackRegistrar</system-event-listener-class>
 		    <system-event-class>javax.faces.event.PostConstructViewMapEvent</system-event-class>
 		    <source-class>javax.faces.component.UIViewRoot</source-class>
 		</system-event-listener>
 		 
 		<system-event-listener>
-		    <system-event-listener-class>com.github.chipolaris.bootforum.jsf.config.ViewScopeCallbackRegistrar</system-event-listener-class>
+		    <system-event-listener-class>com.github.truthanytime.bootforum.jsf.config.ViewScopeCallbackRegistrar</system-event-listener-class>
 		    <system-event-class>javax.faces.event.PreDestroyViewMapEvent</system-event-class>
 		    <source-class>javax.faces.component.UIViewRoot</source-class>
 		</system-event-listener>
@@ -69,8 +69,8 @@
 			https://github.com/javaserverfaces/mojarra/issues/3961
 	-->
 	<component>
-		<component-type>com.github.chipolaris.bootforum.jsf.component.Overlay.FullOverlay</component-type>
-		<component-class>com.github.chipolaris.bootforum.jsf.component.FullOverlay</component-class>
+		<component-type>com.github.truthanytime.bootforum.jsf.component.Overlay.FullOverlay</component-type>
+		<component-class>com.github.truthanytime.bootforum.jsf.component.FullOverlay</component-class>
 		<property>
 			<property-name>widgetVarId</property-name>
 			<property-class>java.lang.String</property-class>
@@ -106,8 +106,8 @@
 	</component>
 	
 	<component>
-		<component-type>com.github.chipolaris.jsf.components.display.Slideshow</component-type>
-		<component-class>com.github.chipolaris.bootforum.jsf.component.Slideshow</component-class>
+		<component-type>com.github.truthanytime.jsf.components.display.Slideshow</component-type>
+		<component-class>com.github.truthanytime.bootforum.jsf.component.Slideshow</component-class>
 		<property>
 			<property-name>widgetVarId</property-name>
 			<property-class>java.lang.String</property-class>
@@ -128,20 +128,20 @@
 	
 	<render-kit>
         <renderer>
-            <component-family>com.github.chipolaris.bootforum.jsf.component.Overlay</component-family>
-            <renderer-type>com.github.chipolaris.bootforum.jsf.component.FullOverlayRenderer</renderer-type>
-            <renderer-class>com.github.chipolaris.bootforum.jsf.component.FullOverlayRenderer</renderer-class>
+            <component-family>com.github.truthanytime.bootforum.jsf.component.Overlay</component-family>
+            <renderer-type>com.github.truthanytime.bootforum.jsf.component.FullOverlayRenderer</renderer-type>
+            <renderer-class>com.github.truthanytime.bootforum.jsf.component.FullOverlayRenderer</renderer-class>
         </renderer>
         
         <renderer>
-            <component-family>com.github.chipolaris.jsf.components.Slideshow</component-family>
-            <renderer-type>com.github.chipolaris.jsf.components.display.Slideshow</renderer-type>
-            <renderer-class>com.github.chipolaris.bootforum.jsf.component.SlideshowRenderer</renderer-class>
+            <component-family>com.github.truthanytime.jsf.components.Slideshow</component-family>
+            <renderer-type>com.github.truthanytime.jsf.components.display.Slideshow</renderer-type>
+            <renderer-class>com.github.truthanytime.bootforum.jsf.component.SlideshowRenderer</renderer-class>
         </renderer>
 	</render-kit>
 	
 	<lifecycle>
-		<phase-listener>com.github.chipolaris.bootforum.jsf.config.MultiPageMessagesSupport</phase-listener>
+		<phase-listener>com.github.truthanytime.bootforum.jsf.config.MultiPageMessagesSupport</phase-listener>
 	</lifecycle>
 	
 	<factory>

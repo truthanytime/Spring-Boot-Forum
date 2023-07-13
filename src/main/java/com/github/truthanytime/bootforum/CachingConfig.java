@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum;
+package com.github.truthanytime.bootforum;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;

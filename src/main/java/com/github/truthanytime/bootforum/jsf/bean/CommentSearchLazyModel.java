@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.List;
 import java.util.Map;
@@ -9,9 +9,9 @@ import org.primefaces.model.SortMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.service.IndexService;
-import com.github.chipolaris.bootforum.service.SearchCommentResult;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.service.IndexService;
+import com.github.truthanytime.bootforum.service.SearchCommentResult;
 
 public class CommentSearchLazyModel extends LazyDataModel<Comment> {
 	

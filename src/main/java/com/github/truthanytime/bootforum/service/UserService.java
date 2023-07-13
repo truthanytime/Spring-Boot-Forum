@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,15 +13,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.UserDAO;
-import com.github.chipolaris.bootforum.domain.DeletedUser;
-import com.github.chipolaris.bootforum.domain.PasswordReset;
-import com.github.chipolaris.bootforum.domain.Person;
-import com.github.chipolaris.bootforum.domain.Registration;
-import com.github.chipolaris.bootforum.domain.User;
-import com.github.chipolaris.bootforum.enumeration.UserRole;
-import com.github.chipolaris.bootforum.util.Validators;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.UserDAO;
+import com.github.truthanytime.bootforum.domain.DeletedUser;
+import com.github.truthanytime.bootforum.domain.PasswordReset;
+import com.github.truthanytime.bootforum.domain.Person;
+import com.github.truthanytime.bootforum.domain.Registration;
+import com.github.truthanytime.bootforum.domain.User;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.util.Validators;
 
 @Service @Transactional
 public class UserService {

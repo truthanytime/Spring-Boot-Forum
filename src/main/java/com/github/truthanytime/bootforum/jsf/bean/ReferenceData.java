@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,10 +8,10 @@ import java.util.Collection;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.RemoteIPFilterOption;
-import com.github.chipolaris.bootforum.domain.RemoteIPFilterOption.FilterType;
-import com.github.chipolaris.bootforum.enumeration.AccountStatus;
-import com.github.chipolaris.bootforum.enumeration.UserRole;
+import com.github.truthanytime.bootforum.domain.RemoteIPFilterOption;
+import com.github.truthanytime.bootforum.domain.RemoteIPFilterOption.FilterType;
+import com.github.truthanytime.bootforum.enumeration.AccountStatus;
+import com.github.truthanytime.bootforum.enumeration.UserRole;
 
 @Component("referenceData") @Scope("application")
 public class ReferenceData {

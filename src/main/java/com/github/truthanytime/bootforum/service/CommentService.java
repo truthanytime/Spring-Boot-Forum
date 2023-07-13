@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.service;
+package com.github.truthanytime.bootforum.service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,15 +12,15 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.chipolaris.bootforum.dao.CommentDAO;
-import com.github.chipolaris.bootforum.dao.GenericDAO;
-import com.github.chipolaris.bootforum.dao.StatDAO;
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.CommentVote;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.domain.FileInfo;
-import com.github.chipolaris.bootforum.domain.Preferences;
-import com.github.chipolaris.bootforum.domain.User;
+import com.github.truthanytime.bootforum.dao.CommentDAO;
+import com.github.truthanytime.bootforum.dao.GenericDAO;
+import com.github.truthanytime.bootforum.dao.StatDAO;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.CommentVote;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.domain.FileInfo;
+import com.github.truthanytime.bootforum.domain.Preferences;
+import com.github.truthanytime.bootforum.domain.User;
 
 @Service @Transactional
 public class CommentService {

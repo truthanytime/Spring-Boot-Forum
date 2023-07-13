@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.listener;
+package com.github.truthanytime.bootforum.listener;
 
 import java.util.Date;
 
@@ -13,11 +13,11 @@ import org.springframework.security.authentication.event.InteractiveAuthenticati
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.UserStat;
-import com.github.chipolaris.bootforum.jsf.bean.LoggedOnSession;
-import com.github.chipolaris.bootforum.security.AppUserDetails;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.SystemInfoService;
+import com.github.truthanytime.bootforum.domain.UserStat;
+import com.github.truthanytime.bootforum.jsf.bean.LoggedOnSession;
+import com.github.truthanytime.bootforum.security.AppUserDetails;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.SystemInfoService;
 
 @Component
 public class LoginSuccessListener implements ApplicationListener<AbstractAuthenticationEvent> {

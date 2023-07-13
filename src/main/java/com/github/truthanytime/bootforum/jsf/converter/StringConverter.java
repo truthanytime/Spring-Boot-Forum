@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.converter;
+package com.github.truthanytime.bootforum.jsf.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

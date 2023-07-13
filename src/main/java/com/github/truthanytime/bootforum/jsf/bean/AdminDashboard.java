@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -16,11 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.service.CommentService;
-import com.github.chipolaris.bootforum.service.DiscussionService;
-import com.github.chipolaris.bootforum.service.StatService;
-import com.github.chipolaris.bootforum.service.VoteService;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.service.CommentService;
+import com.github.truthanytime.bootforum.service.DiscussionService;
+import com.github.truthanytime.bootforum.service.StatService;
+import com.github.truthanytime.bootforum.service.VoteService;
 
 @Component
 @Scope("view")

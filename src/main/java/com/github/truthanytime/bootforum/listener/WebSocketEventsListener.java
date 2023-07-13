@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.listener;
+package com.github.truthanytime.bootforum.listener;
 
 import java.security.Principal;
 import java.util.Map;
@@ -17,10 +17,10 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
-import com.github.chipolaris.bootforum.jsf.bean.FileHandler;
-import com.github.chipolaris.bootforum.messaging.RoomMessage;
-import com.github.chipolaris.bootforum.messaging.ChatManager;
-import com.github.chipolaris.bootforum.messaging.SystemMessage;
+import com.github.truthanytime.bootforum.jsf.bean.FileHandler;
+import com.github.truthanytime.bootforum.messaging.RoomMessage;
+import com.github.truthanytime.bootforum.messaging.ChatManager;
+import com.github.truthanytime.bootforum.messaging.SystemMessage;
 
 @Component
 public class WebSocketEventsListener {

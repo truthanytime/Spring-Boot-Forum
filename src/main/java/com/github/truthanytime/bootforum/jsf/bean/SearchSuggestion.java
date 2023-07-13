@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.bean;
+package com.github.truthanytime.bootforum.jsf.bean;
 
 import java.util.List;
 import java.util.Map;
@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.github.chipolaris.bootforum.domain.Comment;
-import com.github.chipolaris.bootforum.domain.Discussion;
-import com.github.chipolaris.bootforum.service.GenericService;
-import com.github.chipolaris.bootforum.service.IndexService;
-import com.github.chipolaris.bootforum.service.SearchCommentResult;
-import com.github.chipolaris.bootforum.service.SearchDiscussionResult;
-import com.github.chipolaris.bootforum.service.UserService;
+import com.github.truthanytime.bootforum.domain.Comment;
+import com.github.truthanytime.bootforum.domain.Discussion;
+import com.github.truthanytime.bootforum.service.GenericService;
+import com.github.truthanytime.bootforum.service.IndexService;
+import com.github.truthanytime.bootforum.service.SearchCommentResult;
+import com.github.truthanytime.bootforum.service.SearchDiscussionResult;
+import com.github.truthanytime.bootforum.service.UserService;
 
 @Component
 @Scope("view")

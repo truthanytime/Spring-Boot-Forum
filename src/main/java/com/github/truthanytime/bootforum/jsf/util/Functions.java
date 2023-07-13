@@ -1,4 +1,4 @@
-package com.github.chipolaris.bootforum.jsf.util;
+package com.github.truthanytime.bootforum.jsf.util;
 
 import java.util.HashMap;
 import java.util.Map;
