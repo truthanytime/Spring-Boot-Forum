@@ -2,7 +2,7 @@ version: '2'
 
 services:
   app:
-    image: 'ch3nguyen/bootforum:latest'
+    image: 'truthanytime/bootforum:latest'
     container_name: bootforum
     depends_on:
       db:

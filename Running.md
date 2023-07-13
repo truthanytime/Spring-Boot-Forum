@@ -21,11 +21,11 @@ By default, BootForum looks for the **application.properties** file in the follo
 [Externalized Configuration](https://docs.spring.io/spring-boot/docs/2.2.0.RELEASE/reference/html/spring-boot-features.html#boot-features-external-config-application-property-files "Externalized Configuration")
 
 ## Run in Docker
-**BootForum** is also provided as a Docker-Hub's image in: **ch3nguyen/bootforum**. An example of running BootForum docker image connecting to an instance of PostgreSQL is as follows:
+**BootForum** is also provided as a Docker-Hub's image in: **truthanytime/bootforum**. An example of running BootForum docker image connecting to an instance of PostgreSQL is as follows:
 
 docker run -p 8080:8080 -e "spring.datasource.url=jdbc:postgresql://localhost:5432/BootForum"  
  -e "spring.datasource.username=BootForum" -e  "spring.datasource.password=secret"  
- -e "spring.datasource.driverClassName=org.postgresql.Driver" ch3nguyen/bootforum
+ -e "spring.datasource.driverClassName=org.postgresql.Driver" truthanytime/bootforum
 
 
 ### Docker Compose
@@ -35,7 +35,7 @@ version: '2'
 
 services:
  app:
-   image: 'ch3nguyen/bootforum:latest'
+   image: 'truthanytime/bootforum:latest'
    container_name: app
    depends_on:
      db:

@@ -11,7 +11,6 @@ Full features web based forum/discussion/bulletin board software implemented usi
 
 ###  [**View BootForum Screenshots**](Screenshots.md "Screenshots")
 
-### [**Live Demo**](http://52.87.177.125/BootForum "BootForum Demo")
 
 ### Main Features:
 
@@ -74,7 +73,7 @@ For developers, the followings are recommended
 ### Note
 
 #### 11/06/2021:
-* Runtime Docker image is provided in Docker-Hub's with image id **ch3nguyen/bootforum**
+* Runtime Docker image is provided in Docker-Hub's with image id **truthanytime/bootforum**
  
 #### 12/12/2021:
 Project is updated from JDK version 8 to 11.
